@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 void main() => runApp(MyApp());
 
 Color mainColor = Color(0xFF006BB1);
+Color mainColorMiddle = Color(0xFF2195C6);
 Color mainColorLighter = Color(0xFF42BEBD);
 
 class MyApp extends StatelessWidget {
@@ -32,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
         slivers: <Widget>[
           SliverToBoxAdapter(
             child: Container(
-              height: 300.0,
+              height: 250.0,
               child: Stack(
                 children: <Widget>[
                   ClipPath(
@@ -105,13 +106,39 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 40.0),
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Encuentra un lugar para tu estadía'),
+                  ),
+                  SizedBox(height: 15),
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      color: mainColorMiddle,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text('NUEVO', style: TextStyle(color: Colors.white)),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           SliverGrid.count(
             crossAxisCount: 2,
             children: List.generate(20, (index) {
-              return Center(
-                child: Text(
-                  'Item $index',
-                  style: Theme.of(context).textTheme.headline,
+              return Container(
+                child: Center(
+                  child: Text(
+                    'Item $index',
+                    style: Theme.of(context).textTheme.headline,
+                  ),
                 ),
               );
             }),
