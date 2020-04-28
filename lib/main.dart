@@ -28,77 +28,93 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Container(
-            height: 300.0,
-            child: Stack(
-              children: <Widget>[
-                ClipPath(
-                  clipper: WaveClipper(),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [mainColorLighter, mainColor],
+      body: CustomScrollView(
+        slivers: <Widget>[
+          SliverToBoxAdapter(
+            child: Container(
+              height: 300.0,
+              child: Stack(
+                children: <Widget>[
+                  ClipPath(
+                    clipper: WaveClipper(),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.bottomCenter,
+                          end: Alignment.topCenter,
+                          colors: [mainColorLighter, mainColor],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Container(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Spacer(
-                          flex: 1,
-                        ),
-                        Flexible(
-                          flex: 5,
-                          child: Container(
-                            child: Column(
-                              children: <Widget>[
-                                Text(
-                                  'Alojamientos con\n reserva flexible',
-                                  style: TextStyle(
-                                      fontSize: 20.0, color: Colors.white),
-                                  textAlign: TextAlign.center,
-                                ),
-                                SizedBox(height: 30),
-                                Container(
-                                  width: 280,
-                                  height: 40,
-                                  child: Material(
-                                    elevation: 5.0,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(30.0)),
-                                    child: TextField(
-                                      controller: TextEditingController(
-                                          text: 'Medellín'),
-                                      style: TextStyle(fontSize: 16.0),
-                                      cursorColor: Colors.black38,
-                                      decoration: InputDecoration(
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 16.0, vertical: 6),
-                                          border: InputBorder.none,
-                                          suffixIcon: Material(
-                                            elevation: 2,
-                                            borderRadius: BorderRadius.circular(30.0),
-                                            child: Icon(Icons.search),
-                                          )),
+                  Container(
+                    child: Center(
+                      child: Column(
+                        children: <Widget>[
+                          Spacer(
+                            flex: 1,
+                          ),
+                          Flexible(
+                            flex: 5,
+                            child: Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Text(
+                                    'Alojamientos con\n reserva flexible',
+                                    style: TextStyle(
+                                        fontSize: 20.0, color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  SizedBox(height: 30),
+                                  Container(
+                                    width: 280,
+                                    height: 40,
+                                    child: Material(
+                                      elevation: 5.0,
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(30.0)),
+                                      child: TextField(
+                                        controller: TextEditingController(
+                                            text: 'Medellín'),
+                                        style: TextStyle(fontSize: 16.0),
+                                        cursorColor: Colors.black38,
+                                        decoration: InputDecoration(
+                                            contentPadding:
+                                                EdgeInsets.symmetric(
+                                                    horizontal: 16.0,
+                                                    vertical: 6),
+                                            border: InputBorder.none,
+                                            suffixIcon: Material(
+                                              elevation: 2,
+                                              borderRadius:
+                                                  BorderRadius.circular(30.0),
+                                              child: Icon(Icons.search),
+                                            )),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
+          ),
+          SliverGrid.count(
+            crossAxisCount: 2,
+            children: List.generate(20, (index) {
+              return Center(
+                child: Text(
+                  'Item $index',
+                  style: Theme.of(context).textTheme.headline,
+                ),
+              );
+            }),
           )
         ],
       ),
