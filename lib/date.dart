@@ -1,5 +1,5 @@
 import 'dart:math';
-
+import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:flutter/material.dart';
 
 class Date extends StatefulWidget {
@@ -17,58 +17,91 @@ class _DateState extends State<Date> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(slivers: <Widget>[
-        SliverToBoxAdapter(
+      body: SafeArea(
+        child: Container(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(_dateTime == null
-                  ? 'Nothing has been picked yet'
-                  : _dateTime.toString()),
-              RaisedButton(
-                child: Text('Pick a date'),
-                onPressed: () {
-                  showDatePicker(
-                          context: context,
-                          initialDate:
-                              _dateTime == null ? DateTime.now() : _dateTime,
-                          firstDate: DateTime(2001),
-                          lastDate: DateTime(2021))
-                      .then((datepick) {
-                    setState(() {
-                      _dateTime = datepick;
-                    });
-                  });
-                },
-              )
-            ],
-          ),
-        ),
-        SliverToBoxAdapter(
-          child: Transform.rotate(
-            angle: pi,
-            child: Container(
-              height: 150.0,
-              child: Stack(
-                children: <Widget>[
-                  ClipPath(
-                    clipper: WaveClipper(),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(_dateTime == null
+                          ? 'Nothing has been picked yet'
+                          : _dateTime.toString()),
+                      RaisedButton(
+                        child: Text('Pick a date'),
+                        onPressed: () {
+                          showDatePicker(
+                                  context: context,
+                                  initialDate: _dateTime == null
+                                      ? DateTime.now()
+                                      : _dateTime,
+                                  firstDate: DateTime(2020),
+                                  lastDate: DateTime(2021))
+                              .then((datepick) {
+                            print(datepick);
+                            setState(() {
+                              _dateTime = datepick;
+                            });
+                          });
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(_dateTime == null
+                          ? 'Nothing has been picked yet'
+                          : _dateTime.toString()),
+                      RaisedButton(
+                          color: mainColor,
+                          onPressed: () async {
+                            final List<DateTime> picked =
+                                await DateRagePicker.showDatePicker(
+                                    context: context,
+                                    initialFirstDate: DateTime(2014),
+                                    initialLastDate: DateTime(2014),
+                                    firstDate: new DateTime(2014),
+                                    lastDate: new DateTime(2025));
+                            if (picked != null && picked.length == 2) {
+                              print(picked);
+                            }
+                          },
+                          child: new Text("Pick date range"))
+                    ],
+                  ),
+                ),
+                Container(
+                  child: Transform.rotate(
+                    angle: pi,
                     child: Container(
-                      decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                          colors: [mainColorLighter, mainColor],
-                        ),
+                      height: 110.0,
+                      child: Stack(
+                        children: <Widget>[
+                          ClipPath(
+                            clipper: WaveClipper(),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  begin: Alignment.bottomCenter,
+                                  end: Alignment.topCenter,
+                                  colors: [mainColorLighter, mainColor],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-                ],
-              ),
-            ),
-          ),
+                ),
+              ]),
         ),
-      ]),
+      ),
     );
   }
 }
