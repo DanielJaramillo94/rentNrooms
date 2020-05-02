@@ -41,10 +41,10 @@ class _DateState extends State<Date> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fecha'),
+        title: Text('Fecha', style: TextStyle(fontFamily: 'Cocogoose'),),
       ),
       body: SafeArea(
         child: Container(
@@ -64,23 +64,23 @@ class _DateState extends State<Date> {
                               Container(
                                 child: Row(children: <Widget>[
                                   Text("Habitaciones en ",
-                                      style: TextStyle(fontSize: 20.0)),
+                                      style: TextStyle(fontSize: 20.0, fontFamily: 'Cocogoose')),
                                   Text(
                                     _city,
-                                    style: TextStyle(fontSize: 27.0),
+                                    style: TextStyle(fontSize: 27.0, fontFamily: 'Cocogoose', color: Color.fromRGBO(66, 190, 219, 1)),
                                   ),
                                 ]),
                               ),
                               Container(
                                 child: Row(children: <Widget>[
                                   Text("por ",
-                                      style: TextStyle(fontSize: 20.0)),
+                                      style: TextStyle(fontSize: 20.0, fontFamily: 'Cocogoose')),
                                   Text(
                                     _days,
-                                    style: TextStyle(fontSize: 27.0),
+                                    style: TextStyle(fontSize: 27.0, color: Color.fromRGBO(66, 190, 219, 1)),
                                   ),
-                                  Text(" días ",
-                                      style: TextStyle(fontSize: 20.0))
+                                  Text(" días. ",
+                                      style: TextStyle(fontSize: 20.0, fontFamily: 'Cocogoose'))
                                 ]),
                               ),
                             ],
@@ -100,7 +100,7 @@ class _DateState extends State<Date> {
                                     _dateTime == null
                                         ? 'Fecha de entrada:'
                                         : _dateTime.toString(),
-                                    style: TextStyle(fontSize: 17.0)),
+                                    style: TextStyle(fontSize: 17.0, fontFamily: 'Cocogoose', color: Color.fromRGBO(0, 0, 0, 0.6))),
                               ),
                               Container(
                                 padding: EdgeInsets.only(
@@ -138,7 +138,7 @@ class _DateState extends State<Date> {
                                     _dateTime == null
                                         ? 'Fecha de salida:'
                                         : _dateTime.toString(),
-                                    style: TextStyle(fontSize: 17.0)),
+                                    style: TextStyle(fontSize: 17.0, fontFamily: 'Cocogoose', color: Color.fromRGBO(0, 0, 0, 0.6),),),
                               ),
                               Container(
                                 padding: EdgeInsets.only(
@@ -184,7 +184,7 @@ class _DateState extends State<Date> {
                             ),
                             label: Text(
                               "Buscar",
-                              style: TextStyle(fontSize: 17.0),
+                              style: TextStyle(fontSize: 17.0,  fontFamily: 'Cocogoose'),
                             ),
                           ),
                         ),
@@ -196,7 +196,7 @@ class _DateState extends State<Date> {
                   child: Transform.rotate(
                     angle: pi,
                     child: Container(
-                      height: 170.0,
+                      height: 160.0,
                       child: Stack(
                         children: <Widget>[
                           ClipPath(
