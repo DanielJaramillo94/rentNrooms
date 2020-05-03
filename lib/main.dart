@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rent_n_rooms/date.dart';
+import 'package:rent_n_rooms/home_card.dart';
 
 void main() => runApp(MyApp());
 
@@ -134,7 +135,6 @@ class _MyHomePageState extends State<MyHomePage> {
           SliverGrid.count(
             crossAxisCount: 2,
             children: List.generate(6, (index) {
-              const radius = 8.0;
               const apartments = [ //⚠️⚠️THIS IS JUST FOR TESTING PURPOSES⚠️⚠️
                 'assets/images/apartment1.jpg',
                 'assets/images/apartment2.jpg',
@@ -143,36 +143,7 @@ class _MyHomePageState extends State<MyHomePage> {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(7.0),
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image:
-                                    AssetImage(apartments[index%3]),
-                                fit: BoxFit.cover),
-                            borderRadius: BorderRadius.circular(radius)),
-                      ),
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Color(0xAAFFFFFF),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(radius),
-                            bottomRight: Radius.circular(radius),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(radius + 3),
-                        child: Text(
-                          'Poblado, Medellín',
-                          style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    ],
-                  ),
+                  child: HomeCard(imgURL: apartments[index%3], location: 'Bronx, Bogotá'),
                 ),
               );
             }),
