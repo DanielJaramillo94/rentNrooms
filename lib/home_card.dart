@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class HomeCard extends StatelessWidget {
+class HomeCardBuilder extends StatelessWidget {
 
-  HomeCard({Key key, @required this.imgURL, @required this.location}) : super(key: key);
+  HomeCardBuilder({Key key, @required this.imgURL, @required this.location}) : super(key: key);
 
   final imgURL;
   final location;

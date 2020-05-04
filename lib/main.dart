@@ -143,7 +143,8 @@ class _MyHomePageState extends State<MyHomePage> {
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(7.0),
-                  child: HomeCard(imgURL: apartments[index%3], location: 'Bronx, Bogotá'),
+                  child: HomeCardBuilder(
+                      imgURL: apartments[index % 3], location: 'Bronx, Bogotá'),
                 ),
               );
             }),
