@@ -61,7 +61,11 @@ flutter:
   fonts:
     - family: Cocogoose
       fonts:
-        - asset: assets/font/CocogooseProLight-trial.ttf
+        - asset: assets/fonts/Cocogoose/Cocogoose-Demibold.ttf
+        - asset: assets/fonts/Cocogoose/Cocogoose-Light.ttf
+          weight: 100
+        - asset: assets/fonts/Cocogoose/Cocogoose-Regular.ttf
+          weight: 700
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
