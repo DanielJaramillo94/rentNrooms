@@ -3,10 +3,14 @@ import 'package:flutter/material.dart';
 class HomeCardBuilder extends StatelessWidget {
 
   HomeCardBuilder({Key key, @required this.imgURL, @required this.location}) : super(key: key);
+  // how to add a constuctor from the model itself ❓❓
+  // const HomeCardBuilder.model(final HomeCard homeCard) :
+  // imgURL = homeCard.imgURL,
+  // location = 'homeCard.imgURL';
 
-  final imgURL;
-  final location;
-  final radius = 8.0;
+  final String imgURL;
+  final String location;
+  final double radius = 8.0;
 
   @override
   Widget build(BuildContext context) {

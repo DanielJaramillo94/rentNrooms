@@ -141,14 +141,29 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisCount: 2,
             children: List.generate(6, (index) {
               var homeCardsProv = Provider.of<HomeCardsProvider>(context);
-              HomeCard homeCard = homeCardsProv.getLocalHomeCards()[index % 3];
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: HomeCardBuilder(
-                      imgURL: homeCard.imgURL,
-                      location: homeCard.location),
-                ),
+              Future<List<HomeCard>> homeCards = homeCardsProv.getHomeCards();
+              return FutureBuilder<List<HomeCard>>(
+                future: homeCards,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(7.0),
+                        child: HomeCardBuilder(
+                          imgURL: snapshot.data[index % 3].getImgUrl(),
+                          location: snapshot.data[index % 3].getLocation(),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                },
               );
             }),
           )

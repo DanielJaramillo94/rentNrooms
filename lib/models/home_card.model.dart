@@ -1,14 +1,14 @@
 class HomeCard {
-  final String imgURL;
-  final String location;
+  final String _imgURL;
+  final String _location;
 
-  HomeCard(this.imgURL, this.location);
+  HomeCard(this._imgURL, this._location);
 
   String getImgUrl() {
-    return this.imgURL;
+    return this._imgURL;
   }
 
   String getLocation() {
-    return this.location;
+    return this._location;
   }
 }
