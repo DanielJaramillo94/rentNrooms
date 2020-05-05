@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rent_n_rooms/date.dart';
+import 'package:rent_n_rooms/home_card.dart';
+
+import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/models/home_card.model.dart';
+import 'package:rent_n_rooms/providers/home_cards.provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -16,7 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // primarySwatch: Colors.blue, ⚠️⚠️
           ),
-      home: MyHomePage(),
+      home: ChangeNotifierProvider<HomeCardsProvider>(
+          create: (context) => HomeCardsProvider(), child: MyHomePage()),
     );
   }
 }
@@ -134,46 +140,30 @@ class _MyHomePageState extends State<MyHomePage> {
           SliverGrid.count(
             crossAxisCount: 2,
             children: List.generate(6, (index) {
-              const radius = 8.0;
-              const apartments = [ //⚠️⚠️THIS IS JUST FOR TESTING PURPOSES⚠️⚠️
-                'assets/images/apartment1.jpg',
-                'assets/images/apartment2.jpg',
-                'assets/images/apartment3.jpg',
-                ];
-              return Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(7.0),
-                  child: Stack(
-                    alignment: Alignment.bottomCenter,
-                    children: <Widget>[
-                      Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image:
-                                    AssetImage(apartments[index%3]),
-                                fit: BoxFit.cover),
-                            borderRadius: BorderRadius.circular(radius)),
-                      ),
-                      Container(
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: Color(0xAAFFFFFF),
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(radius),
-                            bottomRight: Radius.circular(radius),
-                          ),
+              var homeCardsProv = Provider.of<HomeCardsProvider>(context);
+              Future<List<HomeCard>> homeCards = homeCardsProv.getHomeCards();
+              return FutureBuilder<List<HomeCard>>(
+                future: homeCards,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(7.0),
+                        child: HomeCardBuilder(
+                          imgURL: snapshot.data[index % 3].getImgUrl(),
+                          location: snapshot.data[index % 3].getLocation(),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(radius + 3),
-                        child: Text(
-                          'Poblado, Medellín',
-                          style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w400),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                    );
+                  } else {
+                    return Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: CircularProgressIndicator(),
+                      ),
+                    );
+                  }
+                },
               );
             }),
           )
