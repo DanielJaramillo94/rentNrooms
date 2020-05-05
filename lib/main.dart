@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:rent_n_rooms/date.dart';
 import 'package:rent_n_rooms/home_card.dart';
 
+import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/models/home_card.model.dart';
+import 'package:rent_n_rooms/providers/home_cards.provider.dart';
+
 void main() => runApp(MyApp());
 
 Color mainColor = Color(0xFF006BB1);
@@ -17,7 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // primarySwatch: Colors.blue, ⚠️⚠️
           ),
-      home: MyHomePage(),
+      home: ChangeNotifierProvider<HomeCardsProvider>(
+          create: (context) => HomeCardsProvider(), child: MyHomePage()),
     );
   }
 }
@@ -135,16 +140,14 @@ class _MyHomePageState extends State<MyHomePage> {
           SliverGrid.count(
             crossAxisCount: 2,
             children: List.generate(6, (index) {
-              const apartments = [ //⚠️⚠️THIS IS JUST FOR TESTING PURPOSES⚠️⚠️
-                'assets/images/apartment1.jpg',
-                'assets/images/apartment2.jpg',
-                'assets/images/apartment3.jpg',
-                ];
+              var homeCardsProv = Provider.of<HomeCardsProvider>(context);
+              HomeCard homeCard = homeCardsProv.getLocalHomeCards()[index % 3];
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(7.0),
                   child: HomeCardBuilder(
-                      imgURL: apartments[index % 3], location: 'Bronx, Bogotá'),
+                      imgURL: homeCard.imgURL,
+                      location: homeCard.location),
                 ),
               );
             }),
