@@ -68,6 +68,13 @@ flutter:
           weight: 100
         - asset: assets/fonts/Cocogoose/Cocogoose-Regular.ttf
           weight: 700
+    - family: Galano
+      fonts:
+        - asset: assets/fonts/Galano Grotesque/GalanoGrotesque-Bold.ttf
+        - asset: assets/fonts/Galano Grotesque/GalanoGrotesque-Light.ttf
+          weight: 100
+        - asset: assets/fonts/Galano Grotesque/GalanoGrotesque-Medium.ttf
+          weight: 700 
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
