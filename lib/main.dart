@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:rent_n_rooms/date.dart';
 
 void main() => runApp(MyApp());
@@ -76,22 +77,32 @@ class _MyHomePageState extends State<MyHomePage> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(30.0)),
                                       child: TextField(
-                                        controller: TextEditingController(
-                                            text: 'Medellín'),
-                                        style: TextStyle(fontSize: 16.0),
+                                        style: TextStyle(
+                                            fontFamily: 'Cocogoose',
+                                            fontSize: 16.0),
                                         cursorColor: Colors.black38,
                                         decoration: InputDecoration(
                                             contentPadding:
                                                 EdgeInsets.symmetric(
                                                     horizontal: 16.0,
                                                     vertical: 6),
+                                            hintText: 'Ciudad, Ubicación',
+                                            hintStyle: TextStyle(
+                                                fontFamily: 'Cocogoose',
+                                                color: Colors.black),
                                             border: InputBorder.none,
                                             suffixIcon: Material(
-                                              elevation: 2,
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              child: Icon(Icons.search),
-                                            )),
+                                                elevation: 2,
+                                                borderRadius:
+                                                    BorderRadius.circular(30.0),
+                                                child: IconButton(
+                                                    icon: Icon(Icons.search),
+                                                    onPressed: () {
+                                                      showSearch(
+                                                          context: context,
+                                                          delegate:
+                                                              DataSearch());
+                                                    }))),
                                       ),
                                     ),
                                   ),
@@ -123,7 +134,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: mainColorMiddle,
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text('NUEVO', style: TextStyle(color: Colors.white)),
+                        child: Text('NUEVO',
+                            style: TextStyle(color: Colors.white)),
                       ),
                     ),
                   ),
@@ -135,11 +147,12 @@ class _MyHomePageState extends State<MyHomePage> {
             crossAxisCount: 2,
             children: List.generate(6, (index) {
               const radius = 8.0;
-              const apartments = [ //⚠️⚠️THIS IS JUST FOR TESTING PURPOSES⚠️⚠️
+              const apartments = [
+                //⚠️⚠️THIS IS JUST FOR TESTING PURPOSES⚠️⚠️
                 'assets/images/apartment1.jpg',
                 'assets/images/apartment2.jpg',
                 'assets/images/apartment3.jpg',
-                ];
+              ];
               return Center(
                 child: Padding(
                   padding: const EdgeInsets.all(7.0),
@@ -149,8 +162,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image:
-                                    AssetImage(apartments[index%3]),
+                                image: AssetImage(apartments[index % 3]),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.circular(radius)),
                       ),
@@ -168,7 +180,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         padding: const EdgeInsets.all(radius + 3),
                         child: Text(
                           'Poblado, Medellín',
-                          style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w400),
+                          style: TextStyle(
+                              fontSize: 15.0, fontWeight: FontWeight.w400),
                         ),
                       )
                     ],
@@ -179,6 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
+      drawer: Drawer(),
     );
   }
 }
@@ -207,4 +221,87 @@ class WaveClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+}
+
+class DataSearch extends SearchDelegate<String> {
+  final citiesSearch = [
+    'Bogotá',
+    'Medellín',
+    'Cali',
+    'Barranquilla',
+    'Cartagena',
+    'Cúcuta',
+    'Soledad',
+    'Ibagué'
+  ];
+
+  final popularCities = ['Bogotá', 'Medellín', 'Cali', 'Cartagena'];
+
+  @override
+  Widget buildResults(BuildContext context) {
+    return Center(child: Container(
+      height: 100.0,
+      width: 100.0,
+      child: Card(
+        color: Colors.red,
+        child: Center(
+          child: Text(query, style: TextStyle(fontFamily: 'Cocogoose')),
+        ),
+      ),
+    ),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    final suggestionList = query.isEmpty
+        ? popularCities
+        : citiesSearch.where((p) => p.startsWith(query)).toList();
+
+    return ListView.builder(
+      itemBuilder: (context, index) => ListTile(
+        onTap: () {
+          showResults(context);
+        },
+        leading: Icon(Icons.location_on),
+        title: RichText(
+          text: TextSpan(
+              text: suggestionList[index].substring(0, query.length),
+              style: TextStyle(
+                  fontFamily: 'Cocogoose',
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold),
+              children: [
+                TextSpan(
+                    text: suggestionList[index].substring(query.length),
+                    style: TextStyle(color: Colors.grey))
+              ]),
+        ),
+      ),
+      itemCount: suggestionList.length,
+    );
+  }
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          icon: Icon(Icons.clear),
+          onPressed: () {
+            query = '';
+          })
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        icon: AnimatedIcon(
+          icon: AnimatedIcons.menu_arrow,
+          progress: transitionAnimation,
+        ),
+        onPressed: () {
+          close(context, null);
+        });
+  }
 }
