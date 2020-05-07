@@ -7,15 +7,25 @@ class CitiesList {
 
   factory CitiesList.fromJson(List<dynamic> parsedJson) {
 
-    List<City> photos = new List<City>();
-    photos = parsedJson.map(
+    List<City> cities = new List<City>();
+    cities = parsedJson.map(
             (i)=>City.fromJson(i)
       ).toList();
 
     return new CitiesList(
-        cities: photos
+        cities: cities
     );
   }
+
+  String searchCodeCity(String nameCity){
+    for(City city in cities){
+      if(nameCity == city.nameCity){
+        return city.codeCity;
+      }
+    }
+    return '0';
+  }
+
 }
 
 class City{
