@@ -1,7 +1,10 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rent_n_rooms/dataSearch.dart';
 import 'package:rent_n_rooms/date.dart';
 import 'package:rent_n_rooms/home_card.dart';
+import 'package:rent_n_rooms/services/city_services.dart';
 
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/models/home_card.model.dart';
@@ -84,22 +87,31 @@ class _MyHomePageState extends State<MyHomePage> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(30.0)),
                                       child: TextField(
-                                        controller: TextEditingController(
-                                            text: 'Medellín'),
-                                        style: TextStyle(fontSize: 16.0),
+                                        style: TextStyle(
+                                            fontFamily: 'Cocogoose',
+                                            fontSize: 16.0),
                                         cursorColor: Colors.black38,
                                         decoration: InputDecoration(
                                             contentPadding:
                                                 EdgeInsets.symmetric(
                                                     horizontal: 16.0,
                                                     vertical: 6),
+                                            hintText: 'Ciudad, Ubicación',
+                                            hintStyle: TextStyle(
+                                                fontFamily: 'Cocogoose',
+                                                color: Colors.black),
                                             border: InputBorder.none,
                                             suffixIcon: Material(
-                                              elevation: 2,
-                                              borderRadius:
-                                                  BorderRadius.circular(30.0),
-                                              child: Icon(Icons.search),
-                                            )),
+                                                elevation: 2,
+                                                borderRadius:
+                                                    BorderRadius.circular(30.0),
+                                                child: IconButton(
+                                                    icon: Icon(Icons.search),
+                                                    onPressed: () {
+                                                      showSearch(
+                                                          context: context,
+                                                          delegate: DataSearch());
+                                                    }))),
                                       ),
                                     ),
                                   ),
@@ -131,7 +143,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       color: mainColorMiddle,
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
-                        child: Text('NUEVO', style: TextStyle(color: Colors.white)),
+                        child: Text('NUEVO',
+                            style: TextStyle(color: Colors.white)),
                       ),
                     ),
                   ),
@@ -171,6 +184,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
+      drawer: Drawer(),
     );
   }
 }
