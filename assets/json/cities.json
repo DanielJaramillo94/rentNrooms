@@ -1,0 +1,34 @@
+[
+  {
+    "city" : "Bogotá",
+    "code" : "BOG"
+  },
+  {
+    "city" : "Medellín",
+    "code" : "MDE"
+  },
+  {
+    "city" : "Cali",
+    "code" : "CLO"
+  },
+  {
+    "city" : "Barranquilla",
+    "code" : "BAQ"
+  },
+  {
+    "city" : "Cartagena",
+    "code" : "CTG"
+  },
+  {
+    "city" : "Cúcuta",
+    "code" : "CUC"
+  },
+  {
+    "city" : "Soledad",
+    "code" : "SLD"
+  },
+  {
+    "city" : "Ibagué",
+    "code" : "IBE"
+  }
+]

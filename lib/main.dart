@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:rent_n_rooms/model/City.dart';
 import 'package:rent_n_rooms/date.dart';
 
 void main() => runApp(MyApp());
@@ -223,6 +224,7 @@ class WaveClipper extends CustomClipper<Path> {
 }
 
 class DataSearch extends SearchDelegate<String> {
+
   final citiesSearch = [
     'Bogotá',
     'Medellín',
@@ -236,8 +238,6 @@ class DataSearch extends SearchDelegate<String> {
 
   final popularCities = ['Bogotá', 'Medellín', 'Cali', 'Cartagena'];
 
-
-
   @override
   Widget buildResults(BuildContext context) {
     return Card(
@@ -249,6 +249,12 @@ class DataSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    /**List<City> cities;
+    City aux;
+    for(int i=0; i > citties.length; i++){
+      aux = new City(citties.elementAt(i). .nam, codeCity)
+    }**/
+
     final suggestionList = query.isEmpty
         ? popularCities
         : citiesSearch.where((p) => p.toLowerCase().startsWith(query.toLowerCase())).toList();
@@ -301,3 +307,4 @@ class DataSearch extends SearchDelegate<String> {
         });
   }
 }
+
