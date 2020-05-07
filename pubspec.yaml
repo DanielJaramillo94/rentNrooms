@@ -20,6 +20,8 @@ dependencies:
   date_range_picker: ^1.0.6
   flutter:
     sdk: flutter
+  provider: ^4.0.5+1
+  http: ^0.12.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -63,7 +65,18 @@ flutter:
   fonts:
     - family: Cocogoose
       fonts:
-        - asset: assets/font/CocogooseProLight-trial.ttf
+        - asset: assets/fonts/Cocogoose/Cocogoose-Demibold.ttf
+        - asset: assets/fonts/Cocogoose/Cocogoose-Light.ttf
+          weight: 100
+        - asset: assets/fonts/Cocogoose/Cocogoose-Regular.ttf
+          weight: 700
+    - family: Galano
+      fonts:
+        - asset: assets/fonts/Galano Grotesque/GalanoGrotesque-Bold.ttf
+        - asset: assets/fonts/Galano Grotesque/GalanoGrotesque-Light.ttf
+          weight: 100
+        - asset: assets/fonts/Galano Grotesque/GalanoGrotesque-Medium.ttf
+          weight: 700 
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
