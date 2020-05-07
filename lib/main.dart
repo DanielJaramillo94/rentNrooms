@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:rent_n_rooms/dataSearch.dart';
 import 'package:rent_n_rooms/date.dart';
 import 'package:rent_n_rooms/home_card.dart';
+import 'package:rent_n_rooms/place_details.dart';
 import 'package:rent_n_rooms/services/city_services.dart';
 
 import 'package:provider/provider.dart';
@@ -26,8 +27,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // primarySwatch: Colors.blue, ⚠️⚠️
           ),
-      home: ChangeNotifierProvider<HomeCardsProvider>(
-          create: (context) => HomeCardsProvider(), child: MyHomePage()),
+      home: PlaceDetails(),
     );
   }
 }
