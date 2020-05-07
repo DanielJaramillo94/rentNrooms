@@ -1,5 +1,5 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:rent_n_rooms/date.dart';
 
 void main() => runApp(MyApp());
@@ -100,8 +100,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                     onPressed: () {
                                                       showSearch(
                                                           context: context,
-                                                          delegate:
-                                                              DataSearch());
+                                                          delegate: DataSearch());
                                                     }))),
                                       ),
                                     ),
@@ -237,30 +236,27 @@ class DataSearch extends SearchDelegate<String> {
 
   final popularCities = ['Bogotá', 'Medellín', 'Cali', 'Cartagena'];
 
+
+
   @override
   Widget buildResults(BuildContext context) {
-    return Center(child: Container(
-      height: 100.0,
-      width: 100.0,
-      child: Card(
-        color: Colors.red,
+    return Card(
         child: Center(
           child: Text(query, style: TextStyle(fontFamily: 'Cocogoose')),
         ),
-      ),
-    ),
-    );
+      );
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     final suggestionList = query.isEmpty
         ? popularCities
-        : citiesSearch.where((p) => p.startsWith(query)).toList();
+        : citiesSearch.where((p) => p.toLowerCase().startsWith(query.toLowerCase())).toList();
 
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
         onTap: () {
+          query = suggestionList[index];
           showResults(context);
         },
         leading: Icon(Icons.location_on),
