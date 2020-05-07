@@ -3,7 +3,7 @@ import 'package:rent_n_rooms/models/date_picker.model.dart';
 
 class DateProvider with ChangeNotifier {
   
-  DatePicker datePicker = DatePicker(DateTime.now().add(Duration(days: 2)), DateTime.now().add(Duration(days: 7)));
+  DatePicker datePicker = DatePicker(DateTime.now(), DateTime.now().add(Duration(days: 7)));
   
     void updateDate(DateTime checkin, DateTime checkout){
       datePicker.setChecin(checkin);
@@ -15,6 +15,12 @@ class DateProvider with ChangeNotifier {
   
     DatePicker getDates(){
       return datePicker;
+    }
+
+    int difference(){
+      var dateLast = datePicker.getDateCheckout();
+      var dateFirst = datePicker.getDateCheckin();
+      return dateLast.difference(dateFirst).inDays;
     }
   
 

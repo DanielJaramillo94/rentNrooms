@@ -5,49 +5,34 @@ import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 import 'package:rent_n_rooms/waveClippert.dart';
 
-import 'models/date_picker.model.dart';
 
 class Date extends StatefulWidget {
   @override
   _DateState createState() => _DateState();
 }
-
 class _DateState extends State<Date> {
   
   final String _city = "Medellín";
-
-  DateTime _dateFirst = DateTime.now();
-  DateTime _dateLast = DateTime.now().add(Duration(days: 7));
-  String _days = "7";
-
-  final myController = TextEditingController();
-
   final Color mainColor = Color(0xFF006BB1);
   final Color mainColorMiddle = Color(0xFF2195C6);
   final Color mainColorLighter = Color(0xFF42BEBD);
 
-  void datePicker() async {
+  void datePicker(DateProvider dates) async {
     final List<DateTime> picked = await DateRagePicker.showDatePicker(
-        context: context,
-        initialFirstDate: _dateFirst == null ? DateTime.now() : _dateFirst,
-        initialLastDate: 
-          _dateLast == null ? DateTime.now().add(Duration(days: 7)) : _dateLast,
-         firstDate: new DateTime(DateTime.now().year),
-        lastDate: new DateTime(DateTime.now().year + 1),
+      context: context,
+      initialFirstDate: dates.getDates().getDateCheckin(),
+      initialLastDate: dates.getDates().getDateCheckout(),
+        firstDate: new DateTime(DateTime.now().year),
+      lastDate: new DateTime(DateTime.now().year + 1),
     );
     if (picked != null && picked.length == 2) {
-      print(picked);
-      setState(() {
-        _dateFirst = picked[0];
-        _dateLast = picked[1];
-        _days = _dateLast.difference(_dateFirst).inDays.toString();
-      });
-    }
+      dates.updateDate(picked[0], picked[1]);
+    }                           
   }
 
   @override
   Widget build(BuildContext context) { 
-    final dates = Provider.of<DateProvider>(context);
+    final dates = Provider.of<DateProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         title: Text('Fecha', style: TextStyle(fontFamily: 'Cocogoose'),),
@@ -83,9 +68,11 @@ class _DateState extends State<Date> {
                                 child: Row(children: <Widget>[
                                   Text("por ",
                                       style: TextStyle(fontSize: 20.0, fontFamily: 'Cocogoose')),
-                                  Text(
-                                    _days,
-                                    style: TextStyle(fontSize: 27.0, color: Color.fromRGBO(66, 190, 219, 1)),
+                                  Consumer<DateProvider>(
+                                      builder: (_, dates, __) => Text(
+                                      dates.difference().toString(),
+                                      style: TextStyle(fontSize: 27.0, color: Color.fromRGBO(66, 190, 219, 1)),
+                                    ),
                                   ),
                                   Text(" días. ",
                                       style: TextStyle(fontSize: 20.0, fontFamily: 'Cocogoose'))
@@ -110,37 +97,27 @@ class _DateState extends State<Date> {
                               Container(
                                 padding: EdgeInsets.only(
                                     left: 20.0, right: 32.0, top: 8.0),
-                                child: new Row(
+                                child: Row(
                                   children: <Widget>[
                                     Container(
-                                      child: new Flexible(
-                                          child: new TextField(
+                                      child: Flexible(
+                                          child: Consumer<DateProvider>(
+                                            builder: (_, dates, __) => TextField(
                                         readOnly: true,
-                                        onTap:  () async{
-                                           final List<DateTime> picked = await DateRagePicker.showDatePicker(
-                                              context: context,
-                                              initialFirstDate: _dateFirst == null ? DateTime.now() : dates.getDates().getDateCheckin(),
-                                              initialLastDate: 
-                                                _dateLast == null ? DateTime.now().add(Duration(days: 7)) : dates.getDates().getDateCheckout(),
-                                                firstDate: new DateTime(DateTime.now().year),
-                                              lastDate: new DateTime(DateTime.now().year + 1),
-                                          );
-                                          if (picked != null && picked.length == 2) {
-                                            dates.updateDate(picked[0], picked[1]);
-                                          }                                          
-                                        },
+                                        onTap:  () {datePicker(dates);},
                                         decoration: InputDecoration(
-                                            prefixIcon: Icon(Icons.date_range),
-                                            hintText:
-                                                "${dates.getDates().getDateCheckin().day.toString()}/${dates.getDates().getDateCheckin().month.toString()}/${dates.getDates().getDateCheckin().year.toString()}",
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                                10.0, 10.0, 10.0, 10.0),
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        20.0))),
+                                              prefixIcon: Icon(Icons.date_range),
+                                              hintText:
+                                                  "${dates.getDates().getDateCheckin().day.toString()}/${dates.getDates().getDateCheckin().month.toString()}/${dates.getDates().getDateCheckin().year.toString()}",
+                                              contentPadding: EdgeInsets.fromLTRB(
+                                                  10.0, 10.0, 10.0, 10.0),
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0))),
                                         maxLines: 1,
-                                      )),
+                                      ),
+                                          )),
                                     ),
                                   ],
                                 ),
@@ -156,38 +133,28 @@ class _DateState extends State<Date> {
                               Container(
                                 padding: EdgeInsets.only(
                                     left: 20.0, right: 32.0, top: 8.0),
-                                child: new Row(
+                                child: Row(
                                   children: <Widget>[
                                     Container(
-                                      child: new Flexible(
-                                          child: new TextField(
+                                      child: Flexible(
+                                          child: Consumer<DateProvider>(
+                                            builder: (_, datas, __) => TextField(
                                         readOnly: true,
                                         enableInteractiveSelection: false,
-                                        onTap: () async{
-                                           final List<DateTime> picked = await DateRagePicker.showDatePicker(
-                                              context: context,
-                                              initialFirstDate: _dateFirst == null ? DateTime.now() : dates.getDates().getDateCheckin(),
-                                              initialLastDate: 
-                                                _dateLast == null ? DateTime.now().add(Duration(days: 7)) : dates.getDates().getDateCheckout(),
-                                                firstDate: new DateTime(DateTime.now().year),
-                                              lastDate: new DateTime(DateTime.now().year + 1),
-                                          );
-                                          if (picked != null && picked.length == 2) {
-                                            dates.updateDate(picked[0], picked[1]);
-                                          }                                          
-                                        },
+                                        onTap: (){ datePicker(dates);},
                                         decoration: InputDecoration(
-                                            prefixIcon: Icon(Icons.date_range),
-                                            hintText:
-                                                "${dates.getDates().getDateCheckout().day.toString()}/${dates.getDates().getDateCheckout().month.toString()}/${dates.getDates().getDateCheckout().year.toString()}",
-                                            contentPadding: EdgeInsets.fromLTRB(
-                                                10.0, 10.0, 10.0, 10.0),
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        20.0))),
+                                              prefixIcon: Icon(Icons.date_range),
+                                              hintText:
+                                                  "${dates.getDates().getDateCheckout().day.toString()}/${dates.getDates().getDateCheckout().month.toString()}/${dates.getDates().getDateCheckout().year.toString()}",
+                                              contentPadding: EdgeInsets.fromLTRB(
+                                                  10.0, 10.0, 10.0, 10.0),
+                                              border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          20.0))),
                                         maxLines: 1,
-                                      )),
+                                      ),
+                                          )),
                                     ),
                                   ],
                                 ),
@@ -205,7 +172,7 @@ class _DateState extends State<Date> {
                             },
                             shape: RoundedRectangleBorder(
                               side: BorderSide(color: mainColorMiddle),
-                              borderRadius: new BorderRadius.circular(18.0),
+                              borderRadius: BorderRadius.circular(18.0),
                             ),
                             label: Text(
                               "Buscar",
