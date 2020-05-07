@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:rent_n_rooms/date.dart';
 import 'package:rent_n_rooms/home_card.dart';
 
@@ -15,6 +16,7 @@ Color mainColorLighter = Color(0xFF42BEBD);
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Rent & Rooms',
