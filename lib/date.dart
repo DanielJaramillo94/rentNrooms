@@ -1,7 +1,11 @@
 import 'dart:math';
 import 'package:date_range_picker/date_range_picker.dart' as DateRagePicker;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 import 'package:rent_n_rooms/waveClippert.dart';
+
+import 'models/date_picker.model.dart';
 
 class Date extends StatefulWidget {
   @override
@@ -43,6 +47,7 @@ class _DateState extends State<Date> {
 
   @override
   Widget build(BuildContext context) { 
+    final dates = Provider.of<DateProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Fecha', style: TextStyle(fontFamily: 'Cocogoose'),),
@@ -111,11 +116,23 @@ class _DateState extends State<Date> {
                                       child: new Flexible(
                                           child: new TextField(
                                         readOnly: true,
-                                        onTap: datePicker,
+                                        onTap:  () async{
+                                           final List<DateTime> picked = await DateRagePicker.showDatePicker(
+                                              context: context,
+                                              initialFirstDate: _dateFirst == null ? DateTime.now() : dates.getDates().getDateCheckin(),
+                                              initialLastDate: 
+                                                _dateLast == null ? DateTime.now().add(Duration(days: 7)) : dates.getDates().getDateCheckout(),
+                                                firstDate: new DateTime(DateTime.now().year),
+                                              lastDate: new DateTime(DateTime.now().year + 1),
+                                          );
+                                          if (picked != null && picked.length == 2) {
+                                            dates.updateDate(picked[0], picked[1]);
+                                          }                                          
+                                        },
                                         decoration: InputDecoration(
                                             prefixIcon: Icon(Icons.date_range),
                                             hintText:
-                                                "${_dateFirst.day.toString()}/${_dateFirst.month.toString()}/${_dateFirst.year.toString()}",
+                                                "${dates.getDates().getDateCheckin().day.toString()}/${dates.getDates().getDateCheckin().month.toString()}/${dates.getDates().getDateCheckin().year.toString()}",
                                             contentPadding: EdgeInsets.fromLTRB(
                                                 10.0, 10.0, 10.0, 10.0),
                                             border: OutlineInputBorder(
@@ -146,11 +163,23 @@ class _DateState extends State<Date> {
                                           child: new TextField(
                                         readOnly: true,
                                         enableInteractiveSelection: false,
-                                        onTap: datePicker,
+                                        onTap: () async{
+                                           final List<DateTime> picked = await DateRagePicker.showDatePicker(
+                                              context: context,
+                                              initialFirstDate: _dateFirst == null ? DateTime.now() : dates.getDates().getDateCheckin(),
+                                              initialLastDate: 
+                                                _dateLast == null ? DateTime.now().add(Duration(days: 7)) : dates.getDates().getDateCheckout(),
+                                                firstDate: new DateTime(DateTime.now().year),
+                                              lastDate: new DateTime(DateTime.now().year + 1),
+                                          );
+                                          if (picked != null && picked.length == 2) {
+                                            dates.updateDate(picked[0], picked[1]);
+                                          }                                          
+                                        },
                                         decoration: InputDecoration(
                                             prefixIcon: Icon(Icons.date_range),
                                             hintText:
-                                                "${_dateLast.day.toString()}/${_dateLast.month.toString()}/${_dateLast.year.toString()}",
+                                                "${dates.getDates().getDateCheckout().day.toString()}/${dates.getDates().getDateCheckout().month.toString()}/${dates.getDates().getDateCheckout().year.toString()}",
                                             contentPadding: EdgeInsets.fromLTRB(
                                                 10.0, 10.0, 10.0, 10.0),
                                             border: OutlineInputBorder(
