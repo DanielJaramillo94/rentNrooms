@@ -1,5 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/providers/booking.provider.dart';
+
+import 'providers/date_picker.provider.dart';
 
 class Reserve extends StatelessWidget {
   final String sector = 'El Poblado';
@@ -30,6 +34,9 @@ class Reserve extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final booking = Provider.of<BookingProvider>(context, listen: false);
+    final dates = Provider.of<DateProvider>(context, listen: false);
+
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -289,7 +296,11 @@ class Reserve extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.w300),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  print('creando...');
+                  Map response = await booking.createBooking(dates.getDates());
+                  print(response);
+                },
               ))
         ])));
   }
