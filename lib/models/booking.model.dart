@@ -1,9 +1,10 @@
-class Booking {
+class DataBooking {
   String _email;
   String _name;
   String _idRoom;
+  String _idBooking;
 
-  Booking(this._email, this._name, this._idRoom);
+  DataBooking(this._email, this._name, this._idRoom, this._idBooking);
 
   String getEmail() {
     return this._email;
@@ -17,6 +18,10 @@ class Booking {
     return this._idRoom;
   }
 
+  String getIdBooking() {
+    return this._idBooking;
+  }
+
   void setEmail(String email) {
     this._email = email;
   }
@@ -27,5 +32,9 @@ class Booking {
 
   void setIdRoom(String idRoom) {
     this._idRoom = idRoom;
+  }
+
+  void setIdBooking(String idBooking) {
+    this._idBooking = idBooking;
   }
 }

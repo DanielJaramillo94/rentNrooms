@@ -4,23 +4,23 @@ import 'package:rent_n_rooms/models/date_picker.model.dart';
 import 'package:rent_n_rooms/repositories/booking.repository.dart';
 
 class BookingProvider with ChangeNotifier {
-
-  Booking _booking = Booking('', '', '');
+  DataBooking _booking = DataBooking('', '', '', '');
   BookingRepository _bookingRepository = BookingRepository();
 
-  void updateBooking(String name, String email, String idRoom) {
+  void updateBooking(
+      String name, String email, String idRoom, String idBooking) {
     _booking.setName(name);
     _booking.setEmail(email);
     _booking.setIdRoom(idRoom);
+    _booking.setIdBooking(idBooking);
     notifyListeners();
   }
 
-  Booking getBooking() {
+  DataBooking getBooking() {
     return _booking;
   }
 
-  Future<Map> createBooking(DatePicker date) async {
-    print("createBooking");
+  Future<DataBooking> createBooking(DatePicker date) async {
     return await _bookingRepository.createBooking(_booking, date);
   }
 }

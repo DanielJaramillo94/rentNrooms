@@ -1,12 +1,16 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
 
+import 'models/booking.model.dart';
 import 'providers/date_picker.provider.dart';
 
 class Booking extends StatelessWidget {
   final String sector = 'El Poblado';
+  final String casaArrendamiento = "Metro Cuadrado";
   final double price = 30000.0;
   final String rating = '5,0';
   final String img = 'assets/images/apartment1.jpg';
@@ -74,28 +78,10 @@ class Booking extends StatelessWidget {
                                 onPressed: () async {
                                   Navigator.of(context).pop();
                                   booking.updateBooking(_controllerName.text,
-                                      _controllerEmail.text, "444");
-                                  Future<Map> newBooking = booking.createBooking(dates.getDates());
-                                  print('creando...');
-                                  return FutureBuilder<Map>(
-                                    future: newBooking,
-                                    builder: (context, snapshot) {
-                                      if (snapshot.hasData) {
-                                        print("hay DAtos");
-                                        return AlertDialog(
-                                          title: Text('Su reversa se realizó exitosamente/n '),
-                                        );
-                                      } else {
-                                        print("no hay datos");
-                                        return Center(
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(16.0),
-                                            child: CircularProgressIndicator(),
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  );
+                                      _controllerEmail.text, '', '');
+                                  Future<DataBooking> newBooking =
+                                      booking.createBooking(dates.getDates());
+                                  createAlertDialog(context, newBooking, booking);
                                 },
                                 icon: Icon(
                                   Icons.done,
@@ -133,13 +119,111 @@ class Booking extends StatelessWidget {
             ),
           );
         });
-    ;
+  }
+
+  createAlertDialog(BuildContext context, Future<DataBooking> newBooking, BookingProvider booking) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: FutureBuilder(
+              future: newBooking,
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return Container(
+                        height: 200,
+                        child: Column(children: <Widget>[
+                          Text("¡Ocurrió un error!",
+                              style: TextStyle(
+                                  color: mainColorLighter,
+                                  fontFamily: 'Cocogoose',
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w700)),
+                          SizedBox(height: 15),
+                          Text(
+                              'Lo sentimos, hubo un problema consultando a la agencia $casaArrendamiento, pero puedes intentar con otra.',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'Cocogoose',
+                                  fontWeight: FontWeight.w200,
+                                  color: Color.fromRGBO(0, 0, 0, 0.6))),
+                          Icon(Icons.error_outline,
+                              size: 60, color: mainColorLighter)
+                        ]));
+                  }
+                  DataBooking db = snapshot.data;
+                  booking.updateBooking(db.getName(), db.getEmail(), db.getIdRoom(), db.getIdBooking());
+                  return Container(
+                    height: 200.0,
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          Text("¡Tú reserva fue exitosa!",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: mainColorLighter,
+                                  fontFamily: 'Cocogoose',
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w700)),
+                          Column(children: <Widget>[
+                            Text('El código de tú reserva es: ',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Cocogoose',
+                                    fontWeight: FontWeight.w200,
+                                    color: Color.fromRGBO(0, 0, 0, 0.6))),
+                            Text(
+                              '${snapshot.data.getIdBooking()}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ]),
+                          Icon(Icons.done_all,
+                              size: 60, color: mainColorLighter),
+                          Text('¡Disfruta tu estancia!',
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'Cocogoose',
+                                  fontWeight: FontWeight.w200,
+                                  color: Color.fromRGBO(0, 0, 0, 0.6)))
+                        ]),
+                  );
+                } else {
+                  return Container(
+                    height: 150,
+                    child: Column(children: <Widget>[
+                      Text(
+                        'Realizando reserva...',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontFamily: 'Cocogoose',
+                            fontSize: 20.0,
+                            color: Color.fromRGBO(0, 0, 0, 0.6),
+                            fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(height: 20.0),
+                      Container(
+                          height: 80,
+                          width: 80,
+                          child: CircularProgressIndicator(
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(mainColorLighter),
+                          ))
+                    ]),
+                  );
+                }
+              },
+            ),
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
+    print("Build Corriendo");
     final booking = Provider.of<BookingProvider>(context);
     final dates = Provider.of<DateProvider>(context, listen: false);
+    final notBooking = false;
 
     return Scaffold(
         appBar: AppBar(
@@ -326,6 +410,25 @@ class Booking extends StatelessWidget {
                         )
                       ],
                     )),
+                notBooking ? Divider(height: 10.0, thickness: 2) : Container(),
+                notBooking ? Container(
+                      child:
+                      Row(children: <Widget>[
+                        Expanded( flex: 2, child: Container(
+                          alignment: Alignment.center,
+                          child: Icon(Icons.book, size: 30,  color: Color.fromRGBO(0, 0, 0, 0.6)),)),
+                        Expanded(flex: 3, child: Container(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[Text('Código de reserva:' , style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: 'Cocogoose',
+                            fontWeight: FontWeight.w200,
+                            color: Color.fromRGBO(0, 0, 0, 0.6))),
+                          Text('${booking.getBooking().getIdBooking()}')],)
+                        ))
+                      ],)
+                    ) : Container(),
                 Divider(height: 10.0, thickness: 2),
                 Container(
                     child: Column(
@@ -382,7 +485,7 @@ class Booking extends StatelessWidget {
                               fontSize: 19,
                               color: Color.fromRGBO(0, 0, 0, 0.6),
                               fontWeight: FontWeight.bold))
-                    ])
+                    ]),
               ],
             ),
           )),

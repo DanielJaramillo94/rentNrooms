@@ -3,11 +3,12 @@ import 'package:rent_n_rooms/models/booking.model.dart';
 import 'package:rent_n_rooms/models/date_picker.model.dart';
 import 'dart:convert';
 
-
 class BookingRepository {
-  final String url = 'https://a0f8d7d5-cce0-410a-8fcc-50d521534131.mock.pstmn.io/booking';
+  final String url =
+      'https://a0f8d7d5-cce0-410a-8fcc-50d521534131.mock.pstmn.io/booking';
 
-  Future<Map> createBooking(Booking booking, DatePicker date) async {
+  Future<DataBooking> createBooking(
+      DataBooking booking, DatePicker date) async {
     print("createBookingHttp");
     try {
       String checkin = date.getDateCheckin().toString().split(" ")[0];
@@ -20,12 +21,11 @@ class BookingRepository {
         'id_room': booking.getIdRoom()
       });
       Map data = json.decode(response.body);
-      print("Devolviendo");
-      print(data);
-      return data;
+      DataBooking newBooking = DataBooking(
+          data['email'], data['name'], data['id_room'], data['id_booking']);
+      return newBooking;
     } catch (err) {
-      print(err);
-      return {'err': 'Lo sentimos, no se pudo realizar la reserva'};
+      throw ('Lo sentimos, ocurrió un error con ');
     }
   }
 }
