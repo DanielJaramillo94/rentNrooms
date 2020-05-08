@@ -19,6 +19,14 @@ class PlaceDetails extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return Scaffold(
+              appBar: AppBar(
+                title: Text(
+                  snapshot.data.getPlaceName(),
+                  style: TextStyle(
+                      fontFamily: 'Cocogoose', fontWeight: FontWeight.w200),
+                ),
+                backgroundColor: mainColorLighter,
+              ),
               body: SafeArea(
                 child: Column(
                   children: <Widget>[
