@@ -141,7 +141,9 @@ class PlaceDetails extends StatelessWidget {
                                     fontSize: 18,
                                     fontWeight: FontWeight.w300),
                               ),
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('/booking');
+                              },
                             ))
                       ],
                     )),
