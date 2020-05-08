@@ -5,7 +5,7 @@ import 'package:rent_n_rooms/providers/booking.provider.dart';
 
 import 'providers/date_picker.provider.dart';
 
-class Reserve extends StatelessWidget {
+class Booking extends StatelessWidget {
   final String sector = 'El Poblado';
   final double price = 30000.0;
   final String rating = '5,0';

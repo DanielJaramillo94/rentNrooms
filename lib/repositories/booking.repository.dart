@@ -1,12 +1,11 @@
 import 'package:http/http.dart' as http;
-import 'package:rent_n_rooms/models/booking.dart';
+import 'package:rent_n_rooms/models/booking.model.dart';
 import 'package:rent_n_rooms/models/date_picker.model.dart';
 import 'dart:convert';
 
 
 class BookingRepository {
   final String url = 'https://a0f8d7d5-cce0-410a-8fcc-50d521534131.mock.pstmn.io/booking';
-
 
   Future<Map> createBooking(Booking booking, DatePicker date) async {
     try {

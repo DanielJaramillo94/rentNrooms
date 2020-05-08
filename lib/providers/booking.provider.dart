@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:rent_n_rooms/models/booking.dart';
+import 'package:rent_n_rooms/models/booking.model.dart';
 import 'package:rent_n_rooms/models/date_picker.model.dart';
 import 'package:rent_n_rooms/repositories/booking.repository.dart';
 

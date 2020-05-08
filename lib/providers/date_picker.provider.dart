@@ -9,8 +9,6 @@ class DateProvider with ChangeNotifier {
       datePicker.setChecin(checkin);
       datePicker.setCheckout(checkout);
       notifyListeners();
-      print("Actualización");
-      print(datePicker);
     }
   
     DatePicker getDates(){

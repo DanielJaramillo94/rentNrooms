@@ -5,7 +5,7 @@ import 'package:rent_n_rooms/dataSearch.dart';
 import 'package:rent_n_rooms/date.dart';
 import 'package:rent_n_rooms/home_card.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
-import 'package:rent_n_rooms/reserve.dart';
+import 'package:rent_n_rooms/Booking.dart';
 import 'package:rent_n_rooms/place_details.dart';
 import 'package:rent_n_rooms/services/city_services.dart';
 
