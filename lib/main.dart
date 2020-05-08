@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rent_n_rooms/home_card.dart';
 
 import 'package:rent_n_rooms/route_generator.dart';
 
@@ -7,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
 import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 import 'package:rent_n_rooms/providers/home_cards.provider.dart';
+import 'package:rent_n_rooms/providers/search_card.provider.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
 
 void main() => runApp(MyApp());

@@ -28,7 +28,7 @@ class SearchCardBuilder extends StatelessWidget {
             height: 220,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(imgURL), fit: BoxFit.cover),
+                    image: NetworkImage(imgURL), fit: BoxFit.cover),
                 borderRadius: BorderRadius.circular(radius)),
           ),
           Container(
