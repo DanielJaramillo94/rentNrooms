@@ -5,7 +5,6 @@ import 'package:rent_n_rooms/dataSearch.dart';
 import 'package:rent_n_rooms/date.dart';
 import 'package:rent_n_rooms/home_card.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
-import 'package:rent_n_rooms/Booking.dart';
 import 'package:rent_n_rooms/place_details.dart';
 import 'package:rent_n_rooms/services/city_services.dart';
 
@@ -13,6 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/models/home_card.model.dart';
 import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 import 'package:rent_n_rooms/providers/home_cards.provider.dart';
+
+import 'booking.dart';
 
 void main() => runApp(MyApp());
 
@@ -30,7 +31,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           // primarySwatch: Colors.blue, ⚠️⚠️
           ),
-      home: PlaceDetails(),
+      home: ChangeNotifierProvider<DateProvider>(
+          create: (context) => DateProvider(), child: 
+          ChangeNotifierProvider<BookingProvider>(
+          create: (context) => BookingProvider(), 
+          child: Booking())),
     );
   }
 }

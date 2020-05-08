@@ -8,6 +8,7 @@ class BookingRepository {
   final String url = 'https://a0f8d7d5-cce0-410a-8fcc-50d521534131.mock.pstmn.io/booking';
 
   Future<Map> createBooking(Booking booking, DatePicker date) async {
+    print("createBookingHttp");
     try {
       String checkin = date.getDateCheckin().toString().split(" ")[0];
       String checkout = date.getDateCheckout().toString().split(" ")[0];
@@ -19,6 +20,8 @@ class BookingRepository {
         'id_room': booking.getIdRoom()
       });
       Map data = json.decode(response.body);
+      print("Devolviendo");
+      print(data);
       return data;
     } catch (err) {
       print(err);

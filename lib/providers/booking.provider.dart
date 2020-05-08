@@ -20,6 +20,7 @@ class BookingProvider with ChangeNotifier {
   }
 
   Future<Map> createBooking(DatePicker date) async {
+    print("createBooking");
     return await _bookingRepository.createBooking(_booking, date);
   }
 }

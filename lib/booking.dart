@@ -32,9 +32,113 @@ class Booking extends StatelessWidget {
     12: 'Diciembre'
   };
 
+  void _onBooking(
+      BuildContext context, BookingProvider booking, DateProvider dates) {
+    final _controllerEmail =
+        TextEditingController(text: booking.getBooking().getEmail());
+    final _controllerName =
+        TextEditingController(text: booking.getBooking().getName());
+
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return SingleChildScrollView(
+            child: Container(
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20))),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Container(
+                height: 200,
+                padding:
+                    EdgeInsets.only(top: 10, bottom: 10, left: 25, right: 25),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          SizedBox(),
+                          Text('Ingresa tus datos para terminar',
+                              style: TextStyle(
+                                  fontFamily: 'Cocogose',
+                                  fontSize: 18,
+                                  color: mainColorLighter,
+                                  fontWeight: FontWeight.w400)),
+                          Transform.translate(
+                            offset: const Offset(0, 0),
+                            child: IconButton(
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                  booking.updateBooking(_controllerName.text,
+                                      _controllerEmail.text, "444");
+                                  Future<Map> newBooking = booking.createBooking(dates.getDates());
+                                  print('creando...');
+                                  return FutureBuilder<Map>(
+                                    future: newBooking,
+                                    builder: (context, snapshot) {
+                                      if (snapshot.hasData) {
+                                        print("hay DAtos");
+                                        return AlertDialog(
+                                          title: Text('Su reversa se realizó exitosamente/n '),
+                                        );
+                                      } else {
+                                        print("no hay datos");
+                                        return Center(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(16.0),
+                                            child: CircularProgressIndicator(),
+                                          ),
+                                        );
+                                      }
+                                    },
+                                  );
+                                },
+                                icon: Icon(
+                                  Icons.done,
+                                  size: 30,
+                                )),
+                          )
+                        ],
+                      ),
+                      TextField(
+                        controller: _controllerEmail,
+                        onTap: () {},
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.email),
+                            hintText: "Correo",
+                            contentPadding:
+                                EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0))),
+                        maxLines: 1,
+                      ),
+                      TextField(
+                        controller: _controllerName,
+                        onTap: () {},
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.assignment_ind),
+                            hintText: "Nombre",
+                            contentPadding:
+                                EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15.0))),
+                        maxLines: 1,
+                      ),
+                    ]),
+              ),
+            ),
+          );
+        });
+    ;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final booking = Provider.of<BookingProvider>(context, listen: false);
+    final booking = Provider.of<BookingProvider>(context);
     final dates = Provider.of<DateProvider>(context, listen: false);
 
     return Scaffold(
@@ -297,9 +401,7 @@ class Booking extends StatelessWidget {
                       fontWeight: FontWeight.w300),
                 ),
                 onPressed: () async {
-                  print('creando...');
-                  Map response = await booking.createBooking(dates.getDates());
-                  print(response);
+                  _onBooking(context, booking, dates);
                 },
               ))
         ])));
