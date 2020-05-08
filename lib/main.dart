@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rent_n_rooms/home_card.dart';
 
 import 'package:rent_n_rooms/route_generator.dart';
 
@@ -30,6 +29,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<HomeCardsProvider>.value(
           value: HomeCardsProvider(),
+        ),
+        ChangeNotifierProvider<SearchCardProvider>.value(
+          value: SearchCardProvider(),
         ),
       ],
       child: MaterialApp(
