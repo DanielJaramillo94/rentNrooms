@@ -33,36 +33,35 @@ class _CardState extends State<ResultCard> {
             delegate: SliverChildBuilderDelegate(
               (context, index) {
                 var searchCardsProv = Provider.of<SearchCardProvider>(context);
-              Future<List<SearchCard>> searchCards = searchCardsProv.getSearchCards();
-              return FutureBuilder<List<SearchCard>>(
-                future: searchCards,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(7.0),
-                        child: SearchCardBuilder(
-                          imgURL: snapshot.data[index].getImgUrl(),
-                          location: snapshot.data[index].getLocation(),
-                          rating: snapshot.data[index].getRating(),
-                          property: snapshot.data[index].getProperty(),
-                          price: snapshot.data[index].getPrice()
+                Future<List<SearchCard>> searchCards =
+                    searchCardsProv.getSearchCards();
+                return FutureBuilder<List<SearchCard>>(
+                  future: searchCards,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(7.0),
+                          child: SearchCardBuilder(
+                              imgURL: snapshot.data[index].getImgUrl(),
+                              location: snapshot.data[index].getLocation(),
+                              rating: snapshot.data[index].getRating(),
+                              property: snapshot.data[index].getProperty(),
+                              price: snapshot.data[index].getPrice()),
                         ),
-                      ),
-                    );
-                  } else {
-                    return Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: CircularProgressIndicator(),
-                      ),
-                    );
-                  }
-                },
-              );
-                
+                      );
+                    } else {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                  },
+                );
               },
-              childCount: 3,
+              childCount: 8,
             ),
           ),
         ],

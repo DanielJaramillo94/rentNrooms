@@ -4,11 +4,13 @@ import 'package:flutter/services.dart';
 import 'package:rent_n_rooms/dataSearch.dart';
 import 'package:rent_n_rooms/date.dart';
 import 'package:rent_n_rooms/home_card.dart';
+import 'package:rent_n_rooms/resultCard.dart';
 import 'package:rent_n_rooms/services/city_services.dart';
 
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/models/home_card.model.dart';
 import 'package:rent_n_rooms/providers/home_cards.provider.dart';
+import 'package:rent_n_rooms/providers/search_card.provider.dart';
 
 void main() => runApp(MyApp());
 
