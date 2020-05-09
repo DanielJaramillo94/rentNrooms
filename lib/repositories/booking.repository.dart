@@ -25,10 +25,10 @@ class BookingRepository {
             'Content-Type': 'application/json; charset=UTF-8',
           },
           body: jsonEncode(<String, String>{
-            'checkin': '2020-05-09"',
-            'checkout': '2020-05-10',
-            'email': 'pedro@correo.com',
-            'name': 'Pedro',
+            'checkin': '$checkin',
+            'checkout': '$checkout',
+            'email': '${booking.getEmail()}',
+            'name': '${booking.getName()}',
             'id_room': '5eb24077bf3587508244c267'
           }));
       Map data = json.decode(response.body);
