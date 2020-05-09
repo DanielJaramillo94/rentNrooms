@@ -76,7 +76,7 @@ class Booking extends StatelessWidget {
                                   booking.updateBooking(_controllerName.text,
                                       _controllerEmail.text, place.getRoom().getIdRoom(), '');
                                   Future<DataBooking> newBooking =
-                                      booking.createBooking(dates.getDates(), 'Arrendamientos njs');
+                                      booking.createBooking(dates.getDates(), place.getRoom().getAgency());
                                   createAlertDialog(context, newBooking, booking);
                                 },
                                 icon: Icon(
