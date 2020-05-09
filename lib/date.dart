@@ -168,6 +168,7 @@ class _DateState extends State<Date> {
                             color: Colors.white,
                             icon: Icon(Icons.search),
                             onPressed: () {
+                              Navigator.of(context).pushNamed('/result_cards');
                               print("Buscando...");
                             },
                             shape: RoundedRectangleBorder(

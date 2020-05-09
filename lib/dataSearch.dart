@@ -58,6 +58,7 @@ class DataSearch extends SearchDelegate<String> {
         onTap: () {
           query = suggestionList[index];
           showResults(context);
+          Navigator.of(context).pushNamed('/date');
         },
         leading: Icon(Icons.location_on),
         title: RichText(
