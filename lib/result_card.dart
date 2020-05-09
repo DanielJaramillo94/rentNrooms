@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 
 import 'package:rent_n_rooms/search_card.dart';
 import 'package:rent_n_rooms/providers/search_card.provider.dart';
+import 'package:rent_n_rooms/providers/city.provider.dart';
 import 'package:rent_n_rooms/models/search_card.model.dart';
 
 class ResultCard extends StatefulWidget {
@@ -19,8 +21,11 @@ class _CardState extends State<ResultCard> {
   @override
   Widget build(BuildContext context) {
     final searchCardsProv = Provider.of<SearchCardProvider>(context);
-    Future<int> cant = searchCardsProv.getNumberCards();
-    Future<List<SearchCard>> searchCards = searchCardsProv.getSearchCards();
+    final date = Provider.of<DateProvider>(context, listen: false);
+    final codeCity = Provider.of<CityProvider>(context, listen: false);
+
+    Future<int> cant = searchCardsProv.getNumberCards(date, codeCity);
+    Future<List<SearchCard>> searchCards = searchCardsProv.getSearchCards(date, codeCity);
     return FutureBuilder(
         future: Future.wait([searchCards, cant]),
         builder: (context, AsyncSnapshot<List<dynamic>> snapshots) {
@@ -32,7 +37,7 @@ class _CardState extends State<ResultCard> {
                 leading: IconButton(
                   icon: Icon(Icons.arrow_back),
                   onPressed: () {
-                    //Navigator.of(context).pop();
+                    Navigator.of(context).pop();
                   },
                 ),
                 title: Text(

@@ -1,13 +1,15 @@
 import 'package:flutter/foundation.dart';
 import 'package:rent_n_rooms/home_card.dart';
 import 'package:rent_n_rooms/models/search_card.model.dart';
+import 'package:rent_n_rooms/providers/city.provider.dart';
+import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 import 'package:rent_n_rooms/repositories/search_card.repository.dart';
 
 class SearchCardProvider with ChangeNotifier {
   SearchCardRepository _searchCardRepository = SearchCardRepository();
 
-  Future<int> getNumberCards() {
-    return SearchCardRepository().getLength();
+  Future<int> getNumberCards(DateProvider date, CityProvider codeCity) {
+    return SearchCardRepository().getLength(date, codeCity);
   }
 
   String formatPrice(num cost)  {
@@ -35,7 +37,7 @@ class SearchCardProvider with ChangeNotifier {
     return price;
   }
 
-  Future<List<SearchCard>> getSearchCards() async {
-    return await _searchCardRepository.fetchSearchCards();
+  Future<List<SearchCard>> getSearchCards(DateProvider date, CityProvider codeCity) async {
+    return await _searchCardRepository.fetchSearchCards(date, codeCity);
   }
 }

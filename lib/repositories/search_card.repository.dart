@@ -1,21 +1,32 @@
 import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'dart:convert';
 
 import 'package:rent_n_rooms/models/search_card.model.dart';
+import 'package:rent_n_rooms/providers/city.provider.dart';
+import 'package:rent_n_rooms/providers/date_picker.provider.dart';
+import 'package:rent_n_rooms/services/api.service.dart';
 
 class SearchCardRepository {
-  final String url =
-     // 'http://ec2-34-195-214-219.compute-1.amazonaws.com:8000/rooms/search?location=MDE&checkin=2020-05-10&checkout=2020-06-02';
-'http://ec2-13-58-217-208.us-east-2.compute.amazonaws.com/api/rooms/search?location=MDE&checkin=2020-05-10&checkout=2020-06-10';
 
-  Future<int> getLength() async {
+  Future<int> getLength(DateProvider date, CityProvider codeCity) async {
+    String checkin = date.getDates().getDateCheckin().toString().split(" ")[0];
+    String checkout = date.getDates().getDateCheckout().toString().split(" ")[0];
+    String code = codeCity.citySelected.codeCity;
+    String url = ApiService.searchEndPoint(code, checkin, checkout);
     http.Response response = await http.get(url);
     List data = json.decode(response.body);
     List searchCards = data;
     return searchCards.length;
   }
 
-  Future<List<SearchCard>> fetchSearchCards() async {
+  Future<List<SearchCard>> fetchSearchCards(DateProvider date, CityProvider codeCity) async {
+    String checkin = date.getDates().getDateCheckin().toString().split(" ")[0];
+    String checkout = date.getDates().getDateCheckout().toString().split(" ")[0];
+    String code = codeCity.citySelected.codeCity;
+    print('inicio $checkin $checkout codigo $code');
+    String url = ApiService.searchEndPoint(code, checkin, checkout);
+
     http.Response response = await http.get(url);
     List data = json.decode(response.body);
     List searchCards = data;
