@@ -6,6 +6,8 @@ class Place {
   final String _description;
   final double _rating;
   final List<String> _services;
+  final String _idRoom;
+  final String _agency;
 
   Place(
     this._picture,
@@ -15,6 +17,8 @@ class Place {
     this._description,
     this._rating,
     this._services,
+    this._idRoom,
+    this._agency
   );
 
   String getPicture() {
@@ -43,5 +47,13 @@ class Place {
 
   List<String> getServices() {
     return this._services;
+  }
+
+    String getIdRoom() {
+    return this._idRoom;
+  }
+
+    String getAgency() {
+    return this._agency;
   }
 }

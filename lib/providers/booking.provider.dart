@@ -20,7 +20,7 @@ class BookingProvider with ChangeNotifier {
     return _booking;
   }
 
-  Future<DataBooking> createBooking(DatePicker date) async {
-    return await _bookingRepository.createBooking(_booking, date);
+  Future<DataBooking> createBooking(DatePicker date, String agencia) async {
+    return await _bookingRepository.createBooking(_booking, date, agencia);
   }
 }

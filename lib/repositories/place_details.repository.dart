@@ -16,7 +16,9 @@ class PlaceRepository {
           105,
           'Vivamus efficitur mollis quam at accumsan. Aliquam lacus nisl, ornare et quam ac, interdum aliquet lectus. Proin semper fringilla cursus. Phasellus a risus sit amet quam laoreet cursus. Etiam consectetur dictum leo, sed pharetra felis sodales a. Integer pellentesque neque sed justo gravida, at ullamcorper libero convallis. Maecenas luctus venenatis.',
           4.3,
-          ['wifi, parking, ac']),
+          ['wifi, parking, ac'],
+          "idRoom",
+          "agency"),
     );
   }
 

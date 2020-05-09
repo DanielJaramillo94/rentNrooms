@@ -49,7 +49,10 @@ class _CardState extends State<ResultCard> {
                               location: snapshot.data[index].getLocation(),
                               rating: snapshot.data[index].getRating(),
                               placeName: snapshot.data[index].getProperty(),
-                              price: price),
+                              price: price,
+                              idRoom: snapshot.data[index].getIdRoom(),
+                              agency: snapshot.data[index].getAgency(),),
+
                         ),
                       );
                     } else {

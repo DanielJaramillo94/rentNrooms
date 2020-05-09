@@ -12,6 +12,8 @@ class SearchCardBuilder extends StatelessWidget {
     @required this.rating,
     @required this.placeName,
     @required this.price,
+    @required this.idRoom,
+    @required this.agency
   }) : super(key: key);
 
   final String imgURL;
@@ -20,6 +22,8 @@ class SearchCardBuilder extends StatelessWidget {
   final String placeName;
   final String price;
   final double radius = 8.0;
+  final String idRoom;
+  final String agency;
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +41,8 @@ class SearchCardBuilder extends StatelessWidget {
             'Vivamus efficitur mollis quam at accumsan. Aliquam lacus nisl, ornare et quam ac, interdum aliquet lectus. Proin semper fringilla cursus. Phasellus a risus sit amet quam laoreet cursus. Etiam consectetur dictum leo, sed pharetra felis sodales a. Integer pellentesque neque sed justo gravida, at ullamcorper libero convallis. Maecenas luctus venenatis.',
             double.parse(rating),
             ['wifi, parking, ac'],
+            idRoom,
+            agency
           );
           placeProv.setPlace(placeToDetails);
           Navigator.of(context).pushNamed('/place_details');

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
+import 'package:rent_n_rooms/providers/search_card.provider.dart';
 
 import 'models/booking.model.dart';
 import 'providers/date_picker.provider.dart';
@@ -32,7 +33,7 @@ class Booking extends StatelessWidget {
   };
 
   void _onBooking(
-      BuildContext context, BookingProvider booking, DateProvider dates) {
+      BuildContext context, BookingProvider booking, DateProvider dates, PlaceProvider place) {
     final _controllerEmail =
         TextEditingController(text: booking.getBooking().getEmail());
     final _controllerName =
@@ -73,9 +74,9 @@ class Booking extends StatelessWidget {
                                 onPressed: () async {
                                   Navigator.of(context).pop();
                                   booking.updateBooking(_controllerName.text,
-                                      _controllerEmail.text, '', '');
+                                      _controllerEmail.text, place.getRoom().getIdRoom(), '');
                                   Future<DataBooking> newBooking =
-                                      booking.createBooking(dates.getDates());
+                                      booking.createBooking(dates.getDates(), 'Arrendamientos njs');
                                   createAlertDialog(context, newBooking, booking);
                                 },
                                 icon: Icon(
@@ -219,6 +220,7 @@ class Booking extends StatelessWidget {
     final booking = Provider.of<BookingProvider>(context);
     final dates = Provider.of<DateProvider>(context, listen: false);
     final room = Provider.of<PlaceProvider>(context, listen: false);
+
 
     final notBooking = false;
 
@@ -501,7 +503,7 @@ class Booking extends StatelessWidget {
                       fontWeight: FontWeight.w300),
                 ),
                 onPressed: () async {
-                  _onBooking(context, booking, dates);
+                  _onBooking(context, booking, dates, room);
                 },
               ))
         ])));
