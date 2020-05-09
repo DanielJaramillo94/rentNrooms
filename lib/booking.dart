@@ -4,18 +4,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
+import 'package:rent_n_rooms/providers/place.provider.dart';
 
 import 'models/booking.model.dart';
 import 'providers/date_picker.provider.dart';
 
 class Booking extends StatelessWidget {
-  final String sector = 'El Poblado';
   final String casaArrendamiento = "Metro Cuadrado";
-  final double price = 30000.0;
-  final String rating = '5,0';
-  final String img = 'assets/images/apartment1.jpg';
-  final DateTime input = DateTime.now();
-  final DateTime output = DateTime.now().add(Duration(days: 28));
 
   final Color mainColor = Color(0xFF006BB1);
   final Color mainColorMiddle = Color(0xFF2195C6);
@@ -223,6 +218,8 @@ class Booking extends StatelessWidget {
     print("Build Corriendo");
     final booking = Provider.of<BookingProvider>(context);
     final dates = Provider.of<DateProvider>(context, listen: false);
+    final room = Provider.of<PlaceProvider>(context, listen: false);
+
     final notBooking = false;
 
     return Scaffold(
@@ -257,7 +254,7 @@ class Booking extends StatelessWidget {
                                       padding:
                                           EdgeInsets.only(top: 5, bottom: 5),
                                       child: Text(
-                                          '${this.sector.toUpperCase()}',
+                                          '${room.getRoom().getPlaceName().toUpperCase()}',
                                           textAlign: TextAlign.left,
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -269,7 +266,7 @@ class Booking extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.only(),
                                     child: Text(
-                                      '${this.price} COP',
+                                      '${room.getRoom().getNightPrice()} COP',
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Color.fromRGBO(0, 0, 0, 0.6)),
@@ -281,7 +278,7 @@ class Booking extends StatelessWidget {
                                         Icons.star,
                                         color: Colors.yellow[500],
                                       ),
-                                      Text(this.rating,
+                                      Text(room.getRoom().getRating().toString(),
                                           style: TextStyle(
                                             fontSize: 13.0,
                                           )),
@@ -297,7 +294,7 @@ class Booking extends StatelessWidget {
                               height: 220,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image: AssetImage(img), fit: BoxFit.cover),
+                                    image: NetworkImage(room.getRoom().getPicture()), fit: BoxFit.cover),
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                             ),
@@ -326,18 +323,18 @@ class Booking extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          '${input.day}/',
+                                          '${dates.getDates().checkin.day}/',
                                           style: TextStyle(
                                               fontSize: 14,
                                               color: mainColorLighter),
                                         ),
-                                        Text('${this.monthsName[input.month]}',
+                                        Text('${this.monthsName[dates.getDates().checkin.month]}',
                                             style: TextStyle(
                                                 fontFamily: 'Cocogoose',
                                                 color: mainColorLighter))
                                       ]),
                                   Text(
-                                    input.year.toString(),
+                                    dates.getDates().checkin.year.toString(),
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: Color.fromRGBO(0, 0, 0, 0.6)),
@@ -363,17 +360,17 @@ class Booking extends StatelessWidget {
                                           MainAxisAlignment.center,
                                       children: <Widget>[
                                         Text(
-                                          '${output.day}/',
+                                          '${dates.getDates().checkout.day}/',
                                           style: TextStyle(
                                               fontSize: 14,
                                               color: mainColorLighter),
                                         ),
-                                        Text('${this.monthsName[output.month]}',
+                                        Text('${this.monthsName[dates.getDates().checkout.month]}',
                                             style: TextStyle(
                                                 fontFamily: 'Cocogoose',
                                                 color: mainColorLighter))
                                       ]),
-                                  Text(output.year.toString(),
+                                  Text(dates.getDates().checkout.year.toString(),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Color.fromRGBO(0, 0, 0, 0.6)))
@@ -393,7 +390,7 @@ class Booking extends StatelessWidget {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: <Widget>[
                                     Text(
-                                      '${output.difference(input).inDays.toString()} ',
+                                      '${dates.getDates().checkout.difference(dates.getDates().checkin).inDays.toString()} ',
                                       style: TextStyle(fontSize: 12),
                                     ),
                                     Text('días',
@@ -438,12 +435,12 @@ class Booking extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            '${output.difference(input).inDays.toString()} X (${this.price})',
+                            '${dates.getDates().checkout.difference(dates.getDates().checkin).inDays.toString()} X (${room.getRoom().getNightPrice()})',
                             style: TextStyle(
                                 color: Color.fromRGBO(0, 0, 0, 0.6),
                                 fontSize: 15),
                           ),
-                          Text('${output.difference(input).inDays * price}',
+                          Text('${dates.getDates().checkout.difference(dates.getDates().checkin).inDays * room.getRoom().getNightPrice()}',
                               style: TextStyle(
                                   color: Color.fromRGBO(0, 0, 0, 0.6),
                                   fontSize: 15))
@@ -480,7 +477,7 @@ class Booking extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                             color: Color.fromRGBO(0, 0, 0, 0.6)),
                       ),
-                      Text('${output.difference(input).inDays * price}',
+                      Text('${dates.getDates().checkout.difference(dates.getDates().checkin).inDays * room.getRoom().getNightPrice()}',
                           style: TextStyle(
                               fontSize: 19,
                               color: Color.fromRGBO(0, 0, 0, 0.6),
