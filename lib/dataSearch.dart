@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rent_n_rooms/model/city.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/models/city.model.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
+import 'package:rent_n_rooms/providers/city.provider.dart';
 
 class DataSearch extends SearchDelegate<String> {
   CitiesList cities;
@@ -28,36 +30,38 @@ class DataSearch extends SearchDelegate<String> {
     final jsonResponse = json.decode(jsonCities);
     CitiesList citiesList = CitiesList.fromJson(jsonResponse);
     this.cities = citiesList;
-    print("Ciudad " + citiesList.cities[0].nameCity);
   }
 
   @override
-  Widget buildResults(BuildContext context) {
-    String code = 'null';
-    if(cities!=null){
-      code = cities.searchCodeCity(query);
-    }
-    return Card(
-      child: Center(
-        child: Text("Ciudad elegida: "+query+"\n Codigo: "+code,
-            style: TextStyle(fontFamily: 'Cocogoose')),
-      ),
-    );
+  Widget buildResults(BuildContext context) {    
+    return Container();
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    loadCities();
+    var cityProvider = Provider.of<CityProvider>(context, listen: false);
 
+    loadCities();
     final suggestionList = query.isEmpty
         ? popularCities
-        : citiesSearch.where((p) => p.toLowerCase().startsWith(query.toLowerCase())).toList();
+        : citiesSearch
+            .where((p) => p.toLowerCase().startsWith(query.toLowerCase()))
+            .toList();
 
     return ListView.builder(
       itemBuilder: (context, index) => ListTile(
         onTap: () {
           query = suggestionList[index];
           showResults(context);
+          String code = '0';
+          if (cities != null) {
+            code = cities.searchCodeCity(query);
+          }
+          cityProvider.citySelected = City(
+            nameCity: query,
+            codeCity: code,
+          );
+
           Navigator.of(context).pushNamed('/date');
         },
         leading: Icon(Icons.location_on),

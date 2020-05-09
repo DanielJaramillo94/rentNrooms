@@ -1,7 +1,7 @@
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';
-import 'package:rent_n_rooms/model/city.dart';
+import 'package:rent_n_rooms/models/city.model.dart';
 
 Future<String> _loadCityAsset() async {
   return await rootBundle.loadString('assets/json/cities.json');
