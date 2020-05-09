@@ -15,4 +15,8 @@ class PlaceProvider with ChangeNotifier {
   void setPlace(Place newPlace) {
     place = newPlace;
   }
+
+  Place getRoom(){
+    return place;
+  }
 }

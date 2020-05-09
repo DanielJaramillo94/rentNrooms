@@ -35,7 +35,7 @@ class SearchCardBuilder extends StatelessWidget {
             location,
             double.parse(price),
             'Vivamus efficitur mollis quam at accumsan. Aliquam lacus nisl, ornare et quam ac, interdum aliquet lectus. Proin semper fringilla cursus. Phasellus a risus sit amet quam laoreet cursus. Etiam consectetur dictum leo, sed pharetra felis sodales a. Integer pellentesque neque sed justo gravida, at ullamcorper libero convallis. Maecenas luctus venenatis.',
-            4.3,
+            double.parse(rating),
             ['wifi, parking, ac'],
           );
           placeProv.setPlace(placeToDetails);
@@ -106,7 +106,7 @@ class SearchCardBuilder extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        'placeName',
+                        placeName,
                         // textAlign: TextAlign.end,
                         // maxLines: 1,
                         // overflow: TextOverflow.ellipsis,
