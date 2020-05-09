@@ -4,7 +4,7 @@ class SearchCard {
   final String _rating;
   final String _property;
   final String _price;
-
+  
   SearchCard(this._imgURL, this._location, this._rating, this._property, this._price);
 
   String getImgUrl() {

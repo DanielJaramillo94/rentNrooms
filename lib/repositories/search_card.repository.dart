@@ -4,17 +4,20 @@ import 'dart:convert';
 import 'package:rent_n_rooms/models/search_card.model.dart';
 
 class SearchCardRepository {
-
-  final String url = 'https://reqres.in/api/users';
+  final String url =
+      'http://ec2-34-195-214-219.compute-1.amazonaws.com:8000/rooms/search?location=MDE&checkin=2020-05-10&checkout=2020-06-02';
 
   Future<List<SearchCard>> fetchSearchCards() async {
-    return await Future.delayed(
-      Duration(seconds: 5),
-      () => [
-          SearchCard('assets/images/apartment1.jpg', 'Poblado, Medellín', '4.3', 'Apartamento en El poblado', '350000.0'),
-          SearchCard('assets/images/apartment2.jpg', 'Bronkx, Bogotá', '4.8', 'Torres de bombona', '80000.0'),
-          SearchCard('assets/images/apartment3.jpg', 'El Raudal, Medellín', '5.0', 'Apartamento en el Estadio', '340000.0'),
-        ]
-    );
+    http.Response response = await http.get(url);
+    List data = json.decode(response.body);
+    List searchCards = data;
+    return searchCards.map((obj) {
+      String imgURL = obj['thumbnail'];
+      String location = obj['location']['name'];
+      String rating = obj['rating'].toString();
+      String property = obj['property_name'];
+      String price = obj['price'].toString();
+      return SearchCard(imgURL, location, rating, property, price);
+    }).toList();
   }
 }

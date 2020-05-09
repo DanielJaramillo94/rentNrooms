@@ -19,68 +19,105 @@ class SearchCardBuilder extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        children: <Widget>[
-          Container(
-            alignment: Alignment.center,
-            height: 220,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage(imgURL), fit: BoxFit.cover),
-                borderRadius: BorderRadius.circular(radius)),
-          ),
-          Container(
-            child: Row(children: <Widget>[
-              Icon(
-                Icons.star,
-                color: Colors.yellow[500],
-              ),
-              Text(rating,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                  )),
-            ]),
-          ),
-          Container(
-            child: Column(children: <Widget>[
+    return Material(
+      elevation: 5,
+      child: InkWell(
+        onTap: () {
+          print('OnTap SearchCard :)');
+        },
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: <Widget>[
               Container(
-                child: Row(
-                  children: <Widget>[
-                    Text(property,
-                        textAlign: TextAlign.left,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style:
-                            TextStyle(fontSize: 16.0, fontFamily: 'Cocogoose')),
-                  ],
-                ),
+                alignment: Alignment.center,
+                height: 220,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(imgURL), fit: BoxFit.cover),
+                    borderRadius: BorderRadius.circular(radius)),
               ),
-              Container(
-                child: Row(
+              Padding(
+                padding: const EdgeInsets.only(left: 16, right: 10, top: 10),
+                child: Column(
                   children: <Widget>[
-                    Text(location,
-                        textAlign: TextAlign.left,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          child: Row(
+                            children: <Widget>[
+                              Icon(
+                                Icons.place,
+                                size: 16,
+                                color: Color.fromRGBO(0, 0, 0, 0.6),
+                              ),
+                              Text(
+                                location,
+                                textAlign: TextAlign.left,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontFamily: 'Cocogoose',
+                                  fontWeight: FontWeight.w700,
+                                  color: Color.fromRGBO(0, 0, 0, 0.6),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Container(
+                          child: Row(children: <Widget>[
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow[500],
+                              size: 19,
+                            ),
+                            Text(
+                              rating,
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                                color: Color.fromRGBO(0, 0, 0, 0.6),
+                              ),
+                            ),
+                          ]),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 15),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        property,
+                        // textAlign: TextAlign.end,
+                        // maxLines: 1,
+                        // overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 16.0,
+                          fontSize: 20,
                           fontFamily: 'Cocogoose',
-                        )),
+                          fontWeight: FontWeight.w700,
+                          color: Color.fromRGBO(0, 0, 0, 0.6),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        '\$$price por noche',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Color.fromRGBO(0, 0, 0, 0.6)),
+                      ),
+                    ),
                   ],
                 ),
               ),
-            ]),
+            ],
           ),
-          Container(
-            child: Row(children: <Widget>[
-              Text('\$$price por noche',
-                  style:
-                      TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold)),
-            ]),
-          ),
-        ],
+        ),
       ),
     );
   }
