@@ -127,6 +127,16 @@ class SearchCardBuilder extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
+                        'Agencia: $agency',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Color.fromRGBO(0, 0, 0, 0.6)),
+                      ),
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
                         '\$$price por noche',
                         style: TextStyle(
                             fontSize: 14,
