@@ -39,6 +39,7 @@ class Api {
         api = this.api3;
         break;
       case 'S_TEAM':
+        booking = '/rooms/booking';
         api = this.api1;
         break;
       case 'Lambda Team':
