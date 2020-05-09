@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Rent & Rooms',
-        initialRoute: '/result_cards',
+        initialRoute: '/',
         onGenerateRoute: RouteGenerator.generateRoute,
       ),
     );
