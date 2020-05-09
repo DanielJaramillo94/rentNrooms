@@ -16,7 +16,7 @@ class SearchCardRepository {
       String location = obj['location']['name'];
       String rating = obj['rating'].toString();
       String property = obj['property_name'];
-      String price = obj['price'].toString();
+      num price = obj['price'];
       return SearchCard(imgURL, location, rating, property, price);
     }).toList();
   }

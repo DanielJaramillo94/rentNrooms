@@ -39,6 +39,8 @@ class _CardState extends State<ResultCard> {
                   future: searchCards,
                   builder: (context, snapshot) {
                     if (snapshot.hasData) {
+                      String price = searchCardsProv
+                          .formatPrice(snapshot.data[index].getPrice());
                       return Center(
                         child: Padding(
                           padding: const EdgeInsets.all(7.0),
@@ -47,7 +49,7 @@ class _CardState extends State<ResultCard> {
                               location: snapshot.data[index].getLocation(),
                               rating: snapshot.data[index].getRating(),
                               placeName: snapshot.data[index].getProperty(),
-                              price: snapshot.data[index].getPrice()),
+                              price: price),
                         ),
                       );
                     } else {

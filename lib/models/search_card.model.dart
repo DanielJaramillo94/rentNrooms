@@ -3,7 +3,7 @@ class SearchCard {
   final String _location;
   final String _rating;
   final String _placeName;
-  final String _price;
+  final num _price;
   
   SearchCard(this._imgURL, this._location, this._rating, this._placeName, this._price);
 
@@ -23,7 +23,7 @@ class SearchCard {
     return this._placeName;
   }
 
-  String getPrice() {
+  num getPrice() {
     return this._price;
   }
 }
