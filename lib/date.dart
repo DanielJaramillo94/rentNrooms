@@ -35,6 +35,7 @@ class _DateState extends State<Date> {
     final dates = Provider.of<DateProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: mainColorLighter,
         title: Text('Fecha', style: TextStyle(fontFamily: 'Cocogoose'),),
       ),
       body: SafeArea(
@@ -60,7 +61,7 @@ class _DateState extends State<Date> {
                                       style: TextStyle(fontSize: 20.0, fontFamily: 'Cocogoose')),
                                   Text(
                                     _city,
-                                    style: TextStyle(fontSize: 27.0, fontFamily: 'Cocogoose', color: Color.fromRGBO(66, 190, 219, 1)),
+                                    style: TextStyle(fontSize: 27.0, fontFamily: 'Cocogoose', color: Color(0xFF42BEBD)),
                                   ),
                                 ]),
                               ),
@@ -71,7 +72,7 @@ class _DateState extends State<Date> {
                                   Consumer<DateProvider>(
                                       builder: (_, dates, __) => Text(
                                       dates.difference().toString(),
-                                      style: TextStyle(fontSize: 27.0, color: Color.fromRGBO(66, 190, 219, 1)),
+                                      style: TextStyle(fontSize: 27.0, color: Color(0xFF42BEBD)),
                                     ),
                                   ),
                                   Text(" días. ",
