@@ -6,6 +6,10 @@ import 'package:rent_n_rooms/repositories/search_card.repository.dart';
 class SearchCardProvider with ChangeNotifier {
   SearchCardRepository _searchCardRepository = SearchCardRepository();
 
+  Future<int> getNumberCards() {
+    return SearchCardRepository().getLength();
+  }
+
   String formatPrice(num cost)  {
     var end = '';
     var part = cost.toString();

@@ -76,7 +76,8 @@ class Booking extends StatelessWidget {
                                       _controllerEmail.text, '', '');
                                   Future<DataBooking> newBooking =
                                       booking.createBooking(dates.getDates());
-                                  createAlertDialog(context, newBooking, booking);
+                                  createAlertDialog(
+                                      context, newBooking, booking);
                                 },
                                 icon: Icon(
                                   Icons.done,
@@ -116,7 +117,8 @@ class Booking extends StatelessWidget {
         });
   }
 
-  createAlertDialog(BuildContext context, Future<DataBooking> newBooking, BookingProvider booking) {
+  createAlertDialog(BuildContext context, Future<DataBooking> newBooking,
+      BookingProvider booking) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -148,7 +150,8 @@ class Booking extends StatelessWidget {
                         ]));
                   }
                   DataBooking db = snapshot.data;
-                  booking.updateBooking(db.getName(), db.getEmail(), db.getIdRoom(), db.getIdBooking());
+                  booking.updateBooking(db.getName(), db.getEmail(),
+                      db.getIdRoom(), db.getIdBooking());
                   return Container(
                     height: 200.0,
                     child: Column(
@@ -219,7 +222,9 @@ class Booking extends StatelessWidget {
     final booking = Provider.of<BookingProvider>(context);
     final dates = Provider.of<DateProvider>(context, listen: false);
     final room = Provider.of<PlaceProvider>(context, listen: false);
-
+    String price = room.formatPrice(room.getRoom().getNightPrice());
+    String total = room.formatPrice(dates.getDates().checkout.difference(dates.getDates().checkin).inDays * room.getRoom().getNightPrice());
+    
     final notBooking = false;
 
     return Scaffold(
@@ -266,7 +271,7 @@ class Booking extends StatelessWidget {
                                   Container(
                                     padding: EdgeInsets.only(),
                                     child: Text(
-                                      '${room.getRoom().getNightPrice()} COP',
+                                      '\$$price COP',
                                       style: TextStyle(
                                           fontSize: 15,
                                           color: Color.fromRGBO(0, 0, 0, 0.6)),
@@ -278,7 +283,8 @@ class Booking extends StatelessWidget {
                                         Icons.star,
                                         color: Colors.yellow[500],
                                       ),
-                                      Text(room.getRoom().getRating().toString(),
+                                      Text(
+                                          room.getRoom().getRating().toString(),
                                           style: TextStyle(
                                             fontSize: 13.0,
                                           )),
@@ -294,7 +300,9 @@ class Booking extends StatelessWidget {
                               height: 220,
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                    image: NetworkImage(room.getRoom().getPicture()), fit: BoxFit.cover),
+                                    image: NetworkImage(
+                                        room.getRoom().getPicture()),
+                                    fit: BoxFit.cover),
                                 borderRadius: BorderRadius.circular(4.0),
                               ),
                             ),
@@ -328,7 +336,8 @@ class Booking extends StatelessWidget {
                                               fontSize: 14,
                                               color: mainColorLighter),
                                         ),
-                                        Text('${this.monthsName[dates.getDates().checkin.month]}',
+                                        Text(
+                                            '${this.monthsName[dates.getDates().checkin.month]}',
                                             style: TextStyle(
                                                 fontFamily: 'Cocogoose',
                                                 color: mainColorLighter))
@@ -365,12 +374,14 @@ class Booking extends StatelessWidget {
                                               fontSize: 14,
                                               color: mainColorLighter),
                                         ),
-                                        Text('${this.monthsName[dates.getDates().checkout.month]}',
+                                        Text(
+                                            '${this.monthsName[dates.getDates().checkout.month]}',
                                             style: TextStyle(
                                                 fontFamily: 'Cocogoose',
                                                 color: mainColorLighter))
                                       ]),
-                                  Text(dates.getDates().checkout.year.toString(),
+                                  Text(
+                                      dates.getDates().checkout.year.toString(),
                                       textAlign: TextAlign.center,
                                       style: TextStyle(
                                           color: Color.fromRGBO(0, 0, 0, 0.6)))
@@ -408,24 +419,37 @@ class Booking extends StatelessWidget {
                       ],
                     )),
                 notBooking ? Divider(height: 10.0, thickness: 2) : Container(),
-                notBooking ? Container(
-                      child:
-                      Row(children: <Widget>[
-                        Expanded( flex: 2, child: Container(
-                          alignment: Alignment.center,
-                          child: Icon(Icons.book, size: 30,  color: Color.fromRGBO(0, 0, 0, 0.6)),)),
-                        Expanded(flex: 3, child: Container(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[Text('Código de reserva:' , style: TextStyle(
-                            fontSize: 14,
-                            fontFamily: 'Cocogoose',
-                            fontWeight: FontWeight.w200,
-                            color: Color.fromRGBO(0, 0, 0, 0.6))),
-                          Text('${booking.getBooking().getIdBooking()}')],)
-                        ))
-                      ],)
-                    ) : Container(),
+                notBooking
+                    ? Container(
+                        child: Row(
+                        children: <Widget>[
+                          Expanded(
+                              flex: 2,
+                              child: Container(
+                                alignment: Alignment.center,
+                                child: Icon(Icons.book,
+                                    size: 30,
+                                    color: Color.fromRGBO(0, 0, 0, 0.6)),
+                              )),
+                          Expanded(
+                              flex: 3,
+                              child: Container(
+                                  child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Text('Código de reserva:',
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontFamily: 'Cocogoose',
+                                          fontWeight: FontWeight.w200,
+                                          color: Color.fromRGBO(0, 0, 0, 0.6))),
+                                  Text('${booking.getBooking().getIdBooking()}')
+                                ],
+                              )))
+                        ],
+                      ))
+                    : Container(),
                 Divider(height: 10.0, thickness: 2),
                 Container(
                     child: Column(
@@ -435,12 +459,13 @@ class Booking extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            '${dates.getDates().checkout.difference(dates.getDates().checkin).inDays.toString()} X (${room.getRoom().getNightPrice()})',
+                            '${dates.getDates().checkout.difference(dates.getDates().checkin).inDays.toString()} X \$$price',
                             style: TextStyle(
                                 color: Color.fromRGBO(0, 0, 0, 0.6),
                                 fontSize: 15),
                           ),
-                          Text('${dates.getDates().checkout.difference(dates.getDates().checkin).inDays * room.getRoom().getNightPrice()}',
+                          Text(
+                              '\$$total',
                               style: TextStyle(
                                   color: Color.fromRGBO(0, 0, 0, 0.6),
                                   fontSize: 15))
@@ -477,7 +502,8 @@ class Booking extends StatelessWidget {
                             fontWeight: FontWeight.w700,
                             color: Color.fromRGBO(0, 0, 0, 0.6)),
                       ),
-                      Text('${dates.getDates().checkout.difference(dates.getDates().checkin).inDays * room.getRoom().getNightPrice()}',
+                      Text(
+                          '\$$total',
                           style: TextStyle(
                               fontSize: 19,
                               color: Color.fromRGBO(0, 0, 0, 0.6),

@@ -7,6 +7,13 @@ class SearchCardRepository {
   final String url =
       'http://ec2-34-195-214-219.compute-1.amazonaws.com:8000/rooms/search?location=MDE&checkin=2020-05-10&checkout=2020-06-02';
 
+  Future<int> getLength() async {
+    http.Response response = await http.get(url);
+    List data = json.decode(response.body);
+    List searchCards = data;
+    return searchCards.length;
+  }
+
   Future<List<SearchCard>> fetchSearchCards() async {
     http.Response response = await http.get(url);
     List data = json.decode(response.body);

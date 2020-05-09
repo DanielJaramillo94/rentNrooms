@@ -18,6 +18,7 @@ class PlaceDetails extends StatelessWidget {
         future: place,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            String price = placeProv.formatPrice(snapshot.data.getNightPrice());
             return Scaffold(
               appBar: AppBar(
                 title: Text(
@@ -40,8 +41,8 @@ class PlaceDetails extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.blueAccent,
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                      snapshot.data.getPicture()),
+                                  image:
+                                      NetworkImage(snapshot.data.getPicture()),
                                   fit: BoxFit.cover),
                               borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(8.0),
@@ -87,7 +88,7 @@ class PlaceDetails extends StatelessWidget {
                               child: Column(
                                 children: <Widget>[
                                   Text(
-                                    '\$${snapshot.data.getNightPrice()}',
+                                    '\$$price',
                                     style: TextStyle(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w700,
