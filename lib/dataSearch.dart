@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rent_n_rooms/model/city.dart';
+import 'package:rent_n_rooms/models/city.model.dart';
 import 'dart:async' show Future;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:convert';

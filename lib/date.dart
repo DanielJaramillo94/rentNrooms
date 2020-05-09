@@ -201,7 +201,7 @@ class _DateState extends State<Date> {
                                   gradient: LinearGradient(
                                     begin: Alignment.bottomCenter,
                                     end: Alignment.topCenter,
-                                    colors: [mainColorLighter, mainColor],
+                                    colors: [mainColorLighter, mainColorMiddle],
                                   ),
                                 ),
                               ),

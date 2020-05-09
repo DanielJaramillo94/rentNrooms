@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rent_n_rooms/providers/city.provider.dart';
 
 import 'package:rent_n_rooms/route_generator.dart';
 
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SearchCardProvider>.value(
           value: SearchCardProvider(),
         ),
+        ChangeNotifierProvider<CityProvider>.value(
+          value: CityProvider(),
+        )
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
