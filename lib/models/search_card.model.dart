@@ -2,10 +2,10 @@ class SearchCard {
   final String _imgURL;
   final String _location;
   final String _rating;
-  final String _property;
+  final String _placeName;
   final String _price;
   
-  SearchCard(this._imgURL, this._location, this._rating, this._property, this._price);
+  SearchCard(this._imgURL, this._location, this._rating, this._placeName, this._price);
 
   String getImgUrl() {
     return this._imgURL;
@@ -20,7 +20,7 @@ class SearchCard {
   }
 
   String getProperty() {
-    return this._property;
+    return this._placeName;
   }
 
   String getPrice() {

@@ -40,7 +40,7 @@ class PlaceDetails extends StatelessWidget {
                             decoration: BoxDecoration(
                               color: Colors.blueAccent,
                               image: DecorationImage(
-                                  image: AssetImage(
+                                  image: NetworkImage(
                                       snapshot.data.getPicture()),
                                   fit: BoxFit.cover),
                               borderRadius: BorderRadius.only(

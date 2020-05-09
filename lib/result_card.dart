@@ -46,7 +46,7 @@ class _CardState extends State<ResultCard> {
                               imgURL: snapshot.data[index].getImgUrl(),
                               location: snapshot.data[index].getLocation(),
                               rating: snapshot.data[index].getRating(),
-                              property: snapshot.data[index].getProperty(),
+                              placeName: snapshot.data[index].getProperty(),
                               price: snapshot.data[index].getPrice()),
                         ),
                       );

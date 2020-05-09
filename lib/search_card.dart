@@ -1,19 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'models/place.model.dart';
+import 'providers/place.provider.dart';
 
 class SearchCardBuilder extends StatelessWidget {
-  SearchCardBuilder(
-      {Key key,
-      @required this.imgURL,
-      @required this.location,
-      @required this.rating,
-      @required this.property,
-      @required this.price})
-      : super(key: key);
+  SearchCardBuilder({
+    Key key,
+    @required this.imgURL,
+    @required this.location,
+    @required this.rating,
+    @required this.placeName,
+    @required this.price,
+  }) : super(key: key);
 
   final String imgURL;
   final String location;
   final String rating;
-  final String property;
+  final String placeName;
   final String price;
   final double radius = 8.0;
 
@@ -23,7 +27,19 @@ class SearchCardBuilder extends StatelessWidget {
       elevation: 5,
       child: InkWell(
         onTap: () {
-          print('OnTap SearchCard :)');
+          PlaceProvider placeProv =
+              Provider.of<PlaceProvider>(context, listen: false);
+          Place placeToDetails = Place(
+            imgURL,
+            placeName,
+            location,
+            double.parse(price),
+            'Vivamus efficitur mollis quam at accumsan. Aliquam lacus nisl, ornare et quam ac, interdum aliquet lectus. Proin semper fringilla cursus. Phasellus a risus sit amet quam laoreet cursus. Etiam consectetur dictum leo, sed pharetra felis sodales a. Integer pellentesque neque sed justo gravida, at ullamcorper libero convallis. Maecenas luctus venenatis.',
+            4.3,
+            ['wifi, parking, ac'],
+          );
+          placeProv.setPlace(placeToDetails);
+          Navigator.of(context).pushNamed('/place_details');
         },
         child: Container(
           padding: const EdgeInsets.all(16.0),
@@ -90,7 +106,7 @@ class SearchCardBuilder extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        property,
+                        'placeName',
                         // textAlign: TextAlign.end,
                         // maxLines: 1,
                         // overflow: TextOverflow.ellipsis,

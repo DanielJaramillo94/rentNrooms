@@ -10,8 +10,6 @@ import 'package:rent_n_rooms/providers/home_cards.provider.dart';
 import 'package:rent_n_rooms/providers/search_card.provider.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
 
-import 'booking.dart';
-
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
