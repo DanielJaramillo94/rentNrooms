@@ -1,14 +1,12 @@
-import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
-import 'package:rent_n_rooms/providers/search_card.provider.dart';
 
-import 'models/booking.model.dart';
-import 'providers/date_picker.provider.dart';
+import '../providers/date_picker.provider.dart';
+import 'modalBooking.dart';
+import 'months.dart';
 
 class Booking extends StatelessWidget {
   final String casaArrendamiento = "Metro Cuadrado";
@@ -17,208 +15,8 @@ class Booking extends StatelessWidget {
   final Color mainColorMiddle = Color(0xFF2195C6);
   final Color mainColorLighter = Color(0xFF42BEBD);
 
-  final Map<int, String> monthsName = {
-    1: 'Enero',
-    2: 'Febrero',
-    3: 'Marzo',
-    4: 'Abril',
-    5: 'Mayo',
-    6: 'Junio',
-    7: 'Julio',
-    8: 'Agosto',
-    9: 'Septiembre',
-    10: 'Octubre',
-    11: 'Noviembre',
-    12: 'Diciembre'
-  };
-
-  void _onBooking(
-      BuildContext context, BookingProvider booking, DateProvider dates, PlaceProvider place) {
-    final _controllerEmail =
-        TextEditingController(text: booking.getBooking().getEmail());
-    final _controllerName =
-        TextEditingController(text: booking.getBooking().getName());
-
-    showModalBottomSheet(
-        context: context,
-        isScrollControlled: true,
-        builder: (BuildContext context) {
-          return SingleChildScrollView(
-            child: Container(
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20))),
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: Container(
-                height: 200,
-                padding:
-                    EdgeInsets.only(top: 10, bottom: 10, left: 25, right: 25),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          SizedBox(),
-                          Text('Ingresa tus datos para terminar',
-                              style: TextStyle(
-                                  fontFamily: 'Cocogose',
-                                  fontSize: 18,
-                                  color: mainColorLighter,
-                                  fontWeight: FontWeight.w400)),
-                          Transform.translate(
-                            offset: const Offset(0, 0),
-                            child: IconButton(
-                                onPressed: () async {
-                                  Navigator.of(context).pop();
-                                  booking.updateBooking(_controllerName.text,
-                                      _controllerEmail.text, place.getRoom().getIdRoom(), '');
-                                  Future<DataBooking> newBooking =
-                                      booking.createBooking(dates.getDates(), 'Arrendamientos njs');
-                                  createAlertDialog(context, newBooking, booking);
-                                },
-                                icon: Icon(
-                                  Icons.done,
-                                  size: 30,
-                                )),
-                          )
-                        ],
-                      ),
-                      TextField(
-                        controller: _controllerEmail,
-                        onTap: () {},
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.email),
-                            hintText: "Correo",
-                            contentPadding:
-                                EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0))),
-                        maxLines: 1,
-                      ),
-                      TextField(
-                        controller: _controllerName,
-                        onTap: () {},
-                        decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.assignment_ind),
-                            hintText: "Nombre",
-                            contentPadding:
-                                EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
-                            border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(15.0))),
-                        maxLines: 1,
-                      ),
-                    ]),
-              ),
-            ),
-          );
-        });
-  }
-
-  createAlertDialog(BuildContext context, Future<DataBooking> newBooking,
-      BookingProvider booking) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: FutureBuilder(
-              future: newBooking,
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.done) {
-                  if (snapshot.hasError) {
-                    return Container(
-                        height: 200,
-                        child: Column(children: <Widget>[
-                          Text("¡Ocurrió un error!",
-                              style: TextStyle(
-                                  color: mainColorLighter,
-                                  fontFamily: 'Cocogoose',
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w700)),
-                          SizedBox(height: 15),
-                          Text(
-                              'Lo sentimos, hubo un problema consultando a la agencia $casaArrendamiento, pero puedes intentar con otra.',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Cocogoose',
-                                  fontWeight: FontWeight.w200,
-                                  color: Color.fromRGBO(0, 0, 0, 0.6))),
-                          Icon(Icons.error_outline,
-                              size: 60, color: mainColorLighter)
-                        ]));
-                  }
-                  DataBooking db = snapshot.data;
-                  booking.updateBooking(db.getName(), db.getEmail(),
-                      db.getIdRoom(), db.getIdBooking());
-                  return Container(
-                    height: 200.0,
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: <Widget>[
-                          Text("¡Tú reserva fue exitosa!",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                  color: mainColorLighter,
-                                  fontFamily: 'Cocogoose',
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w700)),
-                          Column(children: <Widget>[
-                            Text('El código de tú reserva es: ',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: 'Cocogoose',
-                                    fontWeight: FontWeight.w200,
-                                    color: Color.fromRGBO(0, 0, 0, 0.6))),
-                            Text(
-                              '${snapshot.data.getIdBooking()}',
-                              style: TextStyle(fontWeight: FontWeight.bold),
-                            )
-                          ]),
-                          Icon(Icons.done_all,
-                              size: 60, color: mainColorLighter),
-                          Text('¡Disfruta tu estancia!',
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: 'Cocogoose',
-                                  fontWeight: FontWeight.w200,
-                                  color: Color.fromRGBO(0, 0, 0, 0.6)))
-                        ]),
-                  );
-                } else {
-                  return Container(
-                    height: 150,
-                    child: Column(children: <Widget>[
-                      Text(
-                        'Realizando reserva...',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontFamily: 'Cocogoose',
-                            fontSize: 20.0,
-                            color: Color.fromRGBO(0, 0, 0, 0.6),
-                            fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(height: 20.0),
-                      Container(
-                          height: 80,
-                          width: 80,
-                          child: CircularProgressIndicator(
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(mainColorLighter),
-                          ))
-                    ]),
-                  );
-                }
-              },
-            ),
-          );
-        });
-  }
-
   @override
   Widget build(BuildContext context) {
-    print("Build Corriendo");
     final booking = Provider.of<BookingProvider>(context);
     final dates = Provider.of<DateProvider>(context, listen: false);
     final room = Provider.of<PlaceProvider>(context, listen: false);
@@ -337,7 +135,7 @@ class Booking extends StatelessWidget {
                                               color: mainColorLighter),
                                         ),
                                         Text(
-                                            '${this.monthsName[dates.getDates().checkin.month]}',
+                                            '${Months.monthsSpanish[dates.getDates().checkin.month]}',
                                             style: TextStyle(
                                                 fontFamily: 'Cocogoose',
                                                 color: mainColorLighter))
@@ -375,7 +173,7 @@ class Booking extends StatelessWidget {
                                               color: mainColorLighter),
                                         ),
                                         Text(
-                                            '${this.monthsName[dates.getDates().checkout.month]}',
+                                            '${Months.monthsSpanish[dates.getDates().checkout.month]}',
                                             style: TextStyle(
                                                 fontFamily: 'Cocogoose',
                                                 color: mainColorLighter))
@@ -527,7 +325,7 @@ class Booking extends StatelessWidget {
                       fontWeight: FontWeight.w300),
                 ),
                 onPressed: () async {
-                  _onBooking(context, booking, dates, room);
+                  onBooking(context, booking, dates, room);
                 },
               ))
         ])));
