@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:rent_n_rooms/home_card.dart';
 import 'package:rent_n_rooms/models/search_card.model.dart';
 import 'package:rent_n_rooms/providers/city.provider.dart';
 import 'package:rent_n_rooms/providers/date_picker.provider.dart';

@@ -4,7 +4,7 @@ import 'package:rent_n_rooms/models/date_picker.model.dart';
 import 'package:rent_n_rooms/repositories/booking.repository.dart';
 
 class BookingProvider with ChangeNotifier {
-  DataBooking _booking = DataBooking('', '', '', '');
+  DataBooking _booking = DataBooking('email', 'name', 'idRoom', 'idBooking');
   BookingRepository _bookingRepository = BookingRepository();
 
   void updateBooking(

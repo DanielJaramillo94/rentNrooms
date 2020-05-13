@@ -62,7 +62,7 @@ void onBooking(BuildContext context, BookingProvider booking,
                                     '');
                                 Future<DataBooking> newBooking =
                                     booking.createBooking(
-                                        dates.getDates(), 'Arrendamientos njs');
+                                        dates.getDates(), place.getRoom().getAgency());
                                 createAlertDialog(context, newBooking, booking);
                               },
                               icon: Icon(

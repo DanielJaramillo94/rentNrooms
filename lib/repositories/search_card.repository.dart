@@ -1,5 +1,4 @@
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import 'dart:convert';
 
 import 'package:rent_n_rooms/models/search_card.model.dart';

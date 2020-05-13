@@ -4,18 +4,17 @@ import 'package:rent_n_rooms/models/date_picker.model.dart';
 import 'package:rent_n_rooms/services/api.service.dart';
 import 'dart:convert';
 
-
-class BookingRepository {  
-
+class BookingRepository {
+  ///Para realizar la reserva se reciben las fechas seleccionadas previamente
+  ///a la selección del lugar. Por esta razón la agencia se manda como parametro
+  ///y no se encuentra en los providers recibidos.
   Future<DataBooking> createBooking(
       DataBooking booking, DatePicker date, String agencia) async {
-      String url = ApiService.bookingEndPoint(agencia);        
+    String url = ApiService.bookingEndPoint(agencia);
 
     try {
       String checkin = date.getDateCheckin().toString().split(" ")[0];
       String checkout = date.getDateCheckout().toString().split(" ")[0];
-      print('checkin $checkin checkout $checkout');
-      print(url);
 
       http.Response response = await http.post(url,
           headers: <String, String>{
@@ -29,8 +28,6 @@ class BookingRepository {
             'id_room': '${booking.getIdRoom()}'
           }));
       Map data = json.decode(response.body);
-      print("data");
-      print(data);
       DataBooking newBooking = DataBooking(
           data['email'], data['name'], data['id_room'], data['id_booking']);
       return newBooking;

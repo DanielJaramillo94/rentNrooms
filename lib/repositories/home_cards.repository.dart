@@ -1,6 +1,3 @@
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-
 import 'package:rent_n_rooms/models/home_card.model.dart';
 
 class HomeCardRepository {
