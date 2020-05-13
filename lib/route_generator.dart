@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:rent_n_rooms/home.page.dart';
-import 'package:rent_n_rooms/booking.dart'; //el archivo debe empezar en minúscula
+import 'package:rent_n_rooms/booking/booking.dart'; //el archivo debe empezar en minúscula
 import 'package:rent_n_rooms/place_details.dart';
 import 'package:rent_n_rooms/result_card.dart';
 import 'package:rent_n_rooms/date.dart';
