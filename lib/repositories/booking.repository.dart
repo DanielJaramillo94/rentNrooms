@@ -29,7 +29,7 @@ class BookingRepository {
           }));
       Map data = json.decode(response.body);
       DataBooking newBooking = DataBooking(
-          data['email'], data['name'], data['id_room'], data['id_booking']);
+          data['email'], data['name'], data['id_room'].toString(), data['id_booking'].toString());
       return newBooking;
     } catch (err) {
       throw ('Lo sentimos, ocurrió un error con ');

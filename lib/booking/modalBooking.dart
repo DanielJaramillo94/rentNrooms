@@ -113,7 +113,7 @@ createAlertDialog(BuildContext context, Future<DataBooking> newBooking,
             future: newBooking,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.done) {
-                if (snapshot.data) {
+                if (snapshot.hasError) {
                   return ErrorMessage();
                 }
                 DataBooking db = snapshot.data;
