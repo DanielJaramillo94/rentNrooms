@@ -6,13 +6,14 @@ class ApiService {
 
   static String searchEndPoint(String codeCity, String checkin, String checkout) {
     String search =  '/rooms/search?location=$codeCity&checkin=$checkin&checkout=$checkout';
-    return api3NodeJs+search;
-    /*
+    return api1Python+search;
+    /* *******************************
     String url1 = api1Python+search;
-    String url2 = api2Lambda+search;
+    //String url2 = api2Lambda+search;
     String url3 = api3NodeJs+search;
-    List<String> urls = [url1, url2, url3];
-    return urls;*/
+    List<String> urls = [url1, url3];
+    return urls;
+    *******************************  */
   }
 
   static String detailsEndPoint(String id, String agencyName) {
@@ -22,7 +23,7 @@ class ApiService {
       case 'Arrendamientos njs':
         api = api3NodeJs;
         break;
-      case 'S_TEAM':
+      case 'Python':
         api = api1Python;
         break;
       case 'Lambda Team':
@@ -41,7 +42,7 @@ class ApiService {
       case 'Arrendamientos njs':
         api = api3NodeJs;
         break;
-      case 'S_TEAM':
+      case 'Python':
         booking = '/rooms/booking';
         api = api1Python;
         break;
