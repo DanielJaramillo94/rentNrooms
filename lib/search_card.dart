@@ -18,9 +18,9 @@ class SearchCardBuilder extends StatelessWidget {
 
   final String imgURL;
   final String location;
-  final String rating;
+  final double rating;
   final String placeName;
-  final String price;
+  final double price;
   final double radius = 8.0;
   final String idRoom;
   final String agency;
@@ -37,9 +37,9 @@ class SearchCardBuilder extends StatelessWidget {
             imgURL,
             placeName,
             location,
-            double.parse(price),
+            price,
             'Vivamus efficitur mollis quam at accumsan. Aliquam lacus nisl, ornare et quam ac, interdum aliquet lectus. Proin semper fringilla cursus. Phasellus a risus sit amet quam laoreet cursus. Etiam consectetur dictum leo, sed pharetra felis sodales a. Integer pellentesque neque sed justo gravida, at ullamcorper libero convallis. Maecenas luctus venenatis.',
-            double.parse(rating),
+            rating,
             ['wifi, parking, ac'],
             idRoom,
             agency
@@ -97,7 +97,7 @@ class SearchCardBuilder extends StatelessWidget {
                               size: 19,
                             ),
                             Text(
-                              rating,
+                              rating.toString(),
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w700,

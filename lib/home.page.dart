@@ -3,7 +3,10 @@ import 'package:rent_n_rooms/dataSearch.dart';
 import 'package:rent_n_rooms/home_card.dart';
 
 import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/models/city.model.dart';
 import 'package:rent_n_rooms/models/home_card.model.dart';
+import 'package:rent_n_rooms/providers/city.provider.dart';
+import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 import 'package:rent_n_rooms/providers/home_cards.provider.dart';
 
 Color mainColor = Color(0xFF006BB1);
@@ -118,12 +121,26 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(height: 15),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Container(
-                      color: mainColorMiddle,
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Text('NUEVO',
-                            style: TextStyle(color: Colors.white)),
+                    child: Consumer<CityProvider>(
+                      builder: (_, city, __) => Consumer<DateProvider>(
+                        builder: (_, dates, __) => GestureDetector(
+                          onTap: () => {
+                            city.citySelected = City(
+                              nameCity: 'Medellín',
+                              codeCity: 'MDE',
+                            ),
+                            datePicker(dates),
+                            Navigator.of(context).pushNamed('/result_cards2'),
+                          },
+                          child: Container(
+                            color: mainColorMiddle,
+                            child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Text('NUEVO',
+                                  style: TextStyle(color: Colors.white)),
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ),
@@ -192,4 +209,15 @@ class WaveClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => true;
+}
+
+void datePicker(DateProvider dates) async {
+  DateTime now = new DateTime.now();
+
+  DateTime firstDate = new DateTime(
+      now.year, now.month, now.day, now.hour, now.minute, now.second);
+  DateTime lastDate = new DateTime(
+      now.year + 1, now.month, now.day, now.hour, now.minute, now.second);
+
+  dates.updateDate(firstDate, lastDate);
 }

@@ -5,6 +5,7 @@ import 'package:rent_n_rooms/booking/booking.dart'; //el archivo debe empezar en
 import 'package:rent_n_rooms/place_details.dart';
 import 'package:rent_n_rooms/result_card.dart';
 import 'package:rent_n_rooms/date.dart';
+import 'package:rent_n_rooms/views/rooms_list.page.dart';
 
 
 class RouteGenerator {
@@ -24,6 +25,9 @@ class RouteGenerator {
         break;
       case '/result_cards':
         return MaterialPageRoute(builder: (_) => ResultCard());
+        break;
+      case '/result_cards2':
+        return MaterialPageRoute(builder: (_) => RoomsListPage());
         break;
       case '/date':
         return MaterialPageRoute(builder: (_) => Date());

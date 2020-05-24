@@ -61,7 +61,7 @@ class _CardState extends State<ResultCard> {
                               location: snapshot[index].getLocation(),
                               rating: snapshot[index].getRating(),
                               placeName: snapshot[index].getProperty(),
-                              price: price,
+                              price: 5,
                               idRoom: snapshot[index].getIdRoom(),
                               agency: snapshot[index].getAgency(),),
 
