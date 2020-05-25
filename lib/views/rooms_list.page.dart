@@ -42,7 +42,7 @@ class RoomsListPage extends StatelessWidget {
                   imgURL: roomCard.getImgUrl(),
                   location: roomCard.getLocation(),
                   rating: roomCard.getRating(),
-                  placeName: roomCard.getProperty(),
+                  placeName: roomCard.getPlaceName(),
                   price: roomCard.getPrice(),
                   idRoom: roomCard.getIdRoom(),
                   agency: roomCard.getAgency(),

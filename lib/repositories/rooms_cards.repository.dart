@@ -1,50 +1,43 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:rent_n_rooms/models/room_card.model.dart';
 import 'dart:convert';
 
-import 'package:rent_n_rooms/models/search_card.model.dart';
-import 'package:rent_n_rooms/providers/city.provider.dart';
-import 'package:rent_n_rooms/providers/date_picker.provider.dart';
-import 'package:rent_n_rooms/services/api.service.dart';
-
 class RoomsCardsRepository {
+
+  List<String> apiUrls = [
+    'https://next.json-generator.com/api/json/get/EJI3axNsd',
+    'https://next.json-generator.com/api/json/get/41yh2gEsd',
+    'https://next.json-generator.com/api/json/get/NyXqvgEj_',
+  ];
+
   Future<List<RoomCard>> fetchRoomsCards() async {
-    return await Future.delayed(
-      Duration(seconds: 3),
-      () => [
-        RoomCard(
-            'https://specials-images.forbesimg.com/imageserve/1026205392/960x0.jpg?fit=scale',
-            'whatever',
-            4.3,
-            'whatever',
-            300,
-            'whatever',
-            'whatever'),
-        RoomCard(
-            'https://images.adsttc.com/media/images/5be9/fd5c/08a5/e5a5/8c00/008f/newsletter/CARLES_FAUS_ARQUITECTURA_-_CARMEN_HOUSE_(2).jpg?1542061390',
-            'whatever',
-            4.3,
-            'whatever',
-            300,
-            'whatever',
-            'whatever'),
-        RoomCard(
-            'https://specials-images.forbesimg.com/imageserve/1026205392/960x0.jpg?fit=scale',
-            'whatever',
-            4.3,
-            'whatever',
-            300,
-            'whatever',
-            'whatever'),
-        RoomCard(
-            'https://images.adsttc.com/media/images/5be9/fd5c/08a5/e5a5/8c00/008f/newsletter/CARLES_FAUS_ARQUITECTURA_-_CARMEN_HOUSE_(2).jpg?1542061390',
-            'whatever',
-            4.3,
-            'whatever',
-            300,
-            'whatever',
-            'whatever'),
-      ],
-    );
+    List<RoomCard> roomsCards = [];
+    for (String url in apiUrls) {
+      http.Response response = await http.get(url);
+      List apiRoomsData;
+      try {
+        apiRoomsData = json.decode(response.body);
+      } catch (e) {
+        log('error in api endpoint -> ' + url);
+        debugPrint(e.toString());
+        continue;
+      }
+
+      apiRoomsData.forEach((roomData) {
+        RoomCard roomCard;
+        try { //because this could cause error due to malformations in json response
+          roomCard = RoomCard.fromJSON(roomData);
+        } catch (e) {
+          log('error decoding json data in api endpoint -> ' + url);
+          debugPrint(e.toString());
+          return;
+        }
+        roomsCards.add(roomCard);
+      });
+    }
+    return Future.value(roomsCards);
   }
 }
