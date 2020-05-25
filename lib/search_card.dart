@@ -28,6 +28,7 @@ class SearchCardBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+      borderRadius: BorderRadius.circular(radius),
       elevation: 5,
       child: InkWell(
         onTap: () {

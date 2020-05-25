@@ -12,8 +12,8 @@ class RoomsListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    RoomsCardsProvider roomsCardsProvider = Provider.of<RoomsCardsProvider>(context);
+    RoomsCardsProvider roomsCardsProvider =
+        Provider.of<RoomsCardsProvider>(context);
     Future<List<RoomCard>> roomsCards = roomsCardsProvider.fetchRoomsCards();
 
     return Scaffold(
@@ -38,14 +38,17 @@ class RoomsListPage extends StatelessWidget {
               itemCount: snapshot.data.length,
               itemBuilder: (BuildContext context, int index) {
                 RoomCard roomCard = snapshot.data[index];
-                return SearchCardBuilder(
-                  imgURL: roomCard.getImgUrl(),
-                  location: roomCard.getLocation(),
-                  rating: roomCard.getRating(),
-                  placeName: roomCard.getPlaceName(),
-                  price: roomCard.getPrice(),
-                  idRoom: roomCard.getIdRoom(),
-                  agency: roomCard.getAgency(),
+                return Padding(
+                  padding: EdgeInsets.all(10),
+                  child: SearchCardBuilder(
+                    imgURL: roomCard.getImgUrl(),
+                    location: roomCard.getLocation(),
+                    rating: roomCard.getRating(),
+                    placeName: roomCard.getPlaceName(),
+                    price: roomCard.getPrice(),
+                    idRoom: roomCard.getIdRoom(),
+                    agency: roomCard.getAgency(),
+                  ),
                 );
               },
             );
