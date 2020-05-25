@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:rent_n_rooms/home.page.dart';
-import 'package:rent_n_rooms/booking/booking.dart'; //el archivo debe empezar en minúscula
+import 'package:rent_n_rooms/booking/booking.dart';
 import 'package:rent_n_rooms/place_details.dart';
-import 'package:rent_n_rooms/result_card.dart';
 import 'package:rent_n_rooms/date.dart';
 import 'package:rent_n_rooms/views/rooms_list.page.dart';
 
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    //usar en caso de que sea necesario pasar argumentos por el constructor
-    // final args = settings.arguments;
 
     switch (settings.name) {
       case '/':
@@ -24,9 +21,6 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => PlaceDetails());
         break;
       case '/result_cards':
-        return MaterialPageRoute(builder: (_) => ResultCard());
-        break;
-      case '/result_cards2':
         return MaterialPageRoute(builder: (_) => RoomsListPage());
         break;
       case '/date':

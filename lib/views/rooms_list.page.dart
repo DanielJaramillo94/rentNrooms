@@ -14,7 +14,7 @@ class RoomsListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     RoomsCardsProvider roomsCardsProvider =
         Provider.of<RoomsCardsProvider>(context);
-    Future<List<RoomCard>> roomsCards = roomsCardsProvider.fetchRoomsCards();
+    Future<List<RoomCard>> roomsCards = roomsCardsProvider.fetchRoomsCards(context);
 
     return Scaffold(
       appBar: AppBar(

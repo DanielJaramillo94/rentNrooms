@@ -121,26 +121,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(height: 15),
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Consumer<CityProvider>(
-                      builder: (_, city, __) => Consumer<DateProvider>(
-                        builder: (_, dates, __) => GestureDetector(
-                          onTap: () => {
-                            city.citySelected = City(
-                              nameCity: 'Medellín',
-                              codeCity: 'MDE',
-                            ),
-                            datePicker(dates),
-                            Navigator.of(context).pushNamed('/result_cards2'),
-                          },
-                          child: Container(
-                            color: mainColorMiddle,
-                            child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: Text('NUEVO',
-                                  style: TextStyle(color: Colors.white)),
-                            ),
-                          ),
-                        ),
+                    child: Container(
+                      color: mainColorMiddle,
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Text('NUEVO',
+                            style: TextStyle(color: Colors.white)),
                       ),
                     ),
                   ),

@@ -71,4 +71,29 @@ class ApiService {
     return api+booking;
   }
 
+
+  // ❗ Hopefully we could entirely refactor this service later
+  // ⚠️ temporally ⚠️ For using the fake enpoints, do next:
+  // ⚠️ comment lines from 81 to 84 and 95
+  // ⚠️ uncomment lines from 85 to 87 and 96
+
+  static List<String> apiUrls =  [
+    // 'http://ec2-34-195-214-219.compute-1.amazonaws.com:8000',
+    'https://0kaup1m6dg.execute-api.us-east-1.amazonaws.com/prod',
+    // 'http://ec2-13-58-217-208.us-east-2.compute.amazonaws.com/api',
+    // 'http://ec2-18-188-220-151.us-east-2.compute.amazonaws.com/',
+    // 'https://next.json-generator.com/api/json/get/EJI3axNsd',
+    // 'https://next.json-generator.com/api/json/get/41yh2gEsd',
+    // 'https://next.json-generator.com/api/json/get/NyXqvgEj_',
+    ];
+
+  static List<String> getApiUrls() {
+    return apiUrls;
+  }
+
+  static List<String> searchEndPoints(String codeCity, String checkin, String checkout) {
+    String searchUrl =  '/rooms/search?location=$codeCity&checkin=$checkin&checkout=$checkout';
+    // String searchUrl =  '';
+    return  getApiUrls().map((url) => url+searchUrl).toList();
+  }
 }

@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
 import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 import 'package:rent_n_rooms/providers/home_cards.provider.dart';
-import 'package:rent_n_rooms/providers/search_card.provider.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
 
 void main() => runApp(MyApp());
@@ -34,9 +33,6 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<RoomsCardsProvider>.value(
           value: RoomsCardsProvider(),
-        ),
-        ChangeNotifierProvider<SearchCardProvider>.value(
-          value: SearchCardProvider(),
         ),
         ChangeNotifierProvider<CityProvider>.value(
           value: CityProvider(),

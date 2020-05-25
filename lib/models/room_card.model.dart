@@ -1,7 +1,3 @@
-import 'dart:developer';
-
-import 'package:flutter/cupertino.dart';
-
 class RoomCard {
   final String _imgURL;
   final String _location;
@@ -20,7 +16,7 @@ class RoomCard {
     double rating = jsonRoom['rating'].toDouble();
     String placeName = jsonRoom['property_name'];
     double price = jsonRoom['price'].toDouble();
-    String idRoom = jsonRoom['id'];
+    String idRoom = jsonRoom['id'].toString();
     String agency = jsonRoom['agency']['name'];
 
     return RoomCard(imgURL, location, rating, placeName,
