@@ -65,7 +65,8 @@ void onBooking(BuildContext context, BookingProvider booking,
                                     booking.createBooking(
                                         dates.getDates(), place.getRoom().getAgency());
                                 await createAlertDialog(context, newBooking, booking);
-                                booking.notify();
+                                booking.notify();  //update view booking
+                                //booking.resetBookingId(); //allow new booking
                               },
                               icon: Icon(
                                 Icons.done,

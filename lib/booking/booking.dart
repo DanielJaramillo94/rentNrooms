@@ -70,7 +70,7 @@ class Booking extends StatelessWidget {
                           ],
                       ),
                         )) : Container()),
-                Consumer<BookingProvider>(builder: (_, booking, __) => booking.getBooking().getIdRoom()==room.getRoom().getIdRoom() ? Divider(height: 10.0, thickness: 2) : Container()),
+                Consumer<BookingProvider>(builder: (_, booking, __) => booking.getBooking().getIdBooking().length != 0 ? Divider(height: 10.0, thickness: 2) : Container()),
                 Container(
                     height: 110,
                     padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
@@ -308,7 +308,7 @@ class Booking extends StatelessWidget {
               ],
             ),
           )),
-          Consumer<BookingProvider>(builder: (_, booking, __) => booking.getBooking().getIdRoom()!=room.getRoom().getIdRoom() ?           Container(
+          Consumer<BookingProvider>(builder: (_, booking, __) => booking.getBooking().getIdBooking().length == 0 ?           Container(
               width: double.infinity,
               padding:
                   EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
