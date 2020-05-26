@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/providers/place.provider.dart';
 
 class ErrorMessage extends StatelessWidget {
 
@@ -10,6 +12,8 @@ class ErrorMessage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final room = Provider.of<PlaceProvider>(context, listen: false);
+
     return Container(
         height: 200,
         child: Column(children: <Widget>[
@@ -21,7 +25,7 @@ class ErrorMessage extends StatelessWidget {
                   fontWeight: FontWeight.w700)),
           SizedBox(height: 15),
           Text(
-              'Lo sentimos, hubo un problema consultando a la agencia, pero puedes intentar con otra.',
+              'Lo sentimos, hubo un problema reservando a la agencia ${room.getRoom().getAgency()}, pero puedes intentar con otra.',
               style: TextStyle(
                   fontSize: 14,
                   fontFamily: 'Cocogoose',

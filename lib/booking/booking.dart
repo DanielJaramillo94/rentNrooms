@@ -8,8 +8,8 @@ import '../providers/date_picker.provider.dart';
 import 'modalBooking.dart';
 import 'months.dart';
 
+
 class Booking extends StatelessWidget {
-  final String casaArrendamiento = "Metro Cuadrado";
 
   final Color mainColor = Color(0xFF006BB1);
   final Color mainColorMiddle = Color(0xFF2195C6);
@@ -17,14 +17,11 @@ class Booking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final booking = Provider.of<BookingProvider>(context);
     final dates = Provider.of<DateProvider>(context, listen: false);
     final room = Provider.of<PlaceProvider>(context, listen: false);
     String price = room.formatPrice(room.getRoom().getNightPrice());
     String total = room.formatPrice(dates.getDates().checkout.difference(dates.getDates().checkin).inDays * room.getRoom().getNightPrice());
     
-    final notBooking = false;
-
     return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -41,6 +38,39 @@ class Booking extends StatelessWidget {
             child: ListView(
               padding: EdgeInsets.only(left: 20, right: 20),
               children: <Widget>[
+                    Consumer<BookingProvider>(builder: (_, booking, __) => booking.getBooking().getIdBooking().length != 0 ? Container(
+                        child: Container(
+                          height: 50,
+                          child: Row(                            
+                          children: <Widget>[
+                            Expanded(
+                                flex: 2,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  child: Icon(Icons.book,
+                                      size: 30,
+                                      color: Color.fromRGBO(0, 0, 0, 0.6)),
+                                )),
+                            Expanded(
+                                flex: 3,
+                                child: Container(
+                                    child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    Text('Código de reserva:',
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontFamily: 'Cocogoose',
+                                            fontWeight: FontWeight.w200,
+                                            color: Color.fromRGBO(0, 0, 0, 0.6))),
+                                    Text('${booking.getBooking().getIdBooking()}')
+                                  ],
+                                )))
+                          ],
+                      ),
+                        )) : Container()),
+                Consumer<BookingProvider>(builder: (_, booking, __) => booking.getBooking().getIdRoom()==room.getRoom().getIdRoom() ? Divider(height: 10.0, thickness: 2) : Container()),
                 Container(
                     height: 110,
                     padding: EdgeInsets.only(top: 15.0, bottom: 15.0),
@@ -216,38 +246,6 @@ class Booking extends StatelessWidget {
                         )
                       ],
                     )),
-                notBooking ? Divider(height: 10.0, thickness: 2) : Container(),
-                notBooking
-                    ? Container(
-                        child: Row(
-                        children: <Widget>[
-                          Expanded(
-                              flex: 2,
-                              child: Container(
-                                alignment: Alignment.center,
-                                child: Icon(Icons.book,
-                                    size: 30,
-                                    color: Color.fromRGBO(0, 0, 0, 0.6)),
-                              )),
-                          Expanded(
-                              flex: 3,
-                              child: Container(
-                                  child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  Text('Código de reserva:',
-                                      style: TextStyle(
-                                          fontSize: 14,
-                                          fontFamily: 'Cocogoose',
-                                          fontWeight: FontWeight.w200,
-                                          color: Color.fromRGBO(0, 0, 0, 0.6))),
-                                  Text('${booking.getBooking().getIdBooking()}')
-                                ],
-                              )))
-                        ],
-                      ))
-                    : Container(),
                 Divider(height: 10.0, thickness: 2),
                 Container(
                     child: Column(
@@ -310,7 +308,7 @@ class Booking extends StatelessWidget {
               ],
             ),
           )),
-          Container(
+          Consumer<BookingProvider>(builder: (_, booking, __) => booking.getBooking().getIdRoom()!=room.getRoom().getIdRoom() ?           Container(
               width: double.infinity,
               padding:
                   EdgeInsets.only(top: 10, bottom: 10, left: 20, right: 20),
@@ -324,10 +322,12 @@ class Booking extends StatelessWidget {
                       fontSize: 18,
                       fontWeight: FontWeight.w300),
                 ),
-                onPressed: () async {
+                onPressed: () {
                   onBooking(context, booking, dates, room);
                 },
-              ))
+              )) : Container()),
+
+
         ])));
   }
 }

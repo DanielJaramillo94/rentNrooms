@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/models/booking.model.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
 import 'package:rent_n_rooms/providers/date_picker.provider.dart';
@@ -55,15 +56,16 @@ void onBooking(BuildContext context, BookingProvider booking,
                           child: IconButton(
                               onPressed: () async {
                                 Navigator.of(context).pop();
-                                booking.updateBooking(
+                                booking.updateWithoutNotify(
                                     _controllerName.text,
                                     _controllerEmail.text,
-                                    place.getRoom().getIdRoom(),
-                                    '');
+                                    place.getRoom().getIdRoom()
+                                    );
                                 Future<DataBooking> newBooking =
                                     booking.createBooking(
                                         dates.getDates(), place.getRoom().getAgency());
-                                createAlertDialog(context, newBooking, booking);
+                                await createAlertDialog(context, newBooking, booking);
+                                booking.notify();
                               },
                               icon: Icon(
                                 Icons.done,
