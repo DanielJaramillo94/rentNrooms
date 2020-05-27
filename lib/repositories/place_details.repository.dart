@@ -6,15 +6,15 @@ import 'package:rent_n_rooms/models/place.model.dart';
 class PlaceRepository {
   final String url = 'https://reqres.in/api/users';
 
-  Future<Place> fetchPlace() async {
+  Future<Place> fetchRoom() async {
     return await Future.delayed(
       Duration(seconds: 5),
       () => Place(
-          'assets/images/apartment2.jpg',
+          'https://eu.dlink.com/es/es/-/media/landing-pages/2018/mydlink/smart-home.png?h=519&la=es-ES&w=807',
           'Deluxe Resorts',
           'Medellín, Poblado',
           105,
-          'Vivamus efficitur mollis quam at accumsan. Aliquam lacus nisl, ornare et quam ac, interdum aliquet lectus. Proin semper fringilla cursus. Phasellus a risus sit amet quam laoreet cursus. Etiam consectetur dictum leo, sed pharetra felis sodales a. Integer pellentesque neque sed justo gravida, at ullamcorper libero convallis. Maecenas luctus venenatis.',
+          'Vivamus efficitur mollis quam at accumsan. This may work :).',
           4.3,
           ['wifi, parking, ac'],
           "idRoom",

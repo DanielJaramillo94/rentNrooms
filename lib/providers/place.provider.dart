@@ -1,12 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:rent_n_rooms/models/place.model.dart';
-// import 'package:rent_n_rooms/repositories/place_details.repository.dart';
+import 'package:rent_n_rooms/repositories/place_details.repository.dart';
 
 class PlaceProvider with ChangeNotifier {
-  //❗❗ debido al diseño de la API, por ahora es innecesario el uso de este repositorio
-  // PlaceRepository _placeRepository = PlaceRepository();
+  PlaceRepository _placeRepository = PlaceRepository();
 
-  Place place = new Place("https://www.google.com.co/url?sa=i&url=https%3A%2F%2Fwww.booking.com%2Fhotel%2Fco%2Fwhyndam.html&psig=AOvVaw3GN4jW9nVyhiEwGJTyUW3K&ust=1589409021228000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCODfp5Swr-kCFQAAAAAdAAAAABAD", "_placeName", "_location", 0.0, "_description", 2.0, ["service1"], "_idRoom", "_agency");
+  Place room;
 
   String formatPrice(double cost) {
     var end = '';
@@ -30,16 +29,17 @@ class PlaceProvider with ChangeNotifier {
     return price + '.' + dec;
   }
 
-  Future<Place> getPlace() async {
-    return place;
+  Future<Place> fetchRoom() async {
+    Place room = await _placeRepository.fetchRoom();
+    setRoom(room);
+    return room;
   }
 
-  void setPlace(Place newPlace) {
-    place = newPlace;
+  void setRoom(Place newRoom) {
+    room = newRoom;
   }
 
-  //Decidir sobre el uso de los gets, con Future y sin Future
   Place getRoom() {
-    return place;
+    return room;
   }
 }
