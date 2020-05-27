@@ -32,6 +32,9 @@ class SearchCardBuilder extends StatelessWidget {
       elevation: 5,
       child: InkWell(
         onTap: () {
+          var placeProv = Provider.of<PlaceProvider>(context, listen: false);
+          placeProv.setIdRoom(idRoom);
+          placeProv.setAgency(agency);
           Navigator.of(context).pushNamed('/place_details', arguments: placeName);
         },
         child: Container(

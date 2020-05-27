@@ -32,24 +32,24 @@ class ApiService {
     *******************************  */
   }
 
-  static String detailsEndPoint(String id, String agencyName) {
-    String details = '/rooms/$id';
-    String api = '';
-    switch (agencyName) {
-      case 'Arrendamientos njs':
-        api = api3NodeJs;
-        break;
-      case 'Python':
-        api = api1Python;
-        break;
-      case 'Lambda Team':
-        api = api2Lambda;
-        break;
-      default:
-        api = '';
-    }
-    return api+details;
-  }
+  // static String detailsEndPoint(String id, String agencyName) {
+  //   String details = '/rooms/$id';
+  //   String api = '';
+  //   switch (agencyName) {
+  //     case 'Arrendamientos njs':
+  //       api = api3NodeJs;
+  //       break;
+  //     case 'Python':
+  //       api = api1Python;
+  //       break;
+  //     case 'Lambda Team':
+  //       api = api2Lambda;
+  //       break;
+  //     default:
+  //       api = '';
+  //   }
+  //   return api+details;
+  // }
 
   static String bookingEndPoint(String agencyName) {
     String booking = '/booking/';
@@ -95,5 +95,23 @@ class ApiService {
     String searchUrl =  '/rooms/search?location=$codeCity&checkin=$checkin&checkout=$checkout';
     // String searchUrl =  '';
     return  getApiUrls().map((url) => url+searchUrl).toList();
+  }
+  static String detailsEndPoint(String agencyName, String id) {
+    String details = '/rooms/$id';
+    String api = '';
+    switch (agencyName) {
+      case 'Arrendamientos njs':
+        api = api3NodeJs;
+        break;
+      case 'Python':
+        api = api1Python;
+        break;
+      case 'Lambda Team':
+        api = api2Lambda;
+        break;
+      default:
+        api = '';
+    }
+    return api+details;
   }
 }

@@ -10,18 +10,20 @@ class PlaceDetails extends StatelessWidget {
   final Color mainColorMiddle = Color(0xFF2195C6);
   final Color mainColorLighter = Color(0xFF42BEBD);
 
-  final placeNameTest;
+  final placeName;
 
-  PlaceDetails(this.placeNameTest);
+  PlaceDetails(this.placeName);
 
   @override
   Widget build(BuildContext context) {
     var placeProv = Provider.of<PlaceProvider>(context);
-    Future<Place> place = placeProv.fetchRoom();
+    String agencyName = placeProv.getAgency();
+    String idRoom = placeProv.getIdRoom();
+    Future<Place> place = placeProv.fetchRoom(agencyName, idRoom);
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          this.placeNameTest,
+          this.placeName,
           style:
               TextStyle(fontFamily: 'Cocogoose', fontWeight: FontWeight.w200),
         ),
