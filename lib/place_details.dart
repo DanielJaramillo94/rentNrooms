@@ -10,146 +10,150 @@ class PlaceDetails extends StatelessWidget {
   final Color mainColorMiddle = Color(0xFF2195C6);
   final Color mainColorLighter = Color(0xFF42BEBD);
 
+  final placeName;
+
+  PlaceDetails(this.placeName);
+
   @override
   Widget build(BuildContext context) {
     var placeProv = Provider.of<PlaceProvider>(context);
-    Future<Place> place = placeProv.getPlace();
-    return FutureBuilder<Place>(
+    String agencyName = placeProv.getAgency();
+    String idRoom = placeProv.getIdRoom();
+    Future<Place> place = placeProv.fetchRoom(agencyName, idRoom);
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          this.placeName,
+          style:
+              TextStyle(fontFamily: 'Cocogoose', fontWeight: FontWeight.w200),
+        ),
+        backgroundColor: mainColorLighter,
+      ),
+      body: FutureBuilder<Place>(
         future: place,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             String price = placeProv.formatPrice(snapshot.data.getNightPrice());
-            return Scaffold(
-              appBar: AppBar(
-                title: Text(
-                  snapshot.data.getPlaceName(),
-                  style: TextStyle(
-                      fontFamily: 'Cocogoose', fontWeight: FontWeight.w200),
-                ),
-                backgroundColor: mainColorLighter,
-              ),
-              body: SafeArea(
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                        child: ListView(
-                      padding: EdgeInsets.only(left: 20, right: 20),
-                      children: <Widget>[
-                        AspectRatio(
-                          aspectRatio: 2 / 1,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.blueAccent,
-                              image: DecorationImage(
-                                  image:
-                                      NetworkImage(snapshot.data.getPicture()),
-                                  fit: BoxFit.cover),
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(8.0),
-                                bottomRight: Radius.circular(8.0),
-                              ),
+            return SafeArea(
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                      child: ListView(
+                    padding: EdgeInsets.only(left: 20, right: 20),
+                    children: <Widget>[
+                      AspectRatio(
+                        aspectRatio: 2 / 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blueAccent,
+                            image: DecorationImage(
+                                image: NetworkImage(snapshot.data.getPicture()),
+                                fit: BoxFit.cover),
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(8.0),
+                              bottomRight: Radius.circular(8.0),
                             ),
                           ),
                         ),
-                        SizedBox(height: 15),
-                        Row(
-                          children: <Widget>[
-                            Flexible(
-                              flex: 2,
-                              child: Column(
-                                children: <Widget>[
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      snapshot.data.getPlaceName(),
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          fontFamily: 'Cocogoose',
-                                          fontWeight: FontWeight.w700,
-                                          color: Color.fromRGBO(0, 0, 0, 0.6)),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      snapshot.data.getLocation(),
-                                      style: TextStyle(
-                                          fontSize: 10,
-                                          fontFamily: 'Cocogoose',
-                                          fontWeight: FontWeight.w700,
-                                          color: Color.fromRGBO(0, 0, 0, 0.6)),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Flexible(
-                              flex: 1,
-                              child: Column(
-                                children: <Widget>[
-                                  Text(
-                                    '\$$price',
+                      ),
+                      SizedBox(height: 15),
+                      Row(
+                        children: <Widget>[
+                          Flexible(
+                            flex: 2,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    snapshot.data.getPlaceName(),
                                     style: TextStyle(
                                         fontSize: 20,
+                                        fontFamily: 'Cocogoose',
                                         fontWeight: FontWeight.w700,
                                         color: Color.fromRGBO(0, 0, 0, 0.6)),
                                   ),
-                                  Container(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'por noche',
-                                      style: TextStyle(
-                                          fontSize: 9,
-                                          fontFamily: 'Cocogoose',
-                                          fontWeight: FontWeight.w700,
-                                          color: Color.fromRGBO(0, 0, 0, 0.6)),
-                                    ),
+                                ),
+                                Container(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    snapshot.data.getLocation(),
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontFamily: 'Cocogoose',
+                                        fontWeight: FontWeight.w700,
+                                        color: Color.fromRGBO(0, 0, 0, 0.6)),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        SizedBox(height: 5),
-                        Rating(),
-                        SizedBox(height: 15),
-                        Column(
-                          children: <Widget>[
-                            Container(
-                              child: Text(
-                                snapshot.data.getDescription(),
-                                style: TextStyle(
-                                    color: Color.fromRGBO(0, 0, 0, 0.6)),
-                              ),
+                          ),
+                          Flexible(
+                            flex: 1,
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  '\$$price',
+                                  style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color.fromRGBO(0, 0, 0, 0.6)),
+                                ),
+                                Container(
+                                  alignment: Alignment.center,
+                                  child: Text(
+                                    'por noche',
+                                    style: TextStyle(
+                                        fontSize: 9,
+                                        fontFamily: 'Cocogoose',
+                                        fontWeight: FontWeight.w700,
+                                        color: Color.fromRGBO(0, 0, 0, 0.6)),
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
-                        ),
-                        Divider(height: 10.0, thickness: 2),
-                        ServicesWidget(),
-                        Divider(height: 10.0, thickness: 2),
-                        SizedBox(height: 12.0),
-                        Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.only(
-                                top: 10, bottom: 10, left: 20, right: 20),
-                            child: RaisedButton(
-                              color: mainColorLighter,
-                              child: Text(
-                                'Continuar',
-                                style: TextStyle(
-                                    fontFamily: 'Cocogoose',
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w300),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pushNamed('/booking');
-                              },
-                            ))
-                      ],
-                    )),
-                  ],
-                ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 5),
+                      Rating(),
+                      SizedBox(height: 15),
+                      Column(
+                        children: <Widget>[
+                          Container(
+                            child: Text(
+                              snapshot.data.getDescription(),
+                              style: TextStyle(
+                                  color: Color.fromRGBO(0, 0, 0, 0.6)),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Divider(height: 10.0, thickness: 2),
+                      ServicesWidget(),
+                      Divider(height: 10.0, thickness: 2),
+                      SizedBox(height: 12.0),
+                      Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.only(
+                              top: 10, bottom: 10, left: 20, right: 20),
+                          child: RaisedButton(
+                            color: mainColorLighter,
+                            child: Text(
+                              'Continuar',
+                              style: TextStyle(
+                                  fontFamily: 'Cocogoose',
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w300),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pushNamed('/booking');
+                            },
+                          ))
+                    ],
+                  )),
+                ],
               ),
             );
           } else {
@@ -160,7 +164,9 @@ class PlaceDetails extends StatelessWidget {
               ),
             );
           }
-        });
+        },
+      ),
+    );
   }
 }
 

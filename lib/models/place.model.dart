@@ -1,5 +1,6 @@
 class Place {
   final String _picture;
+  final List<String> _photos;
   final String _placeName;
   final String _location;
   final double _nightPrice;
@@ -18,11 +19,32 @@ class Place {
     this._rating,
     this._services,
     this._idRoom,
-    this._agency
+    this._agency,
+    [this._photos]
   );
+
+  factory Place.fromJSON(Map jsonRoom) {
+    String id = jsonRoom['id'].toString();
+    List _images = jsonRoom['images']; //this is List<dynamic> type
+    List<String> images = _images.map((image) => image['url']).toList().cast<String>();
+    String location = jsonRoom['location']['name'];
+    double price = jsonRoom['price'].toDouble();
+    // String currency = jsonRoom['currency']; currency is currently unused
+    String agency = jsonRoom['agency']['name'];
+    String roomName = jsonRoom['property_name'];
+    double rating = jsonRoom['rating'].toDouble();
+    List<String> services = jsonRoom['services'].cast<String>();
+
+    return Place(
+        images[0], roomName, location, price, '', rating, services, id, agency, images);
+  }
 
   String getPicture() {
     return this._picture;
+  }
+
+  List<String> getPhotos() {
+    return this._photos;
   }
 
   String getPlaceName() {
