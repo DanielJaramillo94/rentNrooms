@@ -10,6 +10,7 @@ import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 import 'package:rent_n_rooms/providers/home_cards.provider.dart';
 
 import 'main_drawer.dart';
+import 'myFadeLogo.dart';
 
 Color mainColor = Color(0xFF006BB1);
 Color mainColorMiddle = Color(0xFF2195C6);
@@ -170,7 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     return Center(
                       child: Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: CircularProgressIndicator(),
+                        child: MyFadeLogo(),
                       ),
                     );
                   }

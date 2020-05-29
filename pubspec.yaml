@@ -50,6 +50,7 @@ flutter:
    - assets/images/apartment2.jpg
    - assets/images/apartment3.jpg
    - assets/json/cities.json
+   - assets/images/Logotipo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

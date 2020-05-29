@@ -5,6 +5,8 @@ import 'package:rent_n_rooms/providers/rooms_list.provider.dart';
 
 import 'package:rent_n_rooms/search_card.dart';
 
+import '../myFadeLogo.dart';
+
 class RoomsListPage extends StatelessWidget {
   final Color mainColor = Color(0xFF006BB1);
   final Color mainColorMiddle = Color(0xFF2195C6);
@@ -56,7 +58,7 @@ class RoomsListPage extends StatelessWidget {
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: CircularProgressIndicator(),
+                child: MyFadeLogo(),
               ),
             );
           }
