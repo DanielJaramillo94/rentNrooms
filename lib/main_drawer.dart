@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rent_n_rooms/booking/modalBooking.dart';
 
 class MainDrawer extends StatelessWidget {
   final Color mainColor = Color(0xFF006BB1);
@@ -18,7 +17,7 @@ class MainDrawer extends StatelessWidget {
         children: <Widget>[
           Container(
             width: double.infinity,
-            padding: EdgeInsets.all(10),
+            padding: EdgeInsets.only(top:30, right: 10, left: 10, bottom: 10),
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.bottomCenter,
@@ -44,28 +43,34 @@ class MainDrawer extends StatelessWidget {
                               fit: BoxFit.fill),
                         ),
                       ),
-                      Container(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Text(email,
-                                style: TextStyle(
-                                  fontFamily: 'Cocogoose',
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w200,
-                                  color: Colors.white,
-                                )),
-                            SizedBox(
-                              height: 3,
-                            ),
-                            Text(name,
-                                style: TextStyle(
-                                  fontFamily: 'Cocogoose',
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w200,
-                                  color: Colors.white,
-                                ))
-                          ],
+                      Flexible(
+                        child: Container(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(email,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontFamily: 'Cocogoose',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.white,
+                                  )),
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Text(name,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 1,
+                                  style: TextStyle(
+                                    fontFamily: 'Cocogoose',
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w200,
+                                    color: Colors.white,
+                                  ))
+                            ],
+                          ),
                         ),
                       )
                     ],
