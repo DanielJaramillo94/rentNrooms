@@ -18,6 +18,7 @@ class _MyFadeLogoState extends State<MyFadeLogo> {
 
   changeOpacity() {
     Future.delayed(Duration(milliseconds: 600), () {
+      if (!mounted) return;
       setState(() {
         opacity = opacity == 0.3 ? 0.1 : 0.3;
         changeOpacity();
