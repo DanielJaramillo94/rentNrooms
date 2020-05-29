@@ -30,7 +30,6 @@ class RoomsCardsRepository {
         RoomCard roomCard;
         //try statement because this could cause error due to malformations in json response
         try {
-          debugPrint('processing card...');
           roomCard = RoomCard.fromJSON(roomData);
         } catch (e) {
           log('error decoding json data in api endpoint -> ' + url);

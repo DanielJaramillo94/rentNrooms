@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/models/place.model.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
+import 'package:rent_n_rooms/services.builder.dart';
 
 class PlaceDetails extends StatelessWidget {
   final Color mainColor = Color(0xFF006BB1);
@@ -130,7 +131,7 @@ class PlaceDetails extends StatelessWidget {
                         ],
                       ),
                       Divider(height: 10.0, thickness: 2),
-                      ServicesWidget(),
+                      ServicesBuilder(servicesList: snapshot.data.getServices()),
                       Divider(height: 10.0, thickness: 2),
                       SizedBox(height: 12.0),
                       Container(
@@ -205,175 +206,6 @@ class Rating extends StatelessWidget {
           color: Colors.yellow[500],
         ),
       ],
-    );
-  }
-}
-
-class ServicesWidget extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Material(
-                  elevation: 2,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Icon(
-                      Icons.wifi,
-                      color: Color.fromRGBO(0, 0, 0, 0.6),
-                    ),
-                  ),
-                ),
-              ),
-              Text(
-                'wi-fi',
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'Cocogoose',
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(0, 0, 0, 0.6)),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Material(
-                  elevation: 2,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Icon(
-                      Icons.ac_unit,
-                      color: Color.fromRGBO(0, 0, 0, 0.6),
-                    ),
-                  ),
-                ),
-              ),
-              Text(
-                'aire',
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'Cocogoose',
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(0, 0, 0, 0.6)),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Material(
-                  elevation: 2,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Icon(
-                      Icons.local_parking,
-                      color: Color.fromRGBO(0, 0, 0, 0.6),
-                    ),
-                  ),
-                ),
-              ),
-              Text(
-                'parking',
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'Cocogoose',
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(0, 0, 0, 0.6)),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Material(
-                  elevation: 2,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Icon(
-                      Icons.kitchen,
-                      color: Color.fromRGBO(0, 0, 0, 0.6),
-                    ),
-                  ),
-                ),
-              ),
-              Text(
-                'cocina',
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'Cocogoose',
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(0, 0, 0, 0.6)),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Material(
-                  elevation: 2,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Icon(
-                      Icons.pool,
-                      color: Color.fromRGBO(0, 0, 0, 0.6),
-                    ),
-                  ),
-                ),
-              ),
-              Text(
-                'piscina',
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'Cocogoose',
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(0, 0, 0, 0.6)),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Material(
-                  elevation: 2,
-                  borderRadius: BorderRadius.circular(30.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12.0),
-                    child: Icon(
-                      Icons.fitness_center,
-                      color: Color.fromRGBO(0, 0, 0, 0.6),
-                    ),
-                  ),
-                ),
-              ),
-              Text(
-                'gimnasio',
-                style: TextStyle(
-                    fontSize: 10,
-                    fontFamily: 'Cocogoose',
-                    fontWeight: FontWeight.w700,
-                    color: Color.fromRGBO(0, 0, 0, 0.6)),
-              )
-            ],
-          ),
-        ],
-      ),
     );
   }
 }
