@@ -9,6 +9,8 @@ import 'package:rent_n_rooms/providers/city.provider.dart';
 import 'package:rent_n_rooms/providers/date_picker.provider.dart';
 import 'package:rent_n_rooms/providers/home_cards.provider.dart';
 
+import 'main_drawer.dart';
+
 Color mainColor = Color(0xFF006BB1);
 Color mainColorMiddle = Color(0xFF2195C6);
 Color mainColorLighter = Color(0xFF42BEBD);
@@ -19,9 +21,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       body: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
@@ -105,6 +111,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
+                  Positioned(
+                    left: 10,
+                    top: 20,
+                    child: IconButton(
+                      icon: Icon(Icons.menu, color: Colors.white, size: 27),
+                      onPressed: () => scaffoldKey.currentState.openDrawer(),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -166,7 +180,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      drawer: Drawer(),
+      drawer: MainDrawer(),
     );
   }
 }
