@@ -25,7 +25,7 @@ class DatePicker {
   }
 
   String checkoutYYYYMMDD(){
-    return this._dateToYYYMMDDFormat(checkin);
+    return this._dateToYYYMMDDFormat(checkout);
   }
 
   String _dateToYYYMMDDFormat(DateTime date){

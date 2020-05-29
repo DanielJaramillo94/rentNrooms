@@ -74,44 +74,53 @@ class ApiService {
 
   // ❗ Hopefully we could entirely refactor this service later
   // ⚠️ temporally ⚠️ For using the fake enpoints, do next:
-  // ⚠️ comment lines from 81 to 84 and 95
-  // ⚠️ uncomment lines from 85 to 87 and 96
+  // ⚠️ line 81: change processEnv variable from 'prod' to 'dev'
+  // ⚠️ toogle apiUrls variable from the real ones to the fake ones
+  static String processEnv = 'prod';
 
-  static List<String> apiUrls =  [
+  static Map<String, String> apiUrls = {
     // 'http://ec2-34-195-214-219.compute-1.amazonaws.com:8000',
-    'https://0kaup1m6dg.execute-api.us-east-1.amazonaws.com/prod',
+    'Lambda Team': 'https://0kaup1m6dg.execute-api.us-east-1.amazonaws.com/prod',
     // 'http://ec2-13-58-217-208.us-east-2.compute.amazonaws.com/api',
     // 'http://ec2-18-188-220-151.us-east-2.compute.amazonaws.com/',
-    // 'https://next.json-generator.com/api/json/get/EJI3axNsd',
-    // 'https://next.json-generator.com/api/json/get/41yh2gEsd',
-    // 'https://next.json-generator.com/api/json/get/NyXqvgEj_',
-    ];
+  };
+
+  // static Map<String, String> apiUrls = {
+  //   'Agency1': 'https://next.json-generator.com/api/json/get/EJI3axNsd',
+  //   'Agency2': 'https://next.json-generator.com/api/json/get/41yh2gEsd',
+  //   'Agency3': 'https://next.json-generator.com/api/json/get/NyXqvgEj_',
+  // };
 
   static List<String> getApiUrls() {
-    return apiUrls;
+    List<String> apiUrlsList = new List();
+    apiUrls.forEach((key, value) => apiUrlsList.add(value));
+    return apiUrlsList;
   }
 
   static List<String> searchEndPoints(String codeCity, String checkin, String checkout) {
-    String searchUrl =  '/rooms/search?location=$codeCity&checkin=$checkin&checkout=$checkout';
-    // String searchUrl =  '';
-    return  getApiUrls().map((url) => url+searchUrl).toList();
-  }
-  static String detailsEndPoint(String agencyName, String id) {
-    String details = '/rooms/$id';
-    String api = '';
-    switch (agencyName) {
-      case 'Arrendamientos njs':
-        api = api3NodeJs;
-        break;
-      case 'Python':
-        api = api1Python;
-        break;
-      case 'Lambda Team':
-        api = api2Lambda;
-        break;
-      default:
-        api = '';
+    String searchUrl;
+    if (processEnv == 'dev') {
+      searchUrl = '';
+    } else {
+      searchUrl = '/rooms/search?location=$codeCity&checkin=$checkin&checkout=$checkout';
     }
-    return api+details;
+    List<String> returnList = getApiUrls().map((url) => url+searchUrl).toList();
+    return returnList;
+  }
+
+  static String getAgencyEndPoint(String agencyName) {
+    return apiUrls[agencyName];
+  }
+
+  static String detailsEndPoint(String agencyName, String id) {
+    String detailsUrl;
+    if (processEnv == 'dev') {
+      //siempre es la misma url para las pruebas. Usar cualquiera de las dos siguientes.
+      // return 'https://next.json-generator.com/api/json/get/4y66UeHo_';
+      return 'https://next.json-generator.com/api/json/get/NyuzrZwoO';
+    } else {
+      detailsUrl = '/rooms/$id';
+    }
+    return getAgencyEndPoint(agencyName) + detailsUrl;
   }
 }
