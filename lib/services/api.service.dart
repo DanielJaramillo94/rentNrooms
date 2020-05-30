@@ -74,7 +74,7 @@ class ApiService {
 
   // ❗ Hopefully we could entirely refactor this service later
   // ⚠️ temporally ⚠️ For using the fake enpoints, do next:
-  // ⚠️ line 81: change processEnv variable from 'prod' to 'dev'
+  // ⚠️ change processEnv variable from 'prod' to 'dev'
   // ⚠️ toogle apiUrls variable from the real ones to the fake ones
   static String processEnv = 'prod';
 

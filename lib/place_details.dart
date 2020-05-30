@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/models/place.model.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
+import 'package:rent_n_rooms/rating.builder.dart';
 import 'package:rent_n_rooms/services.builder.dart';
 
 class PlaceDetails extends StatelessWidget {
@@ -117,7 +118,7 @@ class PlaceDetails extends StatelessWidget {
                         ],
                       ),
                       SizedBox(height: 5),
-                      Rating(),
+                      RatingBuilder(rating: snapshot.data.getRating()),
                       SizedBox(height: 15),
                       Column(
                         children: <Widget>[
@@ -167,45 +168,6 @@ class PlaceDetails extends StatelessWidget {
           }
         },
       ),
-    );
-  }
-}
-
-class Rating extends StatelessWidget {
-  const Rating({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Icon(
-          Icons.star,
-          size: 20,
-          color: Colors.yellow[500],
-        ),
-        Icon(
-          Icons.star,
-          size: 20,
-          color: Colors.yellow[500],
-        ),
-        Icon(
-          Icons.star,
-          size: 20,
-          color: Colors.yellow[500],
-        ),
-        Icon(
-          Icons.star,
-          size: 20,
-          color: Colors.yellow[500],
-        ),
-        Icon(
-          Icons.star,
-          size: 20,
-          color: Colors.yellow[500],
-        ),
-      ],
     );
   }
 }
