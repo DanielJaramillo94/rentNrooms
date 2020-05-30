@@ -1,3 +1,5 @@
+import 'package:flutter/cupertino.dart';
+
 class Place {
   final String _picture;
   final List<String> _photos;
@@ -24,20 +26,41 @@ class Place {
   );
 
   factory Place.fromJSON(Map jsonRoom) {
-    String id = jsonRoom['id'].toString();
-    List _images = jsonRoom['images']; //this is List<dynamic> type
-    List<String> images = _images.map((image) => image['url']).toList().cast<String>();
-    String location = jsonRoom['location']['name'];
-    double price = jsonRoom['price'].toDouble();
-    // String currency = jsonRoom['currency']; currency is currently unused
-    String agency = jsonRoom['agency']['name'];
-    String roomName = jsonRoom['property_name'];
-    double rating = jsonRoom['rating'].toDouble();
-    List<String> services = jsonRoom['services'].cast<String>();
+    String id;
+    List<String> images;
+    String location;
+    double price;
+    String agency;
+    String roomName;
+    double rating;
+    List<String> services;
+    try {
+      id = jsonRoom['id'].toString();
+      List _images = jsonRoom['images']; //this is List<dynamic> type
+      images = _images.map((image) => image['url']).toList().cast<String>();
+      location = jsonRoom['location']['name'];
+      price = jsonRoom['price'].toDouble();
+      // String currency = jsonRoom['currency']; currency is currently unused
+      agency = jsonRoom['agency']['name'];
+      roomName = jsonRoom['property_name'];
+      rating = jsonRoom['rating'].toDouble();
+      services = new List();
+      List _services = jsonRoom['services'];
+      _services.forEach((service) => (services.add(service)));
+    } catch (e) {
+      debugPrint('error parsing json data');
+      debugPrint(e.toString());
+      return new Place.error();
+    }
 
-    return Place(
-        images[0], roomName, location, price, '', rating, services, id, agency, images);
+    return Place(images[0], roomName, location, price, '', rating, services, id,
+        agency, images);
   }
+  factory Place.error() {
+    return Place('', 'error', 'error', 0, 'error', 0, null, 'error',
+        'error');
+  }
+
 
   String getPicture() {
     return this._picture;

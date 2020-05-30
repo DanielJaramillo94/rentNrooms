@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/error.page.dart';
 import 'package:rent_n_rooms/models/place.model.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
 import 'package:rent_n_rooms/rating.builder.dart';
@@ -34,7 +35,10 @@ class PlaceDetails extends StatelessWidget {
       body: FutureBuilder<Place>(
         future: place,
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.hasData && snapshot.data.getPlaceName() == 'error') {
+            return ErrorPage();
+          }
+          else if (snapshot.hasData) {
             String price = placeProv.formatPrice(snapshot.data.getNightPrice());
             return SafeArea(
               child: Column(

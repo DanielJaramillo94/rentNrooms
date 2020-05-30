@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:rent_n_rooms/models/room_card.model.dart';
@@ -21,7 +19,7 @@ class RoomsCardsRepository {
       try {
         apiRoomsData = json.decode(response.body);
       } catch (e) {
-        log('error in api endpoint -> ' + url);
+        debugPrint('error in api endpoint -> ' + url);
         debugPrint(e.toString());
         continue;
       }
@@ -32,7 +30,7 @@ class RoomsCardsRepository {
         try {
           roomCard = RoomCard.fromJSON(roomData);
         } catch (e) {
-          log('error decoding json data in api endpoint -> ' + url);
+          debugPrint('error decoding json data in api endpoint -> ' + url);
           debugPrint(e.toString());
           return;
         }
