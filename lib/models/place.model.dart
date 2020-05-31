@@ -11,6 +11,7 @@ class Place {
   final List<String> _services;
   final String _idRoom;
   final String _agency;
+  final String _logoUrl;
 
   Place(
     this._picture,
@@ -22,6 +23,7 @@ class Place {
     this._services,
     this._idRoom,
     this._agency,
+    this._logoUrl,
     [this._photos]
   );
 
@@ -32,16 +34,19 @@ class Place {
     double price;
     String agency;
     String roomName;
+    String logo;
     double rating;
     List<String> services;
     try {
       id = jsonRoom['id'].toString();
       List _images = jsonRoom['images']; //this is List<dynamic> type
       images = _images.map((image) => image['url']).toList().cast<String>();
+      logo = jsonRoom['agency']['logo_url'];
       location = jsonRoom['location']['name'];
       price = jsonRoom['price'].toDouble();
       // String currency = jsonRoom['currency']; currency is currently unused
       agency = jsonRoom['agency']['name'];
+
       roomName = jsonRoom['property_name'];
       rating = jsonRoom['rating'].toDouble();
       services = new List();
@@ -54,11 +59,11 @@ class Place {
     }
 
     return Place(images[0], roomName, location, price, '', rating, services, id,
-        agency, images);
+        agency, logo, images);
   }
   factory Place.error() {
     return Place('', 'error', 'error', 0, 'error', 0, null, 'error',
-        'error');
+        'error', 'error');
   }
 
 
@@ -100,5 +105,9 @@ class Place {
 
     String getAgency() {
     return this._agency;
+  }
+
+  String getLogo() {
+    return this._logoUrl;
   }
 }

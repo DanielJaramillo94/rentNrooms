@@ -136,9 +136,48 @@ class PlaceDetails extends StatelessWidget {
                         ],
                       ),
                       Divider(height: 10.0, thickness: 2),
-                      ServicesBuilder(servicesList: snapshot.data.getServices()),
+                      ServicesBuilder(
+                          servicesList: snapshot.data.getServices()),
                       Divider(height: 10.0, thickness: 2),
                       SizedBox(height: 12.0),
+                      Container(
+                        child: Column(
+                          children: <Widget>[
+                            Text('Agencia a cargo: ',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: 'Cocogoose',
+                                    fontWeight: FontWeight.w400,
+                                    color: Color.fromRGBO(0, 0, 0, 0.5))),
+                            SizedBox(height: 5),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  height: 70,
+                                  width: 70,
+                                  child: Column(children: <Widget>[
+                                    Container(
+                                        padding: EdgeInsets.all(10),
+                                        child: Image(
+                                          image: NetworkImage(
+                                              snapshot.data.getLogo()),
+                                        )),
+                                  ]),
+                                ),
+                                Expanded(
+                                  child: Text(snapshot.data.getAgency(),
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontFamily: 'Cocogoose',
+                                          fontWeight: FontWeight.w300,
+                                          color: Color.fromRGBO(0, 0, 0, 0.4))),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
                       Container(
                           width: double.infinity,
                           padding: EdgeInsets.only(
