@@ -1,3 +1,4 @@
+import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -47,19 +48,18 @@ class PlaceDetails extends StatelessWidget {
                       child: ListView(
                     padding: EdgeInsets.only(left: 20, right: 20),
                     children: <Widget>[
-                      AspectRatio(
-                        aspectRatio: 2 / 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.blueAccent,
-                            image: DecorationImage(
-                                image: NetworkImage(snapshot.data.getPicture()),
-                                fit: BoxFit.cover),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(8.0),
-                              bottomRight: Radius.circular(8.0),
-                            ),
-                          ),
+                      SizedBox(
+                        height: 250,
+                        width: 250,
+                        child: Carousel(
+                          boxFit: BoxFit.cover,
+                          images: snapshot.data.getPhotos().map((imgURL) => NetworkImage(imgURL)).toList(),
+                          dotSize: 6.0,
+                          autoplay: false,
+                          indicatorBgPadding: 10.0,
+                          dotIncreasedColor: mainColorLighter,
+                          animationCurve: Curves.fastOutSlowIn,
+                          animationDuration: Duration(milliseconds: 1000),
                         ),
                       ),
                       SizedBox(height: 15),
