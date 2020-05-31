@@ -151,7 +151,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           SliverGrid.count(
             crossAxisCount: 2,
-            children: List.generate(6, (index) {
+            children: List.generate(4, (index) {
               var homeCardsProv = Provider.of<HomeCardsProvider>(context);
               Future<List<HomeCard>> homeCards = homeCardsProv.getHomeCards();
               return FutureBuilder<List<HomeCard>>(
@@ -162,8 +162,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Padding(
                         padding: const EdgeInsets.all(7.0),
                         child: HomeCardBuilder(
-                          imgURL: snapshot.data[index % 3].getImgUrl(),
-                          location: snapshot.data[index % 3].getLocation(),
+                          imgURL: snapshot.data[index % 4].getImgUrl(),
+                          location: snapshot.data[index % 4].getLocation(),
                         ),
                       ),
                     );

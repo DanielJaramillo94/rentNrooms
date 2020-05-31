@@ -16,6 +16,24 @@ class ApiService {
     *******************************  */
   }
 
+    static List<String> searchEndPointLambda() {
+    String checkin = DateTime.now().toString().split(" ")[0];
+    String checkout = DateTime.now().add(Duration(days: 365)).toString().split(" ")[0];
+      
+    String searchMDE =  '/rooms/search?location=MDE&checkin=$checkin&checkout=$checkout';
+    String searchBOG =  '/rooms/search?location=BOG&checkin=$checkin&checkout=$checkout';
+    String searchCLO =  '/rooms/search?location=CLO&checkin=$checkin&checkout=$checkout';
+    String searchBAQ =  '/rooms/search?location=BAQ&checkin=$checkin&checkout=$checkout';
+
+    List<String> urls = [];
+    urls.add(api2Lambda + searchMDE);
+    urls.add(api2Lambda + searchBOG);
+    urls.add(api2Lambda + searchCLO);
+    urls.add(api2Lambda + searchBAQ);
+
+    return urls;
+  }
+
     static List searchAllEndPoint(String codeCity, String checkin, String checkout) {
       String search =  '/rooms/search?location=$codeCity&checkin=$checkin&checkout=$checkout';
       List urls = [];

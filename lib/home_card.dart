@@ -21,7 +21,7 @@ class HomeCardBuilder extends StatelessWidget {
           decoration: BoxDecoration(
               image: DecorationImage(
                   image:
-                      AssetImage(imgURL),
+                      NetworkImage(imgURL),
                   fit: BoxFit.cover),
               borderRadius: BorderRadius.circular(radius)),
         ),
