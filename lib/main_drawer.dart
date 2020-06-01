@@ -11,7 +11,7 @@ class MainDrawer extends StatelessWidget {
   final name = 'Fulatino Rent Rooms';
 
   @override
-  Widget build(BuildContext conrtext) {
+  Widget build(BuildContext context) {
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -84,13 +84,18 @@ class MainDrawer extends StatelessWidget {
               Icons.book,
               size: 25,
             ),
-            title: Text('Mis reservas',
-                style: TextStyle(
-                  fontFamily: 'Cocogoose',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w200,
-                  color: Color.fromRGBO(77, 77, 77, 1),
-                )),
+            title: InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed('/bookings_list');
+              },
+              child: Text('Mis reservas',
+                  style: TextStyle(
+                    fontFamily: 'Cocogoose',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w200,
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                  )),
+            ),
           ),
           ListTile(
             leading: Icon(

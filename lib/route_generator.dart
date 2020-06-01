@@ -4,6 +4,7 @@ import 'package:rent_n_rooms/home.page.dart';
 import 'package:rent_n_rooms/booking/booking.dart';
 import 'package:rent_n_rooms/place_details.dart';
 import 'package:rent_n_rooms/date.dart';
+import 'package:rent_n_rooms/views/bookings_list.page.dart';
 import 'package:rent_n_rooms/views/rooms_list.page.dart';
 
 
@@ -25,6 +26,9 @@ class RouteGenerator {
         break;
       case '/date':
         return MaterialPageRoute(builder: (_) => Date());
+        break;
+      case '/bookings_list':
+        return MaterialPageRoute(builder: (_) => BookingsListPage());
         break;
       default:
         return MaterialPageRoute(builder: (_) => MyHomePage());
