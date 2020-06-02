@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/book_card.builder.dart';
-import 'package:rent_n_rooms/models/room_card.model.dart';
-import 'package:rent_n_rooms/providers/rooms_list.provider.dart';
+import 'package:rent_n_rooms/models/bookingg.model.dart';
+import 'package:rent_n_rooms/providers/bookings_list.provider.dart';
 
 import '../myFadeLogo.dart';
 
@@ -13,10 +13,10 @@ class BookingsListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    RoomsCardsProvider roomsCardsProvider =
-        Provider.of<RoomsCardsProvider>(context);
-    Future<List<RoomCard>> roomsCards =
-        roomsCardsProvider.fetchRoomsCards(context);
+    BookingsListProvider bookingsListProvider =
+        Provider.of<BookingsListProvider>(context);
+    Future<List<Bookingg>> bookingsList =
+        bookingsListProvider.fetchBookings(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,16 +32,17 @@ class BookingsListPage extends StatelessWidget {
         ),
         backgroundColor: mainColorLighter,
       ),
-      body: FutureBuilder<List<RoomCard>>(
-        future: roomsCards,
+      body: FutureBuilder<List<Bookingg>>(
+        future: bookingsList,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            List<Bookingg> bookings = snapshot.data;
             return ListView.builder(
-              itemCount: 3,
+              itemCount: bookings.length,
               itemBuilder: (BuildContext context, int index) {
                 return Padding(
                   padding: EdgeInsets.all(10),
-                  child: BookingCardBuilder(),
+                  child: BookingCardBuilder(booking: bookings[index]),
                 );
               },
             );

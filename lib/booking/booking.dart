@@ -13,6 +13,10 @@ class Booking extends StatelessWidget {
   final Color mainColorMiddle = Color(0xFF2195C6);
   final Color mainColorLighter = Color(0xFF42BEBD);
 
+  final String pageCameFrom;
+
+  Booking(this.pageCameFrom);
+
   @override
   Widget build(BuildContext context) {
     final booking = Provider.of<BookingProvider>(context, listen: false);
@@ -355,7 +359,7 @@ class Booking extends StatelessWidget {
   }
 
   void back(context, bk){
-    if (bk.getBooking().getIdBooking().length != 0) {
+    if (bk.getBooking().getIdBooking().length != 0 && pageCameFrom == 'place_details') {
       bk.resetBookingId();
       Navigator.pop(context);
       Navigator.pop(context);

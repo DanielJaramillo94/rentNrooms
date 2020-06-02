@@ -97,8 +97,8 @@ class ApiService {
   static String processEnv = 'prod';
 
   static Map<String, String> apiUrls = {
-    // 'Python': 'http://ec2-34-195-214-219.compute-1.amazonaws.com:8000',
-    'Lambda Team': 'https://0kaup1m6dg.execute-api.us-east-1.amazonaws.com/prod',
+    'Python': 'http://ec2-34-195-214-219.compute-1.amazonaws.com:8000',
+    // 'Lambda Team': 'https://0kaup1m6dg.execute-api.us-east-1.amazonaws.com/prod',
     // 'Arrendamientos njs': 'http://ec2-13-58-217-208.us-east-2.compute.amazonaws.com/api',
     // 'Scala': 'http://ec2-18-188-220-151.us-east-2.compute.amazonaws.com/',
   };
@@ -144,5 +144,20 @@ class ApiService {
     } catch (e) {
       return '' + detailsUrl;
     }
+  }
+  
+  static List<String> bookings(String email) {
+    String bookingsUrl;
+    if (processEnv == 'dev') {
+      return [
+        'https://next.json-generator.com/api/json/get/41s1fPpod',
+        // 'https://next.json-generator.com/api/json/get/41s1fPpod'
+      ];
+    } else {
+      bookingsUrl = '/rooms/booking/$email';
+    }
+    List<String> returnList =
+        getApiUrls().map((url) => url + bookingsUrl).toList();
+    return returnList;
   }
 }

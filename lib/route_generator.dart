@@ -16,7 +16,7 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => MyHomePage());
         break;
       case '/booking':
-        return MaterialPageRoute(builder: (_) => Booking());
+        return MaterialPageRoute(builder: (_) => Booking(settings.arguments));
         break;
       case '/place_details':
         return MaterialPageRoute(builder: (_) => PlaceDetails(settings.arguments));

@@ -1,21 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/models/bookingg.model.dart';
+import 'package:rent_n_rooms/models/place.model.dart';
+import 'package:rent_n_rooms/providers/booking.provider.dart';
+import 'package:rent_n_rooms/providers/date_picker.provider.dart';
+import 'package:rent_n_rooms/providers/place.provider.dart';
 
 class BookingCardBuilder extends StatelessWidget {
   BookingCardBuilder({
     Key key,
+    @required this.booking,
   }) : super(key: key);
 
+  final Bookingg booking;
   final double radius = 8.0;
 
   @override
   Widget build(BuildContext context) {
-    String thumbnailUrl =
-        'https://indaily.com.au/wp-content/uploads/2019/04/Screen-Shot-2019-04-12-at-8.04.06-am-850x455.png';
     return Material(
       borderRadius: BorderRadius.circular(radius),
       elevation: 5,
       child: InkWell(
-        onTap: () {
+        onTap: () async {
+          final bookingProvider = Provider.of<BookingProvider>(context, listen: false);
+          bookingProvider.updateBooking('Daniel', 'Jaramillo', booking.getIdRoom(), booking.getIdBooking());
+
+          final datesProvider = Provider.of<DateProvider>(context, listen: false);
+          DateTime checkin = DateTime.parse(booking.getCheckin());
+          DateTime checkout = DateTime.parse(booking.getCheckout());
+          datesProvider.updateDate(checkin, checkout);
+
+          final roomProvider = Provider.of<PlaceProvider>(context, listen: false);
+          Place room = await roomProvider.fetchRoom(booking.getAgency(), booking.getIdRoom());
+          roomProvider.setRoom(room);
+
+          Navigator.of(context).pushNamed('/booking', arguments: 'bookings_list');
         },
         child: Container(
           padding: const EdgeInsets.all(16.0),
@@ -27,7 +46,7 @@ class BookingCardBuilder extends StatelessWidget {
                 height: 100,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: NetworkImage(thumbnailUrl), fit: BoxFit.cover),
+                        image: NetworkImage(booking.getThumbnail()), fit: BoxFit.cover),
                     borderRadius: BorderRadius.circular(radius)),
               ),
               Expanded(
@@ -40,7 +59,7 @@ class BookingCardBuilder extends StatelessWidget {
                           Container(
                             alignment: Alignment.topRight,
                             child: Text(
-                              'PlaceName That is quite long',
+                              booking.getRoomName(),
                               style: TextStyle(
                                 fontSize: 18,
                                 fontFamily: 'Cocogoose',
@@ -52,7 +71,7 @@ class BookingCardBuilder extends StatelessWidget {
                           Container(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Medellín',
+                              booking.getLocation(),
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
                                 fontSize: 13,
@@ -65,7 +84,7 @@ class BookingCardBuilder extends StatelessWidget {
                           Container(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Entrada: 2020-05-06',
+                              'Entrada: ${booking.getCheckin()}',
                               style: TextStyle(
                                   fontSize: 13,
                                   color: Color.fromRGBO(0, 0, 0, 0.6)),
@@ -74,7 +93,7 @@ class BookingCardBuilder extends StatelessWidget {
                           Container(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Salida: 2020-05-10',
+                              'Entrada: ${booking.getCheckout()}',
                               style: TextStyle(
                                   fontSize: 13,
                                   color: Color.fromRGBO(0, 0, 0, 0.6)),
@@ -84,7 +103,7 @@ class BookingCardBuilder extends StatelessWidget {
                           Container(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              '\$500',
+                              '\$${booking.getPrice()}',
                               style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,

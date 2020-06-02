@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rent_n_rooms/providers/bookings_list.provider.dart';
 import 'package:rent_n_rooms/providers/city.provider.dart';
 import 'package:rent_n_rooms/providers/rooms_list.provider.dart';
 
@@ -36,6 +37,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<CityProvider>.value(
           value: CityProvider(),
+        ),
+        ChangeNotifierProvider<BookingsListProvider>.value(
+          value: BookingsListProvider(),
         )
       ],
       child: MaterialApp(
