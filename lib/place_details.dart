@@ -14,7 +14,7 @@ class PlaceDetails extends StatelessWidget {
   final Color mainColor = Color(0xFF006BB1);
   final Color mainColorMiddle = Color(0xFF2195C6);
   final Color mainColorLighter = Color(0xFF42BEBD);
-  final formatter = new NumberFormat.simpleCurrency();
+  final formatter = new NumberFormat.simpleCurrency(decimalDigits: 0);
 
 
   final placeName;

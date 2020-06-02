@@ -23,7 +23,7 @@ class Booking extends StatelessWidget {
     final booking = Provider.of<BookingProvider>(context, listen: false);
     final dates = Provider.of<DateProvider>(context, listen: false);
     final room = Provider.of<PlaceProvider>(context, listen: false);
-    final formatter = new NumberFormat.simpleCurrency();
+    final formatter = new NumberFormat.simpleCurrency(decimalDigits: 0);
     String price = formatter.format(room.getRoom().getNightPrice().toInt());
     String total = formatter.format(
         dates.getDates().checkout.difference(dates.getDates().checkin).inDays *

@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'models/place.model.dart';
 import 'providers/place.provider.dart';
 
 class SearchCardBuilder extends StatelessWidget {
+
+  final formatter = new NumberFormat.simpleCurrency(decimalDigits: 0);
+
   SearchCardBuilder({
     Key key,
     @required this.imgURL,
@@ -127,7 +131,7 @@ class SearchCardBuilder extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '\$$price por noche',
+                        '${formatter.format(price)} por noche',
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,

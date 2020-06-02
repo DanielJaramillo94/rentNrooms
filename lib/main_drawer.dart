@@ -36,11 +36,15 @@ class MainDrawer extends StatelessWidget {
                         height: 60,
                         width: 60,
                         alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              image: NetworkImage(urlProfileImg),
-                              fit: BoxFit.fill),
+                        child: ClipOval(
+                          child: FadeInImage(
+                            fit: BoxFit.fill,
+                            height: 50,
+                            width: 50,
+                            placeholder:
+                                AssetImage('assets/images/LogotipoGray.png'),
+                            image: NetworkImage(urlProfileImg),
+                          ),
                         ),
                       ),
                       Flexible(
@@ -48,17 +52,25 @@ class MainDrawer extends StatelessWidget {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              Text(email,
-                                  overflow: TextOverflow.ellipsis,
-                                  maxLines: 1,
+                              RichText(
+                                text: TextSpan(
                                   style: TextStyle(
-                                    fontFamily: 'Cocogoose',
                                     fontSize: 13,
                                     fontWeight: FontWeight.w200,
                                     color: Colors.white,
-                                  )),
+                                  ),
+                                  children: <TextSpan>[
+                                    TextSpan(text: emailPart(email)['nameEmail'], style: TextStyle(fontFamily: 'Cocogoose')),
+                                    TextSpan(
+                                        text: '@',
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    TextSpan(text: emailPart(email)['domainEmail'], style: TextStyle(fontFamily: 'Cocogoose')),
+                                  ],
+                                ),
+                              ),
                               SizedBox(
-                                height: 3,
+                                height: 5,
                               ),
                               Text(name,
                                   overflow: TextOverflow.ellipsis,
@@ -126,5 +138,12 @@ class MainDrawer extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Map emailPart(String email) {
+    List<String> emailpart = email.split('@');
+    String nameEmail = emailpart[0];
+    String domainEmail = emailpart[1];
+    return {'nameEmail': nameEmail, 'domainEmail': domainEmail};
   }
 }

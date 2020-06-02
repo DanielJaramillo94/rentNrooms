@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/models/bookingg.model.dart';
 import 'package:rent_n_rooms/models/place.model.dart';
@@ -14,6 +15,7 @@ class BookingCardBuilder extends StatelessWidget {
 
   final Bookingg booking;
   final double radius = 8.0;
+  final formatter = new NumberFormat.simpleCurrency(decimalDigits: 0);
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +43,26 @@ class BookingCardBuilder extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(booking.getThumbnail()), fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(radius)),
+              Stack(
+                children: <Widget>[
+                  Container(
+                    width: 100,
+                    height: 100,
+                    child: Image(
+                       image: AssetImage('assets/images/LogotipoGray.png'),
+   
+                    ),
+                  ),
+                  Container(
+                    width: 100,
+                    height: 100,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(booking.getThumbnail()),
+                            fit: BoxFit.cover),
+                        borderRadius: BorderRadius.circular(radius)),
+                  )
+                ],
               ),
               Expanded(
                 child: Container(
@@ -103,7 +118,7 @@ class BookingCardBuilder extends StatelessWidget {
                           Container(
                             alignment: Alignment.centerRight,
                             child: Text(
-                              '\$${booking.getPrice()}',
+                              '${formatter.format(booking.getPrice())}',
                               style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
