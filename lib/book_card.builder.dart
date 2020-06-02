@@ -93,7 +93,7 @@ class BookingCardBuilder extends StatelessWidget {
                           Container(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              'Entrada: ${booking.getCheckout()}',
+                              'Salida: ${booking.getCheckout()}',
                               style: TextStyle(
                                   fontSize: 13,
                                   color: Color.fromRGBO(0, 0, 0, 0.6)),
