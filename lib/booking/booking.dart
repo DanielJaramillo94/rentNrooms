@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
@@ -22,27 +23,28 @@ class Booking extends StatelessWidget {
     final booking = Provider.of<BookingProvider>(context, listen: false);
     final dates = Provider.of<DateProvider>(context, listen: false);
     final room = Provider.of<PlaceProvider>(context, listen: false);
-    String price = room.formatPrice(room.getRoom().getNightPrice());
-    String total = room.formatPrice(
+    final formatter = new NumberFormat.simpleCurrency();
+    String price = formatter.format(room.getRoom().getNightPrice().toInt());
+    String total = formatter.format(
         dates.getDates().checkout.difference(dates.getDates().checkin).inDays *
-            room.getRoom().getNightPrice());
+            room.getRoom().getNightPrice()).toString();
 
     return WillPopScope(
-      onWillPop: (){
-         back(context, booking);
+      onWillPop: () {
+        back(context, booking);
       },
-          child: Scaffold(
+      child: Scaffold(
           appBar: AppBar(
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () {
-                back(context, booking);                
+                back(context, booking);
               },
             ),
             title: Text(
               'Información de reserva',
-              style:
-                  TextStyle(fontFamily: 'Cocogoose', fontWeight: FontWeight.w200),
+              style: TextStyle(
+                  fontFamily: 'Cocogoose', fontWeight: FontWeight.w200),
             ),
             backgroundColor: mainColorLighter,
           ),
@@ -125,7 +127,7 @@ class Booking extends StatelessWidget {
                                     Container(
                                       padding: EdgeInsets.only(),
                                       child: Text(
-                                        '\$$price COP',
+                                        '$price COP',
                                         style: TextStyle(
                                             fontSize: 15,
                                             color: Color.fromRGBO(0, 0, 0, 0.6)),
@@ -281,6 +283,53 @@ class Booking extends StatelessWidget {
                         ],
                       )),
                   Divider(height: 10.0, thickness: 2),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Text('Agencia: ',
+                          style: TextStyle(
+                              fontSize: 14,
+                              fontFamily: 'Cocogoose',
+                              fontWeight: FontWeight.w400,
+                              color: Color.fromRGBO(0, 0, 0, 0.7))),
+                      SizedBox(height: 5),
+                      Expanded(
+                                              child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              child: Column(children: <Widget>[
+                                Container(
+                                  height: 70,
+                                  width: 70,
+                                  padding: EdgeInsets.all(10),
+                                  child: ClipOval(
+                                    child: FadeInImage(
+                                      placeholder: AssetImage(
+                                          'assets/images/LogotipoGray.png'),
+                                      image:
+                                          NetworkImage(room.getRoom().getLogo()),
+                                    ),
+                                  ),
+                                ),
+                              ]),
+                            ),
+                            Container(
+                              child: Text(room.getRoom().getAgency(),
+                                  style: TextStyle(
+                                      fontSize: 15,
+                                      fontFamily: 'Cocogoose',
+                                      fontWeight: FontWeight.w300,
+                                      color: Color.fromRGBO(0, 0, 0, 0.4))),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Divider(height: 10.0, thickness: 2),
                   Container(
                       child: Column(
                     children: <Widget>[
@@ -289,12 +338,12 @@ class Booking extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Text(
-                              '${dates.getDates().checkout.difference(dates.getDates().checkin).inDays.toString()} X \$$price',
+                              '${dates.getDates().checkout.difference(dates.getDates().checkin).inDays.toString()} X $price',
                               style: TextStyle(
                                   color: Color.fromRGBO(0, 0, 0, 0.6),
                                   fontSize: 15),
                             ),
-                            Text('\$$total',
+                            Text('$total',
                                 style: TextStyle(
                                     color: Color.fromRGBO(0, 0, 0, 0.6),
                                     fontSize: 15))
@@ -331,7 +380,7 @@ class Booking extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                               color: Color.fromRGBO(0, 0, 0, 0.6)),
                         ),
-                        Text('\$$total',
+                        Text('$total',
                             style: TextStyle(
                                 fontSize: 19,
                                 color: Color.fromRGBO(0, 0, 0, 0.6),
@@ -368,7 +417,6 @@ class Booking extends StatelessWidget {
 
   void back(context, bk){
     if (bk.getBooking().getIdBooking().length != 0 && pageCameFrom == 'place_details') {
-      bk.resetBookingId();
       Navigator.pop(context);
       Navigator.pop(context);
       Navigator.pop(context);
@@ -376,5 +424,6 @@ class Booking extends StatelessWidget {
     } else {
       Navigator.of(context).pop();
     }
+    bk.resetBookingId();    
   }
 }
