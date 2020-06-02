@@ -22,6 +22,7 @@ class ServicesBuilder extends StatelessWidget {
 IconData getServiceIcon(String service) {
   Map<String, IconData> serviceIcon = {
     'wifi': Icons.wifi,
+    'internet': Icons.wifi,
     'aire': Icons.ac_unit,
     'parking': Icons.local_parking,
     'cocina': Icons.kitchen,
