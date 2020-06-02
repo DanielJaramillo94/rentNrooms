@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/error.page.dart';
 import 'package:rent_n_rooms/models/place.model.dart';
+import 'package:rent_n_rooms/myFadeLogo.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
 import 'package:rent_n_rooms/rating.builder.dart';
 import 'package:rent_n_rooms/services.builder.dart';
@@ -210,7 +211,7 @@ class PlaceDetails extends StatelessWidget {
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: CircularProgressIndicator(),
+                child: MyFadeLogo(),
               ),
             );
           }
