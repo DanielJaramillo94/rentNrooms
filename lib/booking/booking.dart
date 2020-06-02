@@ -148,18 +148,26 @@ class Booking extends StatelessWidget {
                             ),
                             Expanded(
                               flex: 3,
-                              child: Container(
-                                padding: EdgeInsets.only(top: 10, bottom: 10),
-                                alignment: Alignment.center,
-                                height: 220,
-                                decoration: BoxDecoration(
-                                  image: DecorationImage(
-                                      image: NetworkImage(
-                                          room.getRoom().getPicture()),
-                                      fit: BoxFit.cover),
-                                  borderRadius: BorderRadius.circular(4.0),
+                              child: Stack(children: <Widget>[
+                                FadeInImage(
+                                  placeholder: AssetImage(
+                                      'assets/images/LogotipoGray.png'),
+                                  image:
+                                      NetworkImage(room.getRoom().getPicture()),
                                 ),
-                              ),
+                                Container(
+                                  padding: EdgeInsets.only(top: 10, bottom: 10),
+                                  alignment: Alignment.center,
+                                  height: 220,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                        image: NetworkImage(
+                                            room.getRoom().getPicture()),
+                                        fit: BoxFit.cover),
+                                    borderRadius: BorderRadius.circular(4.0),
+                                  ),
+                                ),
+                              ]),
                             ),
                           ])),
                   Divider(height: 10.0, thickness: 2),

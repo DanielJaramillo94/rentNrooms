@@ -154,15 +154,17 @@ class PlaceDetails extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Container(
-                                  height: 70,
-                                  width: 70,
                                   child: Column(children: <Widget>[
                                     Container(
-                                        padding: EdgeInsets.all(10),
-                                        child: Image(
-                                          image: NetworkImage(
-                                              snapshot.data.getLogo()),
-                                        )),
+                                      height: 70,
+                                      width: 70,
+                                      padding: EdgeInsets.all(10),
+                                      child: ClipOval(
+                                        child: FadeInImage(
+                                          placeholder: AssetImage('assets/images/LogotipoGray.png'), 
+                                          image: NetworkImage(snapshot.data.getLogo()),),
+                                      ),
+                                    ),
                                   ]),
                                 ),
                                 Expanded(
