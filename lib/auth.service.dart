@@ -41,6 +41,6 @@ class AuthService {
     if (user == null) {
       return null;
     }
-    return User(user.displayName, user.email);
+    return User(user.displayName, user.email, user.photoUrl);
   }
 }
