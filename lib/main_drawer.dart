@@ -84,6 +84,25 @@ class MainDrawer extends StatelessWidget {
                               )),
                         ),
                       ),
+                      InkWell(
+                        onTap: () async {
+                          // await authService.signInWithFacebook();
+                          authService.signInWithFacebook();
+                        },
+                        child: ListTile(
+                          leading: Icon(
+                            Icons.whatshot,
+                            size: 25,
+                          ),
+                          title: Text('Facebook Login',
+                              style: TextStyle(
+                                fontFamily: 'Cocogoose',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w200,
+                                color: Color.fromRGBO(77, 77, 77, 1),
+                              )),
+                        ),
+                      ),
                     ],
                   ),
                 );
