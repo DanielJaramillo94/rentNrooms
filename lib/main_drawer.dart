@@ -204,4 +204,11 @@ class _UserInfo extends StatelessWidget {
       )),
     );
   }
+
+  Map emailPart(String email) {
+    List<String> emailpart = email.split('@');
+    String nameEmail = emailpart[0];
+    String domainEmail = emailpart[1];
+    return {'nameEmail': nameEmail, 'domainEmail': domainEmail};
+  }
 }

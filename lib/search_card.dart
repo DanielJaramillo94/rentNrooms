@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 import 'models/place.model.dart';
 import 'providers/place.provider.dart';
 
 class SearchCardBuilder extends StatelessWidget {
+
+  final formatter = new NumberFormat.simpleCurrency(decimalDigits: 0);
+
   SearchCardBuilder({
     Key key,
     @required this.imgURL,
@@ -41,13 +45,31 @@ class SearchCardBuilder extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: <Widget>[
-              Container(
-                alignment: Alignment.center,
-                height: 220,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(imgURL), fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(radius)),
+              Stack(
+                children: <Widget>[
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.all(10.0),
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.grey, width: 1.5)),
+                      height: 180,
+                      width: 210,
+                      child: Image(
+                        height: 150,
+                        width: 150,
+                        image: AssetImage('assets/images/LogotipoGray.png'),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    height: 220,
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            image: NetworkImage(imgURL), fit: BoxFit.cover),
+                        borderRadius: BorderRadius.circular(radius)),
+                  )
+                ],
               ),
               Padding(
                 padding: const EdgeInsets.only(left: 16, right: 10, top: 10),
@@ -127,7 +149,7 @@ class SearchCardBuilder extends StatelessWidget {
                     Container(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        '\$$price por noche',
+                        '${formatter.format(price)} por noche',
                         style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w700,

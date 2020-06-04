@@ -1,10 +1,12 @@
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/error.page.dart';
 import 'package:rent_n_rooms/models/place.model.dart';
+import 'package:rent_n_rooms/myFadeLogo.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
 import 'package:rent_n_rooms/rating.builder.dart';
 import 'package:rent_n_rooms/services.builder.dart';
@@ -13,6 +15,8 @@ class PlaceDetails extends StatelessWidget {
   final Color mainColor = Color(0xFF006BB1);
   final Color mainColorMiddle = Color(0xFF2195C6);
   final Color mainColorLighter = Color(0xFF42BEBD);
+  final formatter = new NumberFormat.simpleCurrency(decimalDigits: 0);
+
 
   final placeName;
 
@@ -40,7 +44,7 @@ class PlaceDetails extends StatelessWidget {
             return ErrorPage();
           }
           else if (snapshot.hasData) {
-            String price = placeProv.formatPrice(snapshot.data.getNightPrice());
+            String price = this.formatter.format(snapshot.data.getNightPrice());
             return SafeArea(
               child: Column(
                 children: <Widget>[
@@ -99,7 +103,7 @@ class PlaceDetails extends StatelessWidget {
                             child: Column(
                               children: <Widget>[
                                 Text(
-                                  '\$$price',
+                                  '$price',
                                   style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w700,
@@ -207,7 +211,7 @@ class PlaceDetails extends StatelessWidget {
             return Center(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: CircularProgressIndicator(),
+                child: MyFadeLogo(),
               ),
             );
           }

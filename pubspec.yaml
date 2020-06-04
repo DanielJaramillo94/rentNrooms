@@ -26,6 +26,11 @@ dependencies:
   firebase_auth: ^0.16.1
   cloud_firestore: ^0.13.6
   google_sign_in: ^4.5.1
+  intl: ">=0.14.0"
+  image_test_utils: ^1.0.0
+  mockito: ^3.0.0
+
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -35,7 +40,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  json_serializable: ^1.0.0
+  json_serializable: ^3.3.0
 
 
 # For information on the generic Dart part of this file, see the
