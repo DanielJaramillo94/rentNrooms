@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/auth.service.dart';
+import 'package:rent_n_rooms/models/user.model.dart';
 
 class MainDrawer extends StatelessWidget {
   final Color mainColor = Color(0xFF006BB1);
@@ -12,6 +15,7 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+  final authService = Provider.of<AuthService>(context);
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -110,21 +114,114 @@ class MainDrawer extends StatelessWidget {
                   color: Color.fromRGBO(77, 77, 77, 1),
                 )),
           ),
-          ListTile(
-            leading: Icon(
-              Icons.arrow_back,
-              size: 25,
+          InkWell(
+            onTap: () async {
+              await authService.signInWithGoogle();
+            },
+            child: ListTile(
+              leading: Icon(
+                Icons.whatshot,
+                size: 25,
+              ),
+              title: Text('Google Login',
+                  style: TextStyle(
+                    fontFamily: 'Cocogoose',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w200,
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                  )),
             ),
-            title: Text('Cerrar sesión',
-                style: TextStyle(
-                  fontFamily: 'Cocogoose',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w200,
-                  color: Color.fromRGBO(77, 77, 77, 1),
-                )),
-          )
+          ),
+          InkWell(
+            onTap: () async {
+              await authService.signOut();
+            },
+            child: ListTile(
+              leading: Icon(
+                Icons.arrow_back,
+                size: 25,
+              ),
+              title: Text('Cerrar sesión',
+                  style: TextStyle(
+                    fontFamily: 'Cocogoose',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w200,
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                  )),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+            },
+            child: ListTile(
+              leading: Icon(
+                Icons.accessibility_new,
+                size: 25,
+              ),
+              title: Text('Change name',
+                  style: TextStyle(
+                    fontFamily: 'Cocogoose',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w200,
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                  )),
+            ),
+          ),
+          UserInfo()
         ],
       ),
     );
+  }
+}
+
+class UserInfo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+  final authService = Provider.of<AuthService>(context);
+    return StreamBuilder<User>(
+      stream: authService.onAuthStateChanged,
+      builder: (context, snapshot) {
+        if(snapshot.connectionState == ConnectionState.active) { //string is active and has already receaved the first event
+          final user = snapshot.data;
+          return user != null ?
+          InkWell(
+            onTap: () {
+            },
+            child: ListTile(
+              leading: Icon(
+                Icons.accessibility_new,
+                size: 25,
+              ),
+              title: Text(user.getName(),
+                  style: TextStyle(
+                    fontFamily: 'Cocogoose',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w200,
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                  )),
+            ),
+          )
+          :
+          InkWell(
+            onTap: () {
+            },
+            child: ListTile(
+              leading: Icon(
+                Icons.accessibility_new,
+                size: 25,
+              ),
+              title: Text('No name yet',
+                  style: TextStyle(
+                    fontFamily: 'Cocogoose',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w200,
+                    color: Color.fromRGBO(77, 77, 77, 1),
+                  )),
+            ),
+          );
+        } else {
+          return CircularProgressIndicator();
+        }
+      },);
   }
 }

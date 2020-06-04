@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:rent_n_rooms/auth.service.dart';
 import 'package:rent_n_rooms/providers/bookings_list.provider.dart';
 import 'package:rent_n_rooms/providers/city.provider.dart';
 import 'package:rent_n_rooms/providers/rooms_list.provider.dart';
@@ -20,6 +21,8 @@ class MyApp extends StatelessWidget {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     return MultiProvider(
       providers: [
+        Provider<AuthService>(create: (_) => AuthService(),
+        ),
         ChangeNotifierProvider<BookingProvider>.value(
           value: BookingProvider(),
         ),
