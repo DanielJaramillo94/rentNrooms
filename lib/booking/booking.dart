@@ -36,6 +36,7 @@ class Booking extends StatelessWidget {
       child: Scaffold(
           appBar: AppBar(
             leading: IconButton(
+              key: Key('button_back'),
               icon: Icon(Icons.arrow_back),
               onPressed: () {
                 back(context, booking);
@@ -73,6 +74,7 @@ class Booking extends StatelessWidget {
                                                     Color.fromRGBO(0, 0, 0, 0.6)),
                                           )),
                                       Expanded(
+                                          key: Key('container_idBooking'),
                                           flex: 3,
                                           child: Container(
                                               child: Column(
@@ -344,6 +346,7 @@ class Booking extends StatelessWidget {
                                   fontSize: 15),
                             ),
                             Text('$total',
+                                key: Key('total'),
                                 style: TextStyle(
                                     color: Color.fromRGBO(0, 0, 0, 0.6),
                                     fontSize: 15))
@@ -397,6 +400,7 @@ class Booking extends StatelessWidget {
                             padding: EdgeInsets.only(
                                 top: 10, bottom: 10, left: 20, right: 20),
                             child: RaisedButton(
+                              key: Key('doBooking'),
                               color: mainColorLighter,
                               child: Text(
                                 'RESERVAR',
