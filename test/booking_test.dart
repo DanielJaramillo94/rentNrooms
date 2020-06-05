@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:image_test_utils/image_test_utils.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/auth.service.dart';
 import 'package:rent_n_rooms/booking/booking.dart';
 import 'package:rent_n_rooms/models/place.model.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
@@ -53,6 +54,8 @@ void main() {
         ChangeNotifierProvider<PlaceProvider>.value(
           value: mockPlace,
         ),
+        Provider<AuthService>(create: (_) => AuthService(),
+        )
       ],
       child: MaterialApp(
         key: Key('keyy'),
