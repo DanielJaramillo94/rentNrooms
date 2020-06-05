@@ -61,8 +61,7 @@ class MainDrawer extends StatelessWidget {
                     ],
                   ),
                 )
-              :
-              Drawer(
+              : Drawer(
                   child: Column(
                     children: <Widget>[
                       UserInfo(),
@@ -115,8 +114,7 @@ class MainDrawer extends StatelessWidget {
 }
 
 class UserInfo extends StatelessWidget {
-  final String defaultPhotoUrl =
-      'https://aumentada.net/wp-content/uploads/2015/05/user.png';
+  final String defaultPhotoUrl = 'assets/images/imageUser.png';
   @override
   Widget build(BuildContext context) {
     final authService = Provider.of<AuthService>(context);
@@ -182,8 +180,14 @@ class _UserInfo extends StatelessWidget {
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: NetworkImage(photoUrl), fit: BoxFit.fill),
+                  ),
+                  child: ClipOval(
+                    child: FadeInImage(
+                        fit: BoxFit.fill,
+                        height: 50,
+                        width: 50,
+                        placeholder: AssetImage('assets/images/imageUser.png'),
+                        image: NetworkImage(photoUrl)),
                   ),
                 ),
                 Flexible(
@@ -195,9 +199,8 @@ class _UserInfo extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             style: TextStyle(
-                              fontFamily: 'Cocogoose',
-                              fontSize: 13,
-                              fontWeight: FontWeight.w200,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
                               color: Colors.white,
                             )),
                         SizedBox(
