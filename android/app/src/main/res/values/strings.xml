@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="facebook_app_id">2638120439732701</string>
-    <string name="fb_login_protocol_scheme">fb2638120439732701</string>
+    <string name="facebook_app_id">284537589334468</string>
+    <string name="fb_login_protocol_scheme">fb284537589334468</string>
     <string name="app_name">Rent and Rooms</string>
 </resources>
