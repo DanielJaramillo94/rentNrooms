@@ -2,10 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:rent_n_rooms/models/booking.model.dart';
+import 'package:rent_n_rooms/models/user.model.dart';
 import 'package:rent_n_rooms/providers/booking.provider.dart';
 import 'package:rent_n_rooms/providers/place.provider.dart';
 
+import '../auth.service.dart';
 import '../providers/date_picker.provider.dart';
+import 'messages/welcome.dart';
 import 'modalBooking.dart';
 import 'months.dart';
 
@@ -20,6 +24,7 @@ class Booking extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final authService = Provider.of<AuthService>(context);
     final booking = Provider.of<BookingProvider>(context, listen: false);
     final dates = Provider.of<DateProvider>(context, listen: false);
     final room = Provider.of<PlaceProvider>(context, listen: false);
@@ -410,8 +415,40 @@ class Booking extends StatelessWidget {
                                     fontSize: 18,
                                     fontWeight: FontWeight.w300),
                               ),
-                              onPressed: () {
-                                onBooking(context, booking, dates, room);
+                              onPressed: () async{
+                                User user = await authService.currentUser();
+                                if (user != null) {
+                                  print('hay');
+                                  booking.updateWithoutNotify(
+                                      user.getName(),
+                                      user.getEmail(),
+                                      room.getRoom().getIdRoom());
+                                  Future<DataBooking> newBooking =
+                                      booking.createBooking(dates.getDates(),
+                                          room.getRoom().getAgency());
+                                  await createAlertDialog(
+                                      context, newBooking, booking);
+                                  booking.notify(); //update view booking
+                                  //onBooking(context, booking, dates, room);
+                                } else {
+                                  await selectMethodLogin(context, authService);
+                                  user = await authService.currentUser();
+                                  if (user != null) {
+                                    booking.updateWithoutNotify(
+                                        user.getName(),
+                                        user.getEmail(),
+                                        room.getRoom().getIdRoom());
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                            content: Container(
+                                                height: 200,
+                                                child: WelcomeMessage()));
+                                      },
+                                    );
+                                  }
+                                }
                               },
                             ))
                         : Container()),
@@ -430,4 +467,83 @@ class Booking extends StatelessWidget {
     }
     bk.resetBookingId();    
   }
+
+
+  selectMethodLogin(context, authService) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(10.0))),
+            content: Container(
+              height: 200,
+              child: Column(
+                children: [
+                  Center(
+                      child: Text(
+                    "Selecciona un método de inicio de sensión",
+                    style: TextStyle(
+                        color: Color.fromRGBO(77, 77, 77, 1),
+                        fontSize: 18.0,
+                        fontFamily: 'Cocogoose',
+                        fontWeight: FontWeight.w700),
+                    textAlign: TextAlign.center,
+                  )),
+                  SizedBox(height: 20),
+                  SizedBox(
+                    width: 360,
+                    child: RaisedButton(
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.thumb_up, size: 30),
+                          Text('  Iniciar con Facebook',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14.0,
+                                  fontFamily: 'Cocogoose',
+                                  fontWeight: FontWeight.w700)),
+                        ],
+                      ),
+                      textColor: Colors.white,
+                      color: Colors.blue[900],
+                      padding: EdgeInsets.all(10),
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                        await authService.signInWithFacebook();
+                      },
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  SizedBox(
+                    width: 360,
+                    child: RaisedButton(
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.toys, size: 30),
+                          Text(' Iniciar con Google',
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14.0,
+                                  fontFamily: 'Cocogoose',
+                                  fontWeight: FontWeight.w700)),
+                        ],
+                      ),
+                      textColor: Colors.black,
+                      color: Colors.red[300],
+                      padding: EdgeInsets.all(10),
+                      onPressed: () async {
+                        Navigator.of(context).pop();
+                        await authService.signInWithGoogle();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 }
+
+
