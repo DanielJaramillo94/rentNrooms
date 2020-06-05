@@ -30,6 +30,7 @@ dependencies:
   intl: ">=0.14.0"
   image_test_utils: ^1.0.0
   mockito: ^3.0.0
+  flutter_auth_buttons: ^0.8.0
 
 
 
@@ -42,6 +43,11 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   json_serializable: ^3.3.0
+  flutter_launcher_icons: ^0.7.5
+
+flutter_icons:
+  image_path: "assets/images/launcher/icon.png" 
+  android: true
 
 
 # For information on the generic Dart part of this file, see the
@@ -63,6 +69,7 @@ flutter:
    - assets/json/cities.json
    - assets/images/Logotipo.png
    - assets/images/LogotipoGray.png
+   - assets/images/imageUser.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
