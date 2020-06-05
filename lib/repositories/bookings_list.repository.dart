@@ -4,6 +4,7 @@ import 'package:rent_n_rooms/models/bookingg.model.dart';
 import 'dart:convert';
 
 import 'package:rent_n_rooms/services/api.service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BookingsListRepository {
   Future<List<Bookingg>> fetchBookigsList(
@@ -12,7 +13,11 @@ class BookingsListRepository {
     
     List<Bookingg> bookings = [];
     for (String url in apiUrls) {
-      http.Response response = await http.get(url);
+      final prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString('tokenId');
+      http.Response response = await http.get(url,
+      headers: {"authtoken" : token}
+      );
       List apiRoomsData;
       //try statement because this could cause the api could not respond, or not respond with json
       try {

@@ -3,6 +3,7 @@ import 'package:rent_n_rooms/models/booking.model.dart';
 import 'package:rent_n_rooms/models/date_picker.model.dart';
 import 'package:rent_n_rooms/services/api.service.dart';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BookingRepository {
   ///Para realizar la reserva se reciben las fechas seleccionadas previamente
@@ -16,9 +17,12 @@ class BookingRepository {
       String checkin = date.getDateCheckin().toString().split(" ")[0];
       String checkout = date.getDateCheckout().toString().split(" ")[0];
 
+      final prefs = await SharedPreferences.getInstance();
+      String token = prefs.getString('tokenId');
       http.Response response = await http.post(url,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
+            "authtoken" : token,
           },
           body: jsonEncode(<String, String>{
             'checkin': '$checkin',
