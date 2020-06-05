@@ -70,4 +70,13 @@ class AuthService {
     }
     return User(user.displayName, user.email, user.photoUrl);
   }
+
+  Future<User> currentUser() async {
+    FirebaseUser user = await _auth.currentUser();
+    if (user == null) {
+      return null;
+    }else{
+      return User(user.displayName, user.email, user.photoUrl);
+    }
+  }
 }
