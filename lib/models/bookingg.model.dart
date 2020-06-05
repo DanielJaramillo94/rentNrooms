@@ -27,7 +27,7 @@ class Bookingg {
     String checkin = jsonRoom['checkin'];
     String checkout = jsonRoom['checkout'];
     String currency = jsonRoom['currency'];
-    String idBooking = jsonRoom['id_booking'];
+    String idBooking = jsonRoom['id_booking'].toString();
     String idRoom = jsonRoom['id_room'].toString();
     String location = jsonRoom['location']['name'];
     double price = jsonRoom['price'].toDouble();
