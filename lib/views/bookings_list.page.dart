@@ -37,15 +37,34 @@ class BookingsListPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             List<Bookingg> bookings = snapshot.data;
-            return ListView.builder(
-              itemCount: bookings.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: EdgeInsets.all(10),
-                  child: BookingCardBuilder(booking: bookings[index]),
-                );
-              },
-            );
+            if (bookings.length == 0) {
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      '¡Vaya! Parece que no has hecho ninguna reserva aún',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 17.0,
+                        fontFamily: 'Cocogoose',
+                        color: Color.fromRGBO(0, 0, 0, 0.6),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return ListView.builder(
+                itemCount: bookings.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Padding(
+                    padding: EdgeInsets.all(10),
+                    child: BookingCardBuilder(booking: bookings[index]),
+                  );
+                },
+              );
+            }
           } else {
             return Center(
               child: Padding(
