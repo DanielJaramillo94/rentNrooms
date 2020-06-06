@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:rent_n_rooms/models/user.model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -28,6 +30,15 @@ class AuthService {
     );
     final FirebaseUser user =
         (await _auth.signInWithCredential(credential)).user;
+    var token = await user.getIdToken(refresh: true);
+
+    String token1 = token.token.substring(0,610);
+    String token2 = token.token.substring(600);
+    debugPrint(token1);
+    debugPrint(token2);
+
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString('tokenId', token.token);
 
     return _userFromFirebase(user);
   }
@@ -51,6 +62,11 @@ class AuthService {
         FacebookAuthProvider.getCredential(
             accessToken: result.accessToken.token),
       );
+
+      var token = await authResult.user.getIdToken(refresh: true);
+      final prefs = await SharedPreferences.getInstance();
+      prefs.setString('tokenId', token.token);
+
       return _userFromFirebase(authResult.user);
     } else {
       throw PlatformException(
@@ -68,6 +84,7 @@ class AuthService {
     if (user == null) {
       return null;
     }
+
     return User(user.displayName, user.email, user.photoUrl);
   }
 
