@@ -1,5 +1,7 @@
 # rent_n_rooms
 
+[![Build Status](https://app.bitrise.io/app/55408a5be07996b5/status.svg?token=XHy5_MMG4HiT9MRSqOlsvA)](https://app.bitrise.io/app/55408a5be07996b5)
+
 A new Flutter project.
 
 ## Getting Started
