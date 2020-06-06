@@ -81,10 +81,10 @@ class ApiService {
         api = api1Python;
         break;
       case 'Lambda Team':
-        booking = '/booking';
         api = api2Lambda;
         break;
       case 'Agencia Scala':
+        booking = '/booking';
         api = api4Scala;
         break;
       default:
