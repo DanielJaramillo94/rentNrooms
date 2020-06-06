@@ -1,8 +1,8 @@
 class ApiService {
   static String api1Python = 'http://ec2-34-195-214-219.compute-1.amazonaws.com:8000';
-  static String api2Lambda = 'https://0kaup1m6dg.execute-api.us-east-1.amazonaws.com/prod';
+  static String api2Lambda = 'https://0kaup1m6dg.execute-api.us-east-1.amazonaws.com/dev';
   static String api3NodeJs = 'http://ec2-13-58-217-208.us-east-2.compute.amazonaws.com/api';
-  static String api4Scala = 'http://ec2-18-188-220-151.us-east-2.compute.amazonaws.com/';
+  static String api4Scala = 'https://rent-rooms.herokuapp.com';
 
   static String searchEndPoint(String codeCity, String checkin, String checkout) {
     String search =  '/rooms/search?location=$codeCity&checkin=$checkin&checkout=$checkout';
@@ -81,7 +81,11 @@ class ApiService {
         api = api1Python;
         break;
       case 'Lambda Team':
+        booking = '/booking';
         api = api2Lambda;
+        break;
+      case 'Agencia Scala':
+        api = api4Scala;
         break;
       default:
         api = '';
@@ -98,9 +102,9 @@ class ApiService {
 
   static Map<String, String> apiUrls = {
     'Python': 'http://ec2-34-195-214-219.compute-1.amazonaws.com:8000',
-    // 'Lambda Team': 'https://0kaup1m6dg.execute-api.us-east-1.amazonaws.com/dev',
-    // 'Arrendamientos njs': 'http://ec2-13-58-217-208.us-east-2.compute.amazonaws.com/api',
-    // 'Scala': 'https://rent-rooms.herokuapp.com',
+    'Lambda Team': 'https://0kaup1m6dg.execute-api.us-east-1.amazonaws.com/dev',
+    'Arrendamientos njs': 'http://ec2-13-58-217-208.us-east-2.compute.amazonaws.com/api',
+    'Agencia Scala': 'https://rent-rooms.herokuapp.com',
   };
 
   // static Map<String, String> apiUrls = {

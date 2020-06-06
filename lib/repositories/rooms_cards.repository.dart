@@ -37,6 +37,7 @@ class RoomsCardsRepository {
         roomsCards.add(roomCard);
       });
     }
+    roomsCards.shuffle();
     return Future.value(roomsCards);
   }
 }
