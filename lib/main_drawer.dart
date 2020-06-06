@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/auth.service.dart';
 import 'package:rent_n_rooms/models/user.model.dart';
@@ -67,31 +67,42 @@ class MainDrawer extends StatelessWidget {
                     children: <Widget>[
                       UserInfo(),
                       SizedBox(height: 10,),
-                      Container(
-                        padding: EdgeInsets.only(left:8, right: 8),
-                        width: double.infinity,
-                          child: FacebookSignInButton(
-                              text: 'Iniciar con Facebook',
-                              textStyle: TextStyle(
-                                  fontSize: 14.0,
-                                  color: Colors.white,
-                                  fontFamily: 'Cocogoose',
-                                  fontWeight: FontWeight.w700),
-                              onPressed: () async {authService.signInWithFacebook();
-                              })),
-                      SizedBox(height: 10,),
-                      Container(
-                        padding: EdgeInsets.only(left:8, right: 8),
-                        width: double.infinity,
-                          child: GoogleSignInButton(
-                              text: 'Iniciar con Google',
-                              textStyle: TextStyle(
-                                  fontSize: 14.0,
-                                  fontFamily: 'Cocogoose',
-                                  fontWeight: FontWeight.w700),
-                              onPressed: () async {
-                                await authService.signInWithGoogle();
-                              }))                                                       
+                      InkWell(
+                        onTap: () async {
+                          authService.signInWithGoogle();
+                        },
+                        child: ListTile(
+                          leading: FaIcon(
+                            FontAwesomeIcons.google,
+                            size: 25,
+                          ),
+                          title: Text('Ingresar con Google',
+                              style: TextStyle(
+                                fontFamily: 'Cocogoose',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w200,
+                                color: Color.fromRGBO(77, 77, 77, 1),
+                              )),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () async {
+                          authService.signInWithFacebook();
+                        },
+                        child: ListTile(
+                          leading: FaIcon(
+                            FontAwesomeIcons.facebookF,
+                            size: 25,
+                          ),
+                          title: Text('Ingresar con Facebook',
+                              style: TextStyle(
+                                fontFamily: 'Cocogoose',
+                                fontSize: 15,
+                                fontWeight: FontWeight.w200,
+                                color: Color.fromRGBO(77, 77, 77, 1),
+                              )),
+                        ),
+                      ),
                     ],
                   ),
                 );
