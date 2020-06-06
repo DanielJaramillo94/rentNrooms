@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rent_n_rooms/models/booking.model.dart';
@@ -491,53 +492,25 @@ class Booking extends StatelessWidget {
                     textAlign: TextAlign.center,
                   )),
                   SizedBox(height: 20),
-                  SizedBox(
-                    width: 360,
-                    child: RaisedButton(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.thumb_up, size: 30),
-                          Text('  Iniciar con Facebook',
-                              style: TextStyle(
-                                  color: Colors.white,
+                  Flexible(child: GoogleSignInButton(text: 'Iniciar con Google', 
+                  textStyle: TextStyle(
                                   fontSize: 14.0,
                                   fontFamily: 'Cocogoose',
-                                  fontWeight: FontWeight.w700)),
-                        ],
-                      ),
-                      textColor: Colors.white,
-                      color: Colors.blue[900],
-                      padding: EdgeInsets.all(10),
-                      onPressed: () async {
-                        Navigator.of(context).pop();
-                        await authService.signInWithFacebook();
-                      },
-                    ),
-                  ),
+                                  fontWeight: FontWeight.w700),
+                  onPressed: () async {
+                     Navigator.of(context).pop();
+                     await authService.signInWithGoogle();
+                  })),
                   SizedBox(height: 20),
-                  SizedBox(
-                    width: 360,
-                    child: RaisedButton(
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.toys, size: 30),
-                          Text(' Iniciar con Google',
-                              style: TextStyle(
-                                  color: Colors.black,
+                  Flexible(child: FacebookSignInButton(text: 'Iniciar con Facebook', 
+                  textStyle: TextStyle(
                                   fontSize: 14.0,
                                   fontFamily: 'Cocogoose',
-                                  fontWeight: FontWeight.w700)),
-                        ],
-                      ),
-                      textColor: Colors.black,
-                      color: Colors.red[300],
-                      padding: EdgeInsets.all(10),
-                      onPressed: () async {
-                        Navigator.of(context).pop();
-                        await authService.signInWithGoogle();
-                      },
-                    ),
-                  ),
+                                  fontWeight: FontWeight.w700),
+                  onPressed: () async{
+                    Navigator.of(context).pop();
+                    await authService.signInWithFacebook();
+                  }))
                 ],
               ),
             ),
