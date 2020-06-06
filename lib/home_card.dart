@@ -39,7 +39,7 @@ class HomeCardBuilder extends StatelessWidget {
           padding: EdgeInsets.all(11),
           child: Text(
             location,
-            style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w400),
+            style: TextStyle(fontSize: 14.0, fontWeight: FontWeight.w400, fontFamily: 'Cocogoose'),
           ),
         )
       ],

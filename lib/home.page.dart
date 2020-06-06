@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   Text(
                                     'Alojamientos con\n reserva flexible',
                                     style: TextStyle(
-                                        fontSize: 20.0, color: Colors.white),
+                                        fontSize: 20.0, color: Colors.white, fontFamily: 'Cocogoose'),
                                     textAlign: TextAlign.center,
                                   ),
                                   SizedBox(height: 30),
@@ -75,6 +75,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(30.0)),
                                       child: TextField(
+                                        showCursor: false,
+                                        readOnly: true,
                                         style: TextStyle(
                                             fontFamily: 'Cocogoose',
                                             fontSize: 16.0),
@@ -84,7 +86,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 EdgeInsets.symmetric(
                                                     horizontal: 16.0,
                                                     vertical: 6),
-                                            hintText: 'Ciudad, Ubicación',
+                                            hintText: 'Ciudad',
                                             hintStyle: TextStyle(
                                                 fontFamily: 'Cocogoose',
                                                 color: Colors.black),
@@ -131,7 +133,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   Container(
                     alignment: Alignment.centerLeft,
-                    child: Text('Encuentra un lugar para tu estadía'),
+                    child: Text('Encuentra un lugar para tu estadía', style: TextStyle(
+                        color: Color.fromRGBO(77, 77, 77, 1),
+                        fontSize: 15.0,
+                        fontFamily: 'Cocogoose',
+                        fontWeight: FontWeight.w300),),
                   ),
                   SizedBox(height: 15),
                   Container(
@@ -141,7 +147,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
                         child: Text('NUEVO',
-                            style: TextStyle(color: Colors.white)),
+                            style: TextStyle(color: Colors.white, fontFamily: 'Cocogoose')),
                       ),
                     ),
                   ),
