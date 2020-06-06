@@ -158,8 +158,9 @@ class PlaceDetails extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 Container(
-                                  child: Column(children: <Widget>[
+                                  child: Column(children: <Widget>[                                    
                                     Container(
+                                      key: Key('agency'),
                                       height: 70,
                                       width: 70,
                                       padding: EdgeInsets.all(10),
@@ -189,6 +190,7 @@ class PlaceDetails extends StatelessWidget {
                           padding: EdgeInsets.only(
                               top: 10, bottom: 10, left: 20, right: 20),
                           child: RaisedButton(
+                            key: Key('confirmPlace'),
                             color: mainColorLighter,
                             child: Text(
                               'Continuar',
